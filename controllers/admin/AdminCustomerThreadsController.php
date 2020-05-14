@@ -387,16 +387,14 @@ class AdminCustomerThreadsControllerCore extends AdminController
 
         $mbox = @imap_open('{'.$url.':'.$port.$confStr.'}', $user, $password);
 
-        //checks if there is no error when connecting imap server
-        $errors = imap_errors();
-        if (is_array($errors)) {
-            $errors = array_unique($errors);
-        }
         $strErrors = '';
         $strErrorDelete = '';
 
-        if (count($errors) && is_array($errors)) {
-            $strErrors = '';
+        //checks if there is no error when connecting imap server
+        $errors = imap_errors();
+        if ($errors) {
+            $errors = array_unique($errors);
+
             foreach ($errors as $error) {
                 $strErrors .= $error.', ';
             }
