@@ -1856,7 +1856,7 @@ class AdminControllerCore extends Controller
                     (int) $this->context->employee->id
                 );
                 $matches = [];
-                if (preg_match('/[\?|&]controller=([^&]*)/', (string) $_SERVER['HTTP_REFERER'], $matches) !== false
+                if (preg_match('/[\?|&]controller=([^&]*)/', (string) $_SERVER['HTTP_REFERER'], $matches) != false
                     && strtolower($matches[1]) != strtolower(preg_replace('/controller/i', '', get_class($this)))
                 ) {
                     $this->redirect_after = preg_replace('/[\?|&]conf=([^&]*)/i', '', (string) $_SERVER['HTTP_REFERER']);
