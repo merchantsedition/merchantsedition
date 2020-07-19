@@ -48,17 +48,17 @@ if (Configuration::get('PS_UPGRADE_CLEAR_CACHE')) {
 if ( ! (isset($_GET['controller']) && $_GET['controller'])
     && (isset($_GET['tab']) && $_GET['tab'])
 ) {
-    $_GET['controller'] = strtolower($_GET['tab']);
+    $_GET['controller'] = $_GET['tab'];
 }
 if ( ! (isset($_POST['controller']) && $_POST['controller'])
     && (isset($_POST['tab']) && $_POST['tab'])
 ) {
-    $_POST['controller'] = strtolower($_POST['tab']);
+    $_POST['controller'] = $_POST['tab'];
 }
 if ( ! (isset($_REQUEST['controller']) && $_REQUEST['controller'])
     && (isset($_REQUEST['tab']) && $_REQUEST['tab'])
 ) {
-    $_REQUEST['controller'] = strtolower($_REQUEST['tab']);
+    $_REQUEST['controller'] = $_REQUEST['tab'];
 }
 
 // Prepare and trigger admin dispatcher
