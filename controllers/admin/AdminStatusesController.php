@@ -43,7 +43,7 @@ class AdminStatusesControllerCore extends AdminController
         $this->table = 'order_state';
         $this->className = 'OrderState';
         $this->lang = true;
-        $this->deleted = false;
+        $this->deleted = true;
         $this->colorOnBackground = false;
         $this->bulk_actions = ['delete' => ['text' => $this->l('Delete selected'), 'confirm' => $this->l('Delete selected items?')]];
         $this->multishop_context = Shop::CONTEXT_ALL;
