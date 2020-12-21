@@ -3161,7 +3161,10 @@ class AdminControllerCore extends Controller
 
         // Empty list is ok
         if (!is_array($this->_list)) {
-            $this->displayWarning($this->l('Bad SQL query', 'Helper').'<br />'.htmlspecialchars($this->_list_error));
+            $this->displayWarning($this->l('Bad SQL query. Reload page to reset filters.', 'Helper').'<br />'.htmlspecialchars($this->_list_error));
+
+            // Reset filters to allow escaping this situation.
+            $this->processResetFilters();
 
             return false;
         }
