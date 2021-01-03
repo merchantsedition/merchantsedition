@@ -52,8 +52,7 @@ if [ -e .git ]; then
   FIND="git ls-tree -r --name-only ${GIT_MASTER}"
 
   # Don't continue if there are staged changes.
-  if [ $(git diff | wc -l) -ne 0 ] \
-     || [ $(git diff --staged | wc -l) -ne 0 ]; then
+  if [ $(git diff --staged | wc -l) -ne 0 ]; then
     echo "Error: there are uncommitted changes, can't continue."
     exit 1
   fi
