@@ -154,7 +154,7 @@ if [ ${IS_GIT} = 'true' ]; then
     [ "${FILE##*.}" = 'sh' ] && continue
 
     e "file ${FILE} has executable permissions (${PERMS})."
-  done < <(git ls-tree -r master | grep -v '^100644')
+  done < <(git ls-tree -r ${GIT_MASTER} | grep -v '^100644')
 else
   e "validating permissions not yet implemented for non-repositories."
 fi

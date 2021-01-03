@@ -17,22 +17,39 @@
 
 ### Command abstractions.
 
+# Default values.
+OPTION_RELEASE=${OPTION_RELEASE:-false}
+
 if [ -e .git ]; then
   IS_GIT='true'
-  echo "Git repository detected. Looking at branch 'master'."
+
+  # Find the branch to work on.
+  if [ ${OPTION_RELEASE} = 'true' ]; then
+    GIT_MASTER='master'
+
+    # Test whether this branch actually exists.
+    if ! git branch | grep -q '${GIT_MASTER}'; then
+      echo "Error: there is no branch '${GIT_MASTER}', refusing to continue."
+      # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
+      exit 0
+    fi
+  else
+    # Use the current branch.
+    GIT_MASTER=$(git rev-parse --abbrev-ref HEAD)
+
+    # Bail out in a 'detached HEAD' situation.
+    if [ ${GIT_MASTER} = 'HEAD' ]; then
+      echo "Error: not on a Git branch tip, can't continue."
+      # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
+      exit 0
+    fi
+  fi
+  echo "Git repository detected. Looking at branch '${GIT_MASTER}'."
 
   # Abstract 'cat' and 'find' to allow validating non-repositories as well.
-  function git-cat { for F in "${@}"; do git show master:"${F}"; done }
+  function git-cat { for F in "${@}"; do git show ${GIT_MASTER}:"${F}"; done }
   CAT='git-cat'
-  FIND='git ls-tree -r --name-only master'
-
-  # Don't continue if there is no branch 'master'. This currently applies to
-  # the default theme, only.
-  if ! git branch | grep -q 'master'; then
-    echo "Error: there is no branch 'master', can't continue."
-    # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
-    exit 0
-  fi
+  FIND="git ls-tree -r --name-only ${GIT_MASTER}"
 
   # Don't continue if there are staged changes.
   if [ $(git diff | wc -l) -ne 0 ] \
