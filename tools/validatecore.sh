@@ -82,6 +82,11 @@ export REPORT
 . "${0%/*}/validatecommon.sh"
 
 
+### File permissions.
+
+validate_filepermissions
+
+
 ### Evaluation of findings.
 
 cat ${REPORT}

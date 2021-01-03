@@ -143,21 +143,7 @@ fi
 
 ### File permissions.
 
-# None of the files should have executable permissions.
-if [ ${IS_GIT} = 'true' ]; then
-  while read L; do
-    PERMS="${L%% *}"
-    PERMS="${PERMS:3:3}"
-    FILE="${L##*$'\t'}"
-
-    # Exclude shell scripts, they don't go into the release package anyways.
-    [ "${FILE##*.}" = 'sh' ] && continue
-
-    e "file ${FILE} has executable permissions (${PERMS})."
-  done < <(git ls-tree -r ${GIT_MASTER} | grep -v '^100644')
-else
-  e "validating permissions not yet implemented for non-repositories."
-fi
+validate_filepermissions
 
 
 ### Translations stuff.

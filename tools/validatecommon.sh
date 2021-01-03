@@ -233,3 +233,29 @@ function testignore {
 
   return 1
 }
+
+
+### Common validation functions.
+
+# Test for proper file permissions.
+#
+# No parameters, no return values.
+function validate_filepermissions {
+  local PERMS FILE L
+
+  # None of the files should have executable permissions.
+  if [ ${IS_GIT} = 'true' ]; then
+    while read L; do
+      PERMS="${L%% *}"
+      PERMS="${PERMS:3:3}"
+      FILE="${L##*$'\t'}"
+
+      # Exclude shell scripts, they don't go into the release package anyways.
+      [ "${FILE##*.}" = 'sh' ] && continue
+
+      e "file ${FILE} has executable permissions (${PERMS})."
+    done < <(git ls-tree -r ${GIT_MASTER} | grep -v -e '^100644' -e '^160000')
+  else
+    e "validating permissions not yet implemented for non-repositories."
+  fi
+}
