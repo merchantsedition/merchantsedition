@@ -39,7 +39,7 @@
 					$('#calendar_form').submit();
 				});
 			}
-			
+
 			var btn_save_settings = $('span[class~="process-icon-save-settings"]').parent();
 			var btn_submit_settings = $('#submitSettings');
 
@@ -51,7 +51,7 @@
 					$('#settings_form').submit();
 				});
 			}
-			
+
 			var btn_save_refresh_index = $('span[class~="process-icon-refresh-index"]').parent();
 			var btn_submit_refresh_index = $('#submitRefreshIndex');
 
@@ -63,7 +63,7 @@
 					$('#refresh_index_form').submit();
 				});
 			}
-			
+
 			var btn_save_refresh_cache = $('span[class~="process-icon-refresh-cache"]').parent();
 			var btn_submit_refresh_cache = $('#submitRefreshCache');
 

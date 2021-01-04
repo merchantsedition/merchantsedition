@@ -39,7 +39,7 @@
 				{/if}
 				<br />
 			{/if}
-			
+
 			{if isset($shop_details)}
 				{$shop_details|escape:'html':'UTF-8'}<br />
 			{/if}

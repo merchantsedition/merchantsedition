@@ -17,7 +17,7 @@ $(document).ready(function() {
 		hideOnContentClick: false,
 		showCloseButton: false
 	});
-	
+
 	$('#live_edit_feedback_str').html('');
 	// add liveToken in each link to navigate into the shop and keeping the liveedit mode
 	$('a').each(function() {
@@ -32,7 +32,7 @@ $(document).ready(function() {
 				this.search += '&' + hrefAdd;
 		}
 	});
-	// populate  
+	// populate
 	getHookableList();
 	$('.unregisterHook').unbind('click').click(function()
 	{
@@ -53,7 +53,7 @@ $(document).ready(function() {
 		saveModulePosition();
 		return false;
 	});
-	$('#closeLiveEdit').unbind('click').click(function() 
+	$('#closeLiveEdit').unbind('click').click(function()
 	{
 		if (!has_been_moved)
 			closeLiveEdit();
@@ -136,12 +136,12 @@ $(document).ready(function() {
 		$('#' + id_hook + '').disableSelection();
 	});
 });
-// init hookable_list 
+// init hookable_list
 function getHookableList() {
 	hooks_list = new Array();
 	$("input[name^=hook_list]").each(function(e){
 		hooks_list.push($(this).val());
-	}); 
+	});
 
     $.ajax({
 			type: 'POST',
@@ -216,7 +216,7 @@ function saveModulePosition()
 		if ($('#' + hooks_list[i] + ' > .dndModule').length)
 		{
 			$('#' + hooks_list[i] + ' > .dndModule').each(function(){
-	
+
 	            ids = $(this).attr('id').split('_');
 	            $("#liveEdit-action-form").append('<input class="dynamic-input-save-position" type="hidden" name="hook[' + ids[1] + '][]" value="' + ids[3] + '" />');
 	        });
@@ -229,7 +229,7 @@ function saveModulePosition()
 
     $.ajax({
         type: 'POST',
-        url: baseDir + ad + "/index.php", 
+        url: baseDir + ad + "/index.php",
         async: true,
         dataType: 'json',
         data: datas,

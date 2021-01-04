@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <table class="product" width="100%" cellpadding="4" cellspacing="0">
-	
+
 	<thead>
 		<tr>
 			<th class="product header small" width="25%">{l s='Reference' pdf='true'}</th>
@@ -67,9 +67,9 @@
 				<td class="product center">
 					{$order_detail.product_quantity}
 				</td>
-				
+
 			</tr>
-			
+
 			{foreach $order_detail.customizedDatas as $customizationPerAddress}
 				{foreach $customizationPerAddress as $customizationId => $customization}
 					<tr class="customization_data {$bgcolor_class}">
@@ -106,9 +106,9 @@
 					</tr>
 				{/foreach}
 			{/foreach}
-			
-			
-			
+
+
+
 		{/foreach}
 		<!-- END PRODUCTS -->
 	</tbody>

@@ -49,7 +49,7 @@
 	<input type="hidden" name="action" value="saveHook" />
 
 	{foreach from=$hook_list key=hook_id item=hook_name}
-		<input class="hook_list" type="hidden" name="hook_list[{$hook_id}]" 
+		<input class="hook_list" type="hidden" name="hook_list[{$hook_id}]"
 			value="{$hook_name}" />
 	{/foreach}
 <div >
@@ -61,8 +61,8 @@
 	<div style="float:right;margin-right:20px;" id="live_edit_feed_back"></div>
 </div>
 <a href="#" style="display:none;" id="fancy"></a>
-<div id="live_edit_feedback" style="width:400px"> 
+<div id="live_edit_feedback" style="width:400px">
 	<p id="live_edit_feedback_str">
-	</p> 
-	<!-- <a href="javascript:;" onclick="$.fancybox.close();">{l s='Close'}</a> --> 
-</div>	
+	</p>
+	<!-- <a href="javascript:;" onclick="$.fancybox.close();">{l s='Close'}</a> -->
+</div>

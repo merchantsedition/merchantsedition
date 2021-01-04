@@ -47,7 +47,7 @@
 			$('#carrier_logo_remove').hide();
 		}
 	}
-	
+
 	function uploadCarrierLogo() {
 		$.ajaxFileUpload({
 			url: 'ajax-tab.php?tab=AdminCarrierWizard&token={$token|addslashes}&action=uploadLogo',

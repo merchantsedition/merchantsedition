@@ -38,7 +38,7 @@
 		<span cLass="subtitle">{$subtitle|escape}</span>
 		<span class="value">{$value|escape|replace:'&amp;':'&'}</span>
 	</div>
-	
+
 </{if isset($href) && $href}a{else}div{/if}>
 
 {if isset($source) && $source != '' && isset($refresh) && $refresh != ''}
@@ -95,7 +95,7 @@
 			.attr("width", 4)
 			.attr("height", y);
 	}
-	
+
 	{if $data}
 		set_d3_{$id|replace:'-':'_'|addslashes}($.parseJSON("{$data|addslashes}"));
 	{/if}

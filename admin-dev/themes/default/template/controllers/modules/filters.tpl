@@ -71,10 +71,10 @@
 	<!-- <span class="pull-right">
 		<button class="btn btn-default " type="submit" name="resetFilterModules">
 			<i class="icon-eraser"></i>
-			{l s='Reset'} 
+			{l s='Reset'}
 		</button>
 		<button class="btn btn-default " name="filterModules" id="filterModulesButton" type="submit">
-			<i class="icon-filter"></i> 
+			<i class="icon-filter"></i>
 			{l s='Filter'}
 		</button>
 	</span> -->

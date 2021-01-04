@@ -39,7 +39,7 @@
 	<tr>
 		<td colspan="12" height="30">&nbsp;</td>
 	</tr>
-	
+
 	<tr>
 		<td colspan="12">
 
@@ -64,7 +64,7 @@
 	<tr>
 		<td colspan="12" height="20">&nbsp;</td>
 	</tr>
-	
+
 	<tr>
 		<td colspan="7" class="left">
 

@@ -33,7 +33,7 @@
 			<p>{l s='If there is no existing module for your carrier, then you can register that carrier by hand using the information that it can provide you: shipping rates, regional zones, size and weight limits, etc. Click on the "Add new carrier" button below to open the Carrier Wizard, which will help you register a new carrier in a few steps.'}</p>
 			<p>{l s='Note: DO NOT register a new carrier if there already exists a module for it! Using a module will be much faster and more accurate!'}</p>
 		</div>
-	
+
 		<div class="col-lg-12">
 			<form action="" id="configuration_form" method="post" enctype="multipart/form-data" class="form-horizontal">
 				<div class="form-group">

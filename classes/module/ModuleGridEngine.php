@@ -152,7 +152,7 @@ class ModuleGridEngineCore extends Module
 						$("#grid_1 tbody").append("<tr><td class=\"center\" colspan=\"" + '.count($params['columns']).' + "\">'.$params['emptyMsg'].'</td></tr>");
 				});
 			}
-			
+
 			function gridNextPage(url)
 			{
 				var from = url.match(/&start=[0-9]+/i);
@@ -163,7 +163,7 @@ class ModuleGridEngineCore extends Module
 				url = url.replace(/&start=[0-9]+/i, "") + from;
 				getGridData(url);
 			}
-			
+
 			function gridPrevPage(url)
 			{
 				var from = url.match(/&start=[0-9]+/i);

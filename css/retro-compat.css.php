@@ -56,9 +56,9 @@ $cssFiles = [
                 'jquery.fancybox.css' =>
                     ['new_file' => $css_folder.'plugins/fancybox/jquery.fancybox.css'],
                 ];
-                
-                
-                
+
+
+
 
 $file = $_GET['file'];
 

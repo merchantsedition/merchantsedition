@@ -27,7 +27,7 @@
 <div id="box-clients" class="col-lg-3 box-stats color1" >
 	<div class="boxchart-overlay">
 		<div class="boxchart"></div>
-	</div>	
+	</div>
 	<span class="title">{l s='Customers'}</span>
 	<span class="value">4 589</span>
 </div>
@@ -35,7 +35,7 @@
 <div id="box-orders" class="col-lg-3 box-stats color2">
 	<div class="boxchart-overlay">
 		<div class="boxchart"></div>
-	</div>	
+	</div>
 	<span class="title">{l s='Orders'}</span>
 	<span class="value">789</span>
 </div>
@@ -57,7 +57,7 @@
 <div id="box-line" class="col-lg-3 box-stats color1" >
 	<div class="boxchart-overlay">
 		<div class="boxchart"></div>
-	</div>	
+	</div>
 	<span class="title">{l s='Traffic'}</span>
 	<span class="value">4 589</span>
 </div>
@@ -65,7 +65,7 @@
 <div id="box-spline" class="col-lg-3 box-stats color2" >
 	<div class="boxchart-overlay">
 		<div class="boxchart"></div>
-	</div>	
+	</div>
 	<span class="title">{l s='Conversion'}</span>
 	<span class="value">4 589</span>
 </div>

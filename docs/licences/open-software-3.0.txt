@@ -8,7 +8,7 @@ Rich References
     * David Wheeler's Why OSS? Just look at the numbers!
     * David Wheeler's References
     * The Free, Libre, and Open Source Software (FLOSS) Surveys and reports.
-    * The Economic impact of FLOSS on innovation and competitiveness of the EU ICT sector, published 20 November 2006 by UNU-Merit. (Also linked from our Research page). 
+    * The Economic impact of FLOSS on innovation and competitiveness of the EU ICT sector, published 20 November 2006 by UNU-Merit. (Also linked from our Research page).
 
 Books
 
@@ -18,13 +18,13 @@ Books
     * The Success of Open Source, Steven Weber, 2004
     * Producing Open Source Software, Karl Fogel, 2005
     * Open Source Licensing, Larry Rosen, 2004
-    * Collaborative Ownership and the Digital Economy, Rishab Aiyer Ghosh, 2005 
+    * Collaborative Ownership and the Digital Economy, Rishab Aiyer Ghosh, 2005
 
 Open Source Software
 
     * The Free Software Directory Lists over 5,000 packages. (Yes, Free Software is also Open Source Software)
     * sourceforge.net Lists over 120,000 projects in varying stages of development. Mainly for developers. The public sourceforge.net site only hosts projects covered by an OSI-approved license.
-    * freshmeat.net Lists over 60,000 new releases of Open Source packages. Mainly for people who want to download the latest releases from developers. freshmeat.net strongly prefers software covered by an OSI-approved license (but will host non-open source software in exchange for a fee). 
+    * freshmeat.net Lists over 60,000 new releases of Open Source packages. Mainly for people who want to download the latest releases from developers. freshmeat.net strongly prefers software covered by an OSI-approved license (but will host non-open source software in exchange for a fee).
 
 Open Source Conferences and User Groups
 
@@ -36,9 +36,9 @@ Open Source Conferences and User Groups
     * The FISL conference in Porto Alegre, Brazil.
     * The FOSSSL conference (and other events) in Colombo, Sri Lanka.
     * There are hundreds of conferences per year all over the world that advertise "Open Source" as a topic. Alas, these have varying degrees of quality and felicity and the OSI does not vouch for (nor recommend against) the ones not listed in this section. Check to see whether an OSI-affiliated speaker is listed as presenting if you wish to hear the OSI's thoughts or positions.
-    * User groups tend to focus on software or groups of software used in a particular context: Linux users in Northern Virginia (NOVALUG), PostgreSQL users in Dubai (EMIRPUG), GIS developers and users who formed the Indian Chapter of OSGeo, or the dozens of topic-specific users of the R package and its extensions. There are many thousands of user groups, and the best way to find the one that's right for you is to search the web, find the mailing lists, and make contact. 
+    * User groups tend to focus on software or groups of software used in a particular context: Linux users in Northern Virginia (NOVALUG), PostgreSQL users in Dubai (EMIRPUG), GIS developers and users who formed the Indian Chapter of OSGeo, or the dozens of topic-specific users of the R package and its extensions. There are many thousands of user groups, and the best way to find the one that's right for you is to search the web, find the mailing lists, and make contact.
 
 Packaged Open Source Software
 
 Hundreds, if not thousands, of companies now sell commercially packaged and supported open source software. While many open source software packages do run on proprietary systems (Apache is quite popular on all operating systems platforms), Linux distributions provide a complete (and in some cases, exclusively) open source environment suitable for hand-held, desktop, server, and high-end enterprise/cluster/mainframe use.
-The OSI website is built with and runs exclusively open source software, including Apache (web server), Drupal (content management and blogs), the PHP scripting language, the MySQL database, to name a few of the more well-known packages. 
+The OSI website is built with and runs exclusively open source software, including Apache (web server), Drupal (content management and blogs), the PHP scripting language, the MySQL database, to name a few of the more well-known packages.

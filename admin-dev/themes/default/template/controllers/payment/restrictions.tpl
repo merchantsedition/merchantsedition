@@ -110,7 +110,7 @@
 									<td class="text-center">
 										{if $module->currencies && $module->currencies_mode == 'radio'}
 											<input type="radio" name="{$module->name}_{$list['name_id']}[]" value="-2"{if in_array(-2, $module->$list['name_id'])} checked="checked"
-										{/if} 
+										{/if}
 											/>
 										{else}
 											--

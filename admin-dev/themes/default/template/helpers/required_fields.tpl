@@ -61,7 +61,7 @@
 		<div class="panel-footer">
 			<button name="submitFields" type="submit" class="btn btn-default pull-right">
 				<i class="process-icon-save "></i> <span>{l s='Save'}</span>
-			</button>					
+			</button>
 		</div>
 	</form>
 </div>

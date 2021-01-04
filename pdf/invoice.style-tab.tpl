@@ -185,7 +185,7 @@
 	tr.big td{
 		font-size: 110%;
 	}
-	
+
 	.small, table.small th, table.small td {
 		font-size:small;
 	}

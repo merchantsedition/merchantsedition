@@ -51,7 +51,7 @@
 		</div>
 	</div>
 </div>
-	
+
 {/block}
 
 {block name="script"}

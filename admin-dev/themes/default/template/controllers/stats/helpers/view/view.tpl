@@ -40,7 +40,7 @@
 					$('#calendar_form').submit();
 				});
 			}
-			
+
 			var btn_save_settings = $('span[class~="process-icon-save-settings"]').parent();
 			var btn_submit_settings = $('#submitSettings');
 

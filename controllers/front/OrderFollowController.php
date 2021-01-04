@@ -146,7 +146,7 @@ class OrderFollowControllerCore extends FrontController
             'PS_RETURN_PREFIX' => Configuration::get('PS_RETURN_PREFIX', $this->context->language->id),
             'ordersReturn' => $ordersReturn
         ));
-        
+
 
         $this->setTemplate(_PS_THEME_DIR_.'order-follow.tpl');
     }

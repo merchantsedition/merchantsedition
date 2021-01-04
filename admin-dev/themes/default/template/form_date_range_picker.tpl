@@ -9,7 +9,7 @@
 					<button type="submit" name="submitDateDayPrev" class="btn btn-default submitDateDayPrev">{$translations.Day}-1</button>
 					<button type="submit" name="submitDateMonthPrev" class="btn btn-default submitDateMonthPrev">{$translations.Month}-1</button>
 					<button type="submit" name="submitDateYearPrev" class="btn btn-default submitDateYearPrev">{$translations.Year}-1</button>
-				</div>					
+				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="row">

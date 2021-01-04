@@ -461,7 +461,7 @@ class FrontControllerCore extends Controller
                 if (strstr($this->php_self, 'module')) {
                     $nameParts = explode('-', $this->php_self);
                     $canonical = $this->context->link->getModuleLink($nameParts[1], $nameParts[2]);
-                } else 
+                } else
                     $canonical = $this->context->link->getPageLink($this->php_self);
                 $hreflang = $this->getHrefLang($this->php_self, 0, $languages, $defaultLang);
                 break;
@@ -527,7 +527,7 @@ class FrontControllerCore extends Controller
                     if (strstr($entity, 'module')) {
                         $nameParts = explode('-', $entity);
                         $lnk = $this->context->link->getModuleLink($nameParts[1], $nameParts[2], [], null, $lang['id_lang']);
-                    } else 
+                    } else
                         $lnk = $this->context->link->getPageLink($entity, null, $lang['id_lang']);
                     break;
             }

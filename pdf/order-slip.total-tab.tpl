@@ -69,7 +69,7 @@
 			</tr>
 		{/if}
 	{/if}
-	
+
 	{if ($order->total_paid_tax_incl - $order->total_paid_tax_excl) > 0}
 		<tr>
 			<td class="grey" width="70%">
@@ -80,7 +80,7 @@
 			</td>
 		</tr>
 	{/if}
-	
+
 	<tr class="bold">
 		<td class="grey" width="70%">
 			{if $tax_excluded_display}{l s='Total (Tax Excl.)' pdf='true'}{else}{l s='Total (Tax Incl.)' pdf='true'}{/if}

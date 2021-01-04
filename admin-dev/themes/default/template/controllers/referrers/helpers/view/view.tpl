@@ -67,7 +67,7 @@
 				}
 			)
 		}
-	
+
 		function fillProducts(filter)
 		{
 			var form = document.layers ? document.forms.product_referrers : document.product_referrers;
@@ -82,7 +82,7 @@
 					filter:filter
 				},
 				function(j) {
-	
+
 					form.selectProduct.length = j.length + 1;
 					for (var i = 0; i < j.length; i++)
 					{

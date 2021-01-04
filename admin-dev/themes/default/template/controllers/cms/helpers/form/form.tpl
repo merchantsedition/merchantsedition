@@ -45,7 +45,7 @@
 		});
 		$('#active_off').bind('click', function(){
 			toggleDraftWarning(true);
-		});		
+		});
 	});
 {/block}
 

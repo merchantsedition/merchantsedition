@@ -53,7 +53,7 @@
 			{/foreach}
 			</tbody>
 		</table>
-	
+
 		<script type="text/javascript">
 			$(function(){
 				var width = $('#viewRequestSql').width();

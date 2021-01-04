@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <table class="product" width="100%" cellpadding="4" cellspacing="0">
-	
+
 	<thead>
 		<tr>
 			<th class="product header small" width="60%">{l s='Items to be returned' pdf='true'}</th>

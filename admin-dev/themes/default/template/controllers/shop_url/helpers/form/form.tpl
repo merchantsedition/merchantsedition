@@ -79,7 +79,7 @@
 		if (!shopID)
 			if ($('#shop_id').length)
 				shopID = $('#shop_id').val();
-			else	
+			else
 				shopID = $('#id_shop').val();
 
 		if (!shopUrl[shopID])

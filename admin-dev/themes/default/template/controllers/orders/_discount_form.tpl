@@ -84,7 +84,7 @@
 		<div class="col-lg-9 col-lg-offset-3">
 			<p class="checkbox">
 				<label class="control-label" for="discount_all_invoices">
-					<input type="checkbox" name="discount_all_invoices" id="discount_all_invoices" value="1" /> 
+					<input type="checkbox" name="discount_all_invoices" id="discount_all_invoices" value="1" />
 					{l s='Apply on all invoices'}
 				</label>
 			</p>

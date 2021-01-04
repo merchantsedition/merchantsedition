@@ -62,9 +62,9 @@
 		else
 			$('.colorAttributeProperties').hide();
 	};
-	
+
 	displayColorFieldsOption();
-	
+
 	$('#id_attribute_group').change(displayColorFieldsOption);
 
 	var shop_associations = {$fields[0]['form']['shop_associations']};

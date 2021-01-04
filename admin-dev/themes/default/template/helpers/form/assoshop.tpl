@@ -100,7 +100,7 @@ function check_all_shop() {
 					</label>
 				</td>
 			</tr>
-	
+
 			{if $input.type == 'shop'}
 				{assign var=j value=0}
 				{foreach $groupData['shops'] as $shopID => $shopData}
@@ -119,7 +119,7 @@ function check_all_shop() {
 									shop_id="{$shopID|intval}"
 									name="checkBoxShopAsso_{$table}[{$shopID|intval}]"
 									id="checkedBox_{$shopID|intval}"
-									{if $checked} checked="checked"{/if} 
+									{if $checked} checked="checked"{/if}
 									{if $groupData['disable_shops']} readonly="readonly" onclick="return false"{/if}
 									/>
 								{$shopData['name']}

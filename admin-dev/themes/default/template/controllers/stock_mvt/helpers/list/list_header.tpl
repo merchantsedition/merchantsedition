@@ -33,7 +33,7 @@
 				<input type="hidden" name="token" value="{$token|escape:'html':'UTF-8'}" />
 				<div class="form-group">
 					<label for="id_warehouse" class="control-label col-lg-3">{l s='Filter movements by warehouse:'}</label>
-					<div class="col-lg-9">					
+					<div class="col-lg-9">
 						<select id="id_warehouse" name="id_warehouse" onchange="$('#stock-movement-filter').submit();">
 							{foreach $list_warehouses as $warehouse}
 								<option {if $warehouse.id_warehouse == $current_warehouse}selected="selected"{/if} value="{$warehouse.id_warehouse}">{$warehouse.name}</option>

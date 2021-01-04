@@ -37,7 +37,7 @@
 			</div>
 		</div>
 
-		<script type="text/javascript"> 
+		<script type="text/javascript">
 			var ajaxQueries = new Array();
 			function run_sync()
 			{
@@ -54,7 +54,7 @@
 					url: "index.php",
 					data: {
 						ajax: "1",
-						token: "{$token|escape:'html':'UTF-8'}", 
+						token: "{$token|escape:'html':'UTF-8'}",
 						syncImapMail: "1",
 						ajax:"1",
 						action:"syncImap",
@@ -78,7 +78,7 @@
 							$('#ajax_conf').html('<ul>'+jsonError+'</ul>');
 							$('#ajax_conf').fadeIn();
 						}
-							
+
 						$('#ajax_loader').html('');
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -87,7 +87,7 @@
 					}
 				});
 				ajaxQueries.push(ajaxQuery);
-				
+
 			};
 		</script>
 {/if}

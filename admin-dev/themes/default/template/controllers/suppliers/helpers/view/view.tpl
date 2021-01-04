@@ -27,7 +27,7 @@
 
 {block name="override_tpl"}
 <div class="panel">
-	<div class="panel-heading">{$supplier->name} - {l s='Number of products:'} {count($products)}</div>	
+	<div class="panel-heading">{$supplier->name} - {l s='Number of products:'} {count($products)}</div>
 	<table class="table">
 		<thead>
 			<tr>

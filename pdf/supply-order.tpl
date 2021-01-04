@@ -49,7 +49,7 @@
 		</td>
 	</tr>
 
-	
+
 	<tr>
 		<td colspan="12" height="10">&nbsp;</td>
 	</tr>
@@ -70,5 +70,5 @@
 
 		</td>
 	</tr>
-	
+
 </table>

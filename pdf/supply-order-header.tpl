@@ -26,7 +26,7 @@
 <table>
 	<tr><td style="line-height: 6px">&nbsp;</td></tr>
 </table>
-	
+
 <table style="width: 100%">
 <tr>
 	<td style="width: 50%">

@@ -32,7 +32,7 @@
 			<div class="btn-group pull-right">
 				<a class="btn btn-default {if !isset($smarty.get.select)} active{/if}" href="index.php?controller={$smarty.get.controller|htmlentities}&amp;token={$smarty.get.token|htmlentities}">
 					<i class="icon-list"></i>
-					{l s='Normal view'} 
+					{l s='Normal view'}
 				</a>
 				<a class="btn btn-default {if $smarty.get.select == 'favorites'} active{/if}" href="javascript:void(0);">
 					<i class="icon-star"></i>

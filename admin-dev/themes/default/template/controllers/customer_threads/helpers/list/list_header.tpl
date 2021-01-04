@@ -51,7 +51,7 @@
 						<span class="message-mail">{l s='No new messages'}</span>
 					{else}
 						<a href="{$currentIndex|escape:'html':'UTF-8'}&amp;token={$token|escape:'html':'UTF-8'}&amp;id_customer_thread={$id_customer_thread}&amp;viewcustomer_thread" class="button">
-							{$total_thread} 
+							{$total_thread}
 							{if $total_thread > 1}{l s='New messages'}{else}{l s='New message'}{/if}
 						</a>
 					{/if}

@@ -45,14 +45,14 @@
 			</div>
 			<div id="message_forward_email" class="row row-margin-bottom" style="display:none">
 				<label class="control-label col-lg-3">{l s='Email'}</label>
-				<div class="col-lg-3"> 
+				<div class="col-lg-3">
 					<input type="email" name="email" />
 				</div>
 			</div>
 			<div id="message_forward" style="display:none;">
 				<div class="row row-margin-bottom">
 					<label class="control-label col-lg-3">{l s='Comment:'}</label>
-					<div class="col-lg-7"> 
+					<div class="col-lg-7">
 						<textarea name="message_forward" rows="6">{l s='You can add a comment here.'}</textarea>
 					</div>
 				</div>
