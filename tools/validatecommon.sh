@@ -286,6 +286,14 @@ function validate_whitespace {
     FAULT='true'
   done
 
+  # Test against trailing whitespace.
+  for F in $(git grep -rl $'[ \t]$' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
+    F="${F#${GIT_MASTER}:}"
+    testignore "${F}" && continue
+    e "file ${F} contains trailing whitespace."
+    FAULT='true'
+  done
+
   # All files we consider to be text files.
   readarray -t FILES <<< $(${FIND} . | sed -n '
     /\.php$/ p
@@ -302,12 +310,6 @@ function validate_whitespace {
 
   for F in "${FILES[@]}"; do
     testignore "${F}" && continue
-
-    # Test against trailing whitespace.
-    if ${CAT} "${F}" | grep -q $'[ \t]$'; then
-      e "file ${F} contains trailing whitespace."
-      FAULT='true'
-    fi
 
     # Test for a newline at end of file.
     if [ $(${CAT} "${F}" | sed -n '$ p' | wc -l) -eq 0 ]; then
