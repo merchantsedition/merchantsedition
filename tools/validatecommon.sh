@@ -266,7 +266,6 @@ function validate_filepermissions {
 function validate_whitespace {
   local F
   local FAULT='false'
-  local FILES
 
   # All files we consider to be text files.
   local TEXTFILES=('*.php')
@@ -294,28 +293,12 @@ function validate_whitespace {
     FAULT='true'
   done
 
-  # All files we consider to be text files.
-  readarray -t FILES <<< $(${FIND} . | sed -n '
-    /\.php$/ p
-    /\.css$/ p
-    /\.js$/ p
-    /\.tpl$/ p
-    /\.phtml$/ p
-    /\.sh$/ p
-    /\.xml$/ p
-    /\.yml$/ p
-    /\.md$/ p
-  ')
-  [ -z "${FILES[*]}" ] && FILES=()
-
-  for F in "${FILES[@]}"; do
+  # Test for a newline at end of file.
+  for F in $(git grep -rlP '(?m)\N\z' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
+    F="${F#${GIT_MASTER}:}"
     testignore "${F}" && continue
-
-    # Test for a newline at end of file.
-    if [ $(${CAT} "${F}" | sed -n '$ p' | wc -l) -eq 0 ]; then
-      e "file ${F} misses a newline at end of file."
-      FAULT='true'
-    fi
+    e "file ${F} misses a newline at end of file."
+    FAULT='true'
   done
 
   if [ ${FAULT} = 'true' ]; then
