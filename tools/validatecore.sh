@@ -89,6 +89,11 @@ validate_filepermissions
 validate_whitespace
 
 
+### Documentation files.
+
+validate_documentation
+
+
 ### Evaluation of findings.
 
 cat ${REPORT}

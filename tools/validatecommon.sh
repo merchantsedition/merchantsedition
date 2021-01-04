@@ -346,3 +346,21 @@ function validate_whitespace {
     u "         add a newline at end of file on save automatically."
   fi
 }
+
+# Test for presence of various documentation files.
+#
+# No parameters, no return values.
+function validate_documentation {
+  local README
+
+  # A README.md should exist.
+  README=$(${FIND} . | grep -i '^readme.md$' | grep -v '^README.md$')
+  if [ -z ${README} ]; then
+    README=$(${FIND} README.md)
+    [ -z ${README} ] \
+    && e "file README.md missing."
+  else
+    # Wrong capitalization.
+    e "file ${README} exists, but should be named 'README.md' (capitalization)."
+  fi
+}
