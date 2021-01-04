@@ -364,6 +364,13 @@ function validate_documentation {
     e "file ${README} exists, but should be named 'README.md' (capitalization)."
   fi
 
+  # A CONTRIBUTING.md can exist.
+  README=$(${FIND} . | grep -i '^contributing.md$' | grep -v '^CONTRIBUTING.md$')
+  if [ -n "${README}" ]; then
+    # Wrong capitalization.
+    e "file ${README} exists, but should be named 'CONTRIBUTING.md' (capitalization)."
+  fi
+
   # Former documentation files should be absent.
   FILES=('readme')
   FILES+=('readme.txt')
@@ -371,7 +378,6 @@ function validate_documentation {
   FILES+=('roadmap.md')
   FILES+=('roadmap.txt')
   FILES+=('contributing')
-  FILES+=('contributing.md')
   FILES+=('contributing.txt')
 
   FAULT='false'
