@@ -20,6 +20,34 @@
 # Default values.
 OPTION_RELEASE=${OPTION_RELEASE:-false}
 
+# All files we consider to be text files.
+TEXTFILEQUOTES=('*.php')
+TEXTFILEQUOTES+=('*.css')
+TEXTFILEQUOTES+=('*.scss')
+TEXTFILEQUOTES+=('*.sass')
+TEXTFILEQUOTES+=('*.js')
+TEXTFILEQUOTES+=('*.tpl')
+TEXTFILEQUOTES+=('*.html')
+TEXTFILEQUOTES+=('*.phtml')
+TEXTFILEQUOTES+=('*.sh')
+TEXTFILEQUOTES+=('*.sql')
+TEXTFILEQUOTES+=('*.csv')
+TEXTFILEQUOTES+=('*.json')
+TEXTFILEQUOTES+=('*.xml')
+TEXTFILEQUOTES+=('*.yml')
+TEXTFILEQUOTES+=('*.txt')
+TEXTFILEQUOTES+=('*.md')
+TEXTFILEQUOTES+=('*.htaccess')
+# Ignore vendor files. See also testignore{}.
+IGNOREFILEQUOTES=(':^js/ace/')
+IGNOREFILEQUOTES+=(':^js/cropper/')
+IGNOREFILEQUOTES+=(':^js/jquery/')
+IGNOREFILEQUOTES+=(':^js/tiny_mce/')
+IGNOREFILEQUOTES+=(':^js/vendor/')
+IGNOREFILEQUOTES+=(':^libs/')
+IGNOREFILEQUOTES+=(':^views/js/libs/')
+IGNOREFILEQUOTES+=(':^views/css/libs/')
+
 if [ -e .git ]; then
   IS_GIT='true'
 
@@ -293,26 +321,7 @@ function validate_filepermissions {
 function validate_whitespace {
   local F
   local FAULT='false'
-
-  # All files we consider to be text files.
-  local TEXTFILES=('*.php')
-  TEXTFILES+=('*.css')
-  TEXTFILES+=('*.js')
-  TEXTFILES+=('*.tpl')
-  TEXTFILES+=('*.phtml')
-  TEXTFILES+=('*.sh')
-  TEXTFILES+=('*.xml')
-  TEXTFILES+=('*.yml')
-  TEXTFILES+=('*.md')
-  # Ignore vendor files. See also testignore{}.
-  TEXTFILES+=(':^js/ace/')
-  TEXTFILES+=(':^js/cropper/')
-  TEXTFILES+=(':^js/jquery/')
-  TEXTFILES+=(':^js/tiny_mce/')
-  TEXTFILES+=(':^js/vendor/')
-  TEXTFILES+=(':^libs/')
-  TEXTFILES+=(':^views/js/libs/')
-  TEXTFILES+=(':^views/css/libs/')
+  local TEXTFILES=("${TEXTFILEQUOTES[@]}" "${IGNOREFILEQUOTES[@]}")
 
   # Test against DOS line endings.
   for F in $(${GREP} -rl $'\r' -- "${TEXTFILES[@]}"); do
