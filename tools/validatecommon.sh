@@ -57,6 +57,19 @@ if [ -e .git ]; then
 
   FIND="git ls-tree -r --name-only ${GIT_MASTER}"
 
+  function git-grep {
+    local F P=()
+    while [ ${#} -ne 0 ] && [ "${1}" != '--' ]; do
+      P+=("${1}")
+      shift
+    done
+    shift
+    for F in $(git grep "${P[@]}" ${GIT_MASTER} -- "${@}"); do
+      echo "${F#${GIT_MASTER}:}"
+    done
+  }
+  GREP='git-grep'
+
   # Don't continue if there are staged changes.
   if [ $(git diff --staged | wc -l) -ne 0 ]; then
     echo "Error: there are uncommitted changes, can't continue."
@@ -68,6 +81,7 @@ else
 
   CAT='cat'
   FIND='find'
+  GREP='grep'
 
   exit 1
 fi
@@ -301,23 +315,20 @@ function validate_whitespace {
   TEXTFILES+=(':^views/css/libs/')
 
   # Test against DOS line endings.
-  for F in $(git grep -rl $'\r' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
-    F="${F#${GIT_MASTER}:}"
+  for F in $(${GREP} -rl $'\r' -- "${TEXTFILES[@]}"); do
     e "file ${F} contains DOS/Windows line endings."
     FAULT='true'
   done
 
   # Test against trailing whitespace.
-  for F in $(git grep -rl $'[ \t]$' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
-    F="${F#${GIT_MASTER}:}"
+  for F in $(${GREP} -rl $'[ \t]$' -- "${TEXTFILES[@]}"); do
     testignore "${F}" && continue
     e "file ${F} contains trailing whitespace."
     FAULT='true'
   done
 
   # Test for a newline at end of file.
-  for F in $(git grep -rlP '(?m)\N\z' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
-    F="${F#${GIT_MASTER}:}"
+  for F in $(${GREP} -rlP '(?m)\N\z' -- "${TEXTFILES[@]}"); do
     testignore "${F}" && continue
     e "file ${F} misses a newline at end of file."
     FAULT='true'
