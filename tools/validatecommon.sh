@@ -355,9 +355,9 @@ function validate_documentation {
 
   # A README.md should exist.
   README=$(${FIND} . | grep -i '^readme.md$' | grep -v '^README.md$')
-  if [ -z ${README} ]; then
+  if [ -z "${README}" ]; then
     README=$(${FIND} README.md)
-    [ -z ${README} ] \
+    [ -z "${README}" ] \
     && e "file README.md missing."
   else
     # Wrong capitalization.
