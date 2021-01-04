@@ -219,26 +219,21 @@ function templatecompare {
 #
 #      Return: 0/true if the file should be skipped, 1/false otherwise.
 function testignore {
-  local SUFFIX WARN B
+  local SUFFIX WARN B F
 
   SUFFIX="${1##*.}"
   SUFFIX="${SUFFIX,,}"
   WARN=${2:-'true'}
 
   # Ignore vendor files not managed by Composer (and thus, committed to the
-  # repository). Those in libs/ match in some modules.
-  # Except for PHP files this should match ignores in validate_whitespace{}.
-  ( [ "${1}" != "${1#admin-dev/filemanager/}" ] \
-    || [ "${1}" != "${1#js/ace/}" ] \
-    || [ "${1}" != "${1#js/cropper/}" ] \
-    || [ "${1}" != "${1#js/jquery/}" ] \
-    || [ "${1}" != "${1#js/tiny_mce/}" ] \
-    || [ "${1}" != "${1#js/vendor/}" ] \
-    || [ "${1}" != "${1#libs/}" ] \
-    || [ "${1}" != "${1#views/js/libs/}" ] \
-    || [ "${1}" != "${1#views/css/libs/}" ] \
-  ) && [ "${1}" = "${1%/index.php}" ] \
-    && return 0;
+  # repository).
+  [ "${1}" != "${1#admin-dev/filemanager/}" ] \
+  && [ "${1}" = "${1%/index.php}" ] \
+  && return 0;
+  for F in "${IGNOREFILEQUOTES[@]}"; do
+    F="${F:2}"
+    [ "${1}" != "${1#${F}}" ] && return 0;
+  done
 
   # Ignore empty CSS and JS files. They exist only to show developers
   # that such a file gets served, if not empty.
