@@ -177,6 +177,20 @@ function testignore {
   SUFFIX="${SUFFIX,,}"
   WARN=${2:-'true'}
 
+  # Ignore vendor files not managed by Composer (and thus, committed to the
+  # repository). Those in libs/ match in some modules.
+  ( [ "${1}" != "${1#admin-dev/filemanager/}" ] \
+    || [ "${1}" != "${1#js/ace/}" ] \
+    || [ "${1}" != "${1#js/cropper/}" ] \
+    || [ "${1}" != "${1#js/jquery/}" ] \
+    || [ "${1}" != "${1#js/tiny_mce/}" ] \
+    || [ "${1}" != "${1#js/vendor/}" ] \
+    || [ "${1}" != "${1#libs/}" ] \
+    || [ "${1}" != "${1#views/js/libs/}" ] \
+    || [ "${1}" != "${1#views/css/libs/}" ] \
+  ) && [ "${1}" = "${1%/index.php}" ] \
+    && return 0;
+
   # Ignore empty CSS and JS files. They exist only to show developers
   # that such a file gets served, if not empty.
   ( [ ${SUFFIX} = 'js' ] || [ ${SUFFIX} = 'css' ] ) \
@@ -212,14 +226,6 @@ function testignore {
      || [ "${B}" != "${B#superfish}" ] \
      || [ "${B}" != "${B#hoverIntent}" ]; then
     [ ${WARN} = 'true' ] && w "vendor file ${1} should be minimized."
-    return 0
-  fi
-
-  # Ignore library files. Other than composer modules these get committed
-  # to the repository.
-  if [ "${1}" != "${1#libs/}" ] \
-     || [ "${1}" != "${1#views/js/libs/}" ] \
-     || [ "${1}" != "${1#views/css/libs/}" ]; then
     return 0
   fi
 
