@@ -141,9 +141,11 @@ if [ ${IS_GIT} = 'true' ]; then
 fi
 
 
-### File permissions.
+### File maintenance.
 
 validate_filepermissions
+
+validate_whitespace
 
 
 ### Translations stuff.
@@ -180,48 +182,6 @@ ${FIND} config.xml | grep -q '.' && \
   e "file config.xml exists."
 ${FIND} . | grep -q 'config_.*\.xml' && \
   e "at least one file config_<lang>.xml exists."
-
-
-### General text file maintenance.
-
-# All files we consider to be text files.
-readarray -t FILES <<< $(${FIND} . | sed -n '/\.php$/ p
-                                             /\.css$/ p
-                                             /\.js$/ p
-                                             /\.tpl$/ p
-                                             /\.phtml$/ p
-                                             /\.sh$/ p
-                                             /\.xml$/ p
-                                             /\.yml$/ p
-                                             /\.md$/ p')
-[ -z "${FILES[*]}" ] && FILES=()
-
-FAULT='false'
-for F in "${FILES[@]}"; do
-  # Test against DOS line endings.
-  ${CAT} "${F}" | grep -q $'\r' && \
-    e "file ${F} contains DOS/Windows line endings."
-
-  testignore "${F}" && continue
-
-  # Test against trailing whitespace.
-  if ${CAT} "${F}" | grep -q $'[ \t]$'; then
-    e "file ${F} contains trailing whitespace."
-    FAULT='true'
-  fi
-
-  # Test for a newline at end of file.
-  if [ $(${CAT} "${F}" | sed -n '$ p' | wc -l) -eq 0 ]; then
-    e "file ${F} misses a newline at end of file."
-    FAULT='true'
-  fi
-done
-
-if [ ${FAULT} = 'true' ]; then
-  n "Most code editors have an option to remove trailing whitespace and"
-  u "         add a newline at end of file on save automatically."
-fi
-unset FILES FAULT
 
 
 ### Main class validity.

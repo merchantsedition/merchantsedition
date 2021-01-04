@@ -82,9 +82,11 @@ export REPORT
 . "${0%/*}/validatecommon.sh"
 
 
-### File permissions.
+### File maintenance.
 
 validate_filepermissions
+
+validate_whitespace
 
 
 ### Evaluation of findings.
