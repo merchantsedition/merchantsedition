@@ -269,6 +269,24 @@ function validate_whitespace {
   local FILES
 
   # All files we consider to be text files.
+  local TEXTFILES=('*.php')
+  TEXTFILES+=('*.css')
+  TEXTFILES+=('*.js')
+  TEXTFILES+=('*.tpl')
+  TEXTFILES+=('*.phtml')
+  TEXTFILES+=('*.sh')
+  TEXTFILES+=('*.xml')
+  TEXTFILES+=('*.yml')
+  TEXTFILES+=('*.md')
+
+  # Test against DOS line endings.
+  for F in $(git grep -rl $'\r' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
+    F="${F#${GIT_MASTER}:}"
+    e "file ${F} contains DOS/Windows line endings."
+    FAULT='true'
+  done
+
+  # All files we consider to be text files.
   readarray -t FILES <<< $(${FIND} . | sed -n '
     /\.php$/ p
     /\.css$/ p
@@ -283,10 +301,6 @@ function validate_whitespace {
   [ -z "${FILES[*]}" ] && FILES=()
 
   for F in "${FILES[@]}"; do
-    # Test against DOS line endings.
-    ${CAT} "${F}" | grep -q $'\r' && \
-      e "file ${F} contains DOS/Windows line endings."
-
     testignore "${F}" && continue
 
     # Test against trailing whitespace.
