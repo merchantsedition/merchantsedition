@@ -355,28 +355,6 @@ fi
 
 validate_documentation
 
-# Former documentation files should be absent.
-FILES=('readme')
-FILES+=('readme.txt')
-FILES+=('roadmap')
-FILES+=('roadmap.md')
-FILES+=('roadmap.txt')
-FILES+=('contributing')
-FILES+=('contributing.md')
-FILES+=('contributing.txt')
-
-FAULT='false'
-for F in "${FILES[@]}"; do
-  UNWANTED=$(${FIND} . | grep -i '^'"${F}"'$')
-  if [ -n "${UNWANTED}" ]; then
-    e "file ${UNWANTED} shouldn't exist."
-    FAULT='true'
-  fi
-done
-[ ${FAULT} = 'true' ] && \
-  n "content of such former documentation files goes into README.md now."
-unset FILES FAULT UNWANTED
-
 if ${FIND} README.md | grep -q '.'; then
   # These are needed as delimiters, so check for their presence early.
   HEADINGS=('Description')
