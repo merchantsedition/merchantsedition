@@ -179,6 +179,7 @@ function testignore {
 
   # Ignore vendor files not managed by Composer (and thus, committed to the
   # repository). Those in libs/ match in some modules.
+  # Except for PHP files this should match ignores in validate_whitespace{}.
   ( [ "${1}" != "${1#admin-dev/filemanager/}" ] \
     || [ "${1}" != "${1#js/ace/}" ] \
     || [ "${1}" != "${1#js/cropper/}" ] \
@@ -283,6 +284,15 @@ function validate_whitespace {
   TEXTFILES+=('*.xml')
   TEXTFILES+=('*.yml')
   TEXTFILES+=('*.md')
+  # Ignore vendor files. See also testignore{}.
+  TEXTFILES+=(':^js/ace/')
+  TEXTFILES+=(':^js/cropper/')
+  TEXTFILES+=(':^js/jquery/')
+  TEXTFILES+=(':^js/tiny_mce/')
+  TEXTFILES+=(':^js/vendor/')
+  TEXTFILES+=(':^libs/')
+  TEXTFILES+=(':^views/js/libs/')
+  TEXTFILES+=(':^views/css/libs/')
 
   # Test against DOS line endings.
   for F in $(git grep -rl $'\r' ${GIT_MASTER} -- "${TEXTFILES[@]}"); do
