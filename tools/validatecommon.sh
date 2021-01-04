@@ -46,9 +46,15 @@ if [ -e .git ]; then
   fi
   echo "Git repository detected. Looking at branch '${GIT_MASTER}'."
 
-  # Abstract 'cat' and 'find' to allow validating non-repositories as well.
-  function git-cat { for F in "${@}"; do git show ${GIT_MASTER}:"${F}"; done }
+  # Abstract some commands to allow validating non-repositories as well.
+  function git-cat {
+    local F
+    for F in "${@}"; do
+      git show ${GIT_MASTER}:"${F}";
+    done
+  }
   CAT='git-cat'
+
   FIND="git ls-tree -r --name-only ${GIT_MASTER}"
 
   # Don't continue if there are staged changes.
