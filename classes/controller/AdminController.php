@@ -813,8 +813,9 @@ class AdminControllerCore extends Controller
                     $this->content = 'ok';
                 }
             }
+        } else {
+            $this->errors[] = Tools::displayError('An error occurred while attempting to delete the image. (cannot load object).');
         }
-        $this->errors[] = Tools::displayError('An error occurred while attempting to delete the image. (cannot load object).');
 
         return $object;
     }
