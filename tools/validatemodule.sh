@@ -510,8 +510,7 @@ COMPARE_TB="${TEMPLATES_DIR}/index.php.tb.module"
 COMPARE_TBPS="${TEMPLATES_DIR}/index.php.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT=''
-readarray -t COMPARE_LIST <<< $(${FIND} . | grep 'index\.php$')
-[ -z "${COMPARE_LIST[*]}" ] && COMPARE_LIST=()
+COMPARE_LIST=($(${FIND} . | grep 'index\.php$'))
 templatecompare
 
 
@@ -525,27 +524,13 @@ COMPARE_TB="${TEMPLATES_DIR}/header.php-js-css.tb.module"
 COMPARE_TBPS="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=1
 COMPARE_HINT='header'
-readarray -t LIST <<< $(${FIND} . | sed -n '/\.php$/ p; /\.phtml$/ p;')
-[ -z "${LIST[*]}" ] && LIST=()
 
-for F in "${LIST[@]}"; do
-  # index.php files were validated earlier already.
-  [ "${F##*/}" = 'index.php' ] && continue
-
-  testignore "${F}" && continue
-  COMPARE_LIST+=("${F}")
-done
-unset LIST
-templatecompare
-
-# JavaScript files.
-COMPARE_TB="${TEMPLATES_DIR}/header.php-js-css.tb.module"
-COMPARE_TBPS="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
-COMPARE_SKIP=0
-COMPARE_HINT='header'
-readarray -t LIST <<< $(${FIND} . | grep '\.js$')
-[ -z "${LIST[*]}" ] && LIST=()
-
+LIST=($(${FIND} . \
+| grep -e '\.php$' \
+       -e '\.phtml$' \
+| grep -v '/index\.php$'
+))
+COMPARE_LIST=()
 for F in "${LIST[@]}"; do
   testignore "${F}" && continue
   COMPARE_LIST+=("${F}")
@@ -553,14 +538,17 @@ done
 unset LIST
 templatecompare
 
-# CSS files.
+# JS and CSS files.
 COMPARE_TB="${TEMPLATES_DIR}/header.php-js-css.tb.module"
 COMPARE_TBPS="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
-readarray -t LIST <<< $(${FIND} . | grep '\.css$')
-[ -z "${LIST[*]}" ] && LIST=()
 
+LIST=($(${FIND} . \
+| grep -e '\.js$' \
+       -e '\.css$'
+))
+COMPARE_LIST=()
 for F in "${LIST[@]}"; do
   testignore "${F}" && continue
   COMPARE_LIST+=("${F}")
