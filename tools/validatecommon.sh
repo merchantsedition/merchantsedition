@@ -392,3 +392,33 @@ function validate_documentation {
     n "content of such former documentation files goes into README.md now."
   unset FILES FAULT UNWANTED
 }
+
+# Test for presence of index.php files.
+#
+# No parameters, no return values.
+function validate_indexphp {
+  local DIRS D
+
+  # This catches all directories, also creates tons of duplicates.
+  DIRS=('.')
+  for D in $(${FIND} .); do
+    # These don't get packaged, see build.sh/buildmodule.sh.
+    [ "${D::9}" = '.tbstore/' ] && continue
+    [ "${D::6}" = 'tests/' ] && continue
+    [ "${D::8}" = 'vagrant/' ] && continue
+    # This one was intentionally removed.
+    [ "${D::7}" = 'upload/' ] && continue
+
+    while [ "${D}" != "${D%/*}" ]; do
+      D="${D%/*}"
+      DIRS+=("${D}")
+    done
+  done
+  # Remove duplicates.
+  DIRS=($(printf '%s\n' "${DIRS[@]}" | sort | uniq))
+
+  for D in "${DIRS[@]}"; do
+    ${FIND} "${D}/index.php" | grep -q '.' \
+    || e "file index.php missing in ${D}/."
+  done
+}

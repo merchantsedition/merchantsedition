@@ -94,6 +94,11 @@ validate_whitespace
 validate_documentation
 
 
+### index.php files.
+
+validate_indexphp
+
+
 ### Evaluation of findings.
 
 cat ${REPORT}

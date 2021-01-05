@@ -502,24 +502,7 @@ unset FAULT
 
 ### index.php files.
 
-# There should be an index.php file in every (packaged) directory.
-DIRS=('.')
-for D in $(${FIND} .); do
-  [ "${D::9}" = '.tbstore/' ] && continue
-  [ "${D::6}" = 'tests/' ] && continue
-
-  while [ "${D}" != "${D%/*}" ]; do
-    D="${D%/*}"
-    DIRS+=("${D}")
-  done
-done
-( for E in "${DIRS[@]}"; do echo "${E}"; done ) | sort | uniq | while read D; do
-  if [ -d "${D}" ]; then
-    ${FIND} "${D}/index.php" | grep -q '.' || \
-      e "file index.php missing in ${D}/."
-  fi
-done
-unset DIRS
+validate_indexphp
 
 # Each index.php should match either the version for thirty bees or the version
 # for thirty bees and PrestaShop combined.
