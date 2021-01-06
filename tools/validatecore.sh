@@ -98,6 +98,23 @@ validate_documentation
 
 validate_indexphp
 
+# Each index.php should match either the version for thirty bees or the version
+# for thirty bees and PrestaShop combined.
+COMPARE_1="${TEMPLATES_DIR}/index.php.me.core"
+COMPARE_2="${TEMPLATES_DIR}/index.php.metb.core"
+COMPARE_3="${TEMPLATES_DIR}/index.php.metbps.core"
+COMPARE_SKIP=0
+COMPARE_HINT=''
+# All index.php files, except those with actual code.
+COMPARE_LIST=($(${FIND} . \
+| grep 'index\.php$' \
+| grep -v -e '^index\.php$' \
+          -e '^admin-dev/index\.php$' \
+          -e '^install-dev/index\.php$' \
+          -e '^install-dev/dev/index\.php$'
+))
+templatecompare
+
 
 ### Evaluation of findings.
 
