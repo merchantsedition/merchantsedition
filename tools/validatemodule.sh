@@ -481,8 +481,8 @@ if ${FIND} build.sh | grep -q '.'; then
 fi
 
 # Header of buildfilter.sh should match a template.
-COMPARE_TB="${TEMPLATES_DIR}/header.sh.tb.module"
-COMPARE_TBPS="${TEMPLATES_DIR}/header.sh.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.sh.tb.module"
+COMPARE_2="${TEMPLATES_DIR}/header.sh.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT=''
 readarray -t COMPARE_LIST <<< $(${FIND} buildfilter.sh)
@@ -506,8 +506,8 @@ validate_indexphp
 
 # Each index.php should match either the version for thirty bees or the version
 # for thirty bees and PrestaShop combined.
-COMPARE_TB="${TEMPLATES_DIR}/index.php.tb.module"
-COMPARE_TBPS="${TEMPLATES_DIR}/index.php.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/index.php.tb.module"
+COMPARE_2="${TEMPLATES_DIR}/index.php.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT=''
 COMPARE_LIST=($(${FIND} . | grep 'index\.php$'))
@@ -520,8 +520,8 @@ templatecompare
 # bees or thirty bees and PrestaShop combined and should match one of them.
 
 # PHP and PHTML files.
-COMPARE_TB="${TEMPLATES_DIR}/header.php-js-css.tb.module"
-COMPARE_TBPS="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
+COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=1
 COMPARE_HINT='header'
 
@@ -539,8 +539,8 @@ unset LIST
 templatecompare
 
 # JS and CSS files.
-COMPARE_TB="${TEMPLATES_DIR}/header.php-js-css.tb.module"
-COMPARE_TBPS="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
+COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
 
@@ -557,8 +557,8 @@ unset LIST
 templatecompare
 
 # Smarty templates.
-COMPARE_TB="${TEMPLATES_DIR}/header.tpl.tb.module"
-COMPARE_TBPS="${TEMPLATES_DIR}/header.tpl.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.tpl.tb.module"
+COMPARE_2="${TEMPLATES_DIR}/header.tpl.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
 readarray -t COMPARE_LIST <<< $(${FIND} . | grep '\.tpl$')

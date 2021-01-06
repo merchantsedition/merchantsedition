@@ -155,14 +155,16 @@ function removecopyrightyears {
        /@copyright/ s/ [0-9-]* //'
 }
 
-# Compare a list of files, e.g. index.phps or a code files, against two
-# templates. Typically a template for a thirty bees only version and a version
-# for thirty bees and PrestaShop combined.
+# Compare content of files, e.g. index.php or code files, against two or three
+# templates. Typically a template for a Merchant's Edition only version, a
+# version for Merchant's Edition and thirty bees, as well as a version for all
+# three, Merchant's Edition, thirty bees and PrestaShop combined.
 #
 # Parameters get accepted by variables:
 #
-#   COMPARE_TB: Path of the template containing the thirty bees only version.
-# COMPARE_TBPS: Path of the template containing the combined version.
+#    COMPARE_1: Path of the template containing the first version.
+#    COMPARE_2: Path of the template containing the second version.
+#    COMPARE_3: Optional. Path of the template containing the third version.
 # COMPARE_SKIP: Optional. Number of initial lines in the candidate file to
 #               skip. Typically 1 for PHP files, 0 or unset for other languages.
 # COMPARE_HINT: Optional. User hint on which part mismatches.
@@ -170,16 +172,26 @@ function removecopyrightyears {
 #
 # Parameters get unset after the operation.
 function templatecompare {
-  local TB_VERSION TBPS_VERSION TB_LEN TBPS_LEN TB_THIS TBPS_THIS F
+  local VERSION_1 VERSION_2 VERSION_3 LEN_1 LEN_2 LEN_3 THIS_1 THIS_2 THIS_3
+  local F DIFF_1 DIFF_2 DIFF_3
 
-  TB_VERSION=$(cat "${COMPARE_TB}" | removecopyrightyears)
-  TBPS_VERSION=$(cat "${COMPARE_TBPS}" | removecopyrightyears)
-  TB_LEN=$(wc -l < "${COMPARE_TB}" | sed -e "s/\s*//g")
-  TBPS_LEN=$(wc -l < "${COMPARE_TBPS}" | sed -e "s/\s*//g")
+  # This is a kludge simplifying following code.
+  if [ -z "${COMPARE_3}" ]; then
+    COMPARE_3="${COMPARE_2}"
+  fi
+
+  VERSION_1=$(cat "${COMPARE_1}" | removecopyrightyears)
+  VERSION_2=$(cat "${COMPARE_2}" | removecopyrightyears)
+  VERSION_3=$(cat "${COMPARE_3}" | removecopyrightyears)
+
+  LEN_1=$(wc -l < "${COMPARE_1}" | sed -e "s/\s*//g")
+  LEN_2=$(wc -l < "${COMPARE_2}" | sed -e "s/\s*//g")
+  LEN_3=$(wc -l < "${COMPARE_3}" | sed -e "s/\s*//g")
 
   COMPARE_SKIP=${COMPARE_SKIP:-0}
-  let TB_LEN=${TB_LEN}+${COMPARE_SKIP}
-  let TBPS_LEN=${TBPS_LEN}+${COMPARE_SKIP}
+  let LEN_1=${LEN_1}+${COMPARE_SKIP}
+  let LEN_2=${LEN_2}+${COMPARE_SKIP}
+  let LEN_3=${LEN_3}+${COMPARE_SKIP}
   let COMPARE_SKIP=${COMPARE_SKIP}+1  # 'tail' does "start at line ...".
 
   COMPARE_HINT=${COMPARE_HINT:-''}
@@ -187,31 +199,49 @@ function templatecompare {
     COMPARE_HINT=" ${COMPARE_HINT}"
 
   for F in "${COMPARE_LIST[@]}"; do
-    TB_THIS=$(${CAT} "${F}" | \
-                head -${TB_LEN} | tail -n+${COMPARE_SKIP} | \
-                removecopyrightyears
-              )
-    TBPS_THIS=$(${CAT} "${F}" | \
-                  head -${TBPS_LEN} | tail -n+${COMPARE_SKIP} | \
-                  removecopyrightyears
-                )
-    if [ "${TB_THIS}" != "${TB_VERSION}" ] \
-       && [ "${TBPS_THIS}" != "${TBPS_VERSION}" ]; then
+    THIS_1=$(
+      ${CAT} "${F}" \
+      | head -${LEN_1} | tail -n+${COMPARE_SKIP} \
+      | removecopyrightyears
+    )
+    THIS_2=$(
+      ${CAT} "${F}" \
+      | head -${LEN_2} | tail -n+${COMPARE_SKIP} \
+      | removecopyrightyears
+    )
+    THIS_3=$(
+      ${CAT} "${F}" \
+      | head -${LEN_3} | tail -n+${COMPARE_SKIP} \
+      | removecopyrightyears
+    )
+    if [ "${THIS_1}" != "${VERSION_1}" ] \
+       && [ "${THIS_2}" != "${VERSION_2}" ] \
+       && [ "${THIS_3}" != "${VERSION_3}" ]; then
       e "${F}${COMPARE_HINT} matches none of the templates."
-      if grep -q 'PrestaShop SA' <<< "${TBPS_THIS}"; then
-        # Should be a combined thirty bees / PS version.
-        n "diff between ${F} (+) and ${COMPARE_TBPS} (-):"
-        u "$(diff -u0 <(echo "${TBPS_VERSION}") <(echo "${TBPS_THIS}") | \
-               tail -n+3)"
-      else
-        # thirty bees only version.
-        n "diff between ${F} (+) and ${COMPARE_TB} (-):"
-        u "$(diff -u0 <(echo "${TB_VERSION}") <(echo "${TB_THIS}") | \
-               tail -n+3)"
+
+      if [ ${OPTION_VERBOSE} = 'true' ]; then
+        # Report shortest diff.
+        DIFF_1=$(diff -u0 <(echo "${VERSION_1}") <(echo "${THIS_1}"))
+        DIFF_2=$(diff -u0 <(echo "${VERSION_2}") <(echo "${THIS_2}"))
+        DIFF_3=$(diff -u0 <(echo "${VERSION_3}") <(echo "${THIS_3}"))
+
+        if [ ${#DIFF_1} -lt ${#DIFF_2} ] && [ ${#DIFF_1} -lt ${#DIFF_3} ]; then
+          # Diff 1 is smallest.
+          n "diff between ${F} (+) and ${COMPARE_1} (-):"
+          u "$(tail -n+3 <(echo "${DIFF_1}"))"
+        elif [ ${#DIFF_2} -lt ${#DIFF_3} ]; then
+          # Diff 2 is smallest.
+          n "diff between ${F} (+) and ${COMPARE_2} (-):"
+          u "$(tail -n+3 <(echo "${DIFF_2}"))"
+        else
+          # Diff 3 is smallest.
+          n "diff between ${F} (+) and ${COMPARE_3} (-):"
+          u "$(tail -n+3 <(echo "${DIFF_3}"))"
+        fi
       fi
     fi
   done
-  unset COMPARE_TB COMPARE_TBPS COMPARE_SKIP COMPARE_HINT COMPARE_LIST
+  unset COMPARE_1 COMPARE_2 COMPARE_3 COMPARE_SKIP COMPARE_HINT COMPARE_LIST
 }
 
 # Test wether we should skip this file from tests.
