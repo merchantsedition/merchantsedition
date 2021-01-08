@@ -1,5 +1,6 @@
 <?php
 /**
+ * Copyright (C) 2021 Merchant's Edition GbR
  * Copyright (C) 2020 thirty bees
  *
  * NOTICE OF LICENSE
@@ -10,10 +11,12 @@
  * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@thirtybees.com so we can send you a copy immediately.
+ * to contact@merchantsedition.com so we can send you a copy immediately.
  *
+ * @author    Merchant's Edition <contact@merchantsedition.com>
  * @author    thirty bees <contact@thirtybees.com>
- * @copyright 2019 thirty bees
+ * @copyright 2021 Merchant's Edition GbR
+ * @copyright 2020 thirty bees
  * @license   Open Software License (OSL 3.0)
  */
 
