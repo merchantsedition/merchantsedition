@@ -173,7 +173,7 @@ function removecopyrightyears {
 # Parameters get unset after the operation.
 function templatecompare {
   local VERSION_1 VERSION_2 VERSION_3 LEN_1 LEN_2 LEN_3 THIS_1 THIS_2 THIS_3
-  local F DIFF_1 DIFF_2 DIFF_3
+  local F THIS_COMMON DIFF_1 DIFF_2 DIFF_3
 
   # This is a kludge simplifying following code.
   if [ -z "${COMPARE_3}" ]; then
@@ -189,9 +189,6 @@ function templatecompare {
   LEN_3=$(wc -l < "${COMPARE_3}" | sed -e "s/\s*//g")
 
   COMPARE_SKIP=${COMPARE_SKIP:-0}
-  let LEN_1=${LEN_1}+${COMPARE_SKIP}
-  let LEN_2=${LEN_2}+${COMPARE_SKIP}
-  let LEN_3=${LEN_3}+${COMPARE_SKIP}
   let COMPARE_SKIP=${COMPARE_SKIP}+1  # 'tail' does "start at line ...".
 
   COMPARE_HINT=${COMPARE_HINT:-''}
@@ -199,21 +196,14 @@ function templatecompare {
     COMPARE_HINT=" ${COMPARE_HINT}"
 
   for F in "${COMPARE_LIST[@]}"; do
-    THIS_1=$(
+    THIS_COMMON=$(
       ${CAT} "${F}" \
-      | head -${LEN_1} | tail -n+${COMPARE_SKIP} \
+      | tail -n+${COMPARE_SKIP} \
       | removecopyrightyears
     )
-    THIS_2=$(
-      ${CAT} "${F}" \
-      | head -${LEN_2} | tail -n+${COMPARE_SKIP} \
-      | removecopyrightyears
-    )
-    THIS_3=$(
-      ${CAT} "${F}" \
-      | head -${LEN_3} | tail -n+${COMPARE_SKIP} \
-      | removecopyrightyears
-    )
+    THIS_1=$(echo "${THIS_COMMON}" | head -${LEN_1})
+    THIS_2=$(echo "${THIS_COMMON}" | head -${LEN_2})
+    THIS_3=$(echo "${THIS_COMMON}" | head -${LEN_3})
     if [ "${THIS_1}" != "${VERSION_1}" ] \
        && [ "${THIS_2}" != "${VERSION_2}" ] \
        && [ "${THIS_3}" != "${VERSION_3}" ]; then
