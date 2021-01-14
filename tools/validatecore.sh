@@ -152,6 +152,33 @@ COMPARE_LIST+=('install-dev/index.php')
 COMPARE_LIST+=('install-dev/dev/index.php')
 templatecompare
 
+# JavaScript files.
+COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.me.core"
+COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.metb.core"
+COMPARE_3="${TEMPLATES_DIR}/header.php-js-css.metbps.core"
+COMPARE_SKIP=0
+COMPARE_HINT='header'
+# date-range-picker.js is a bootstrap vendor file.
+# js/date.js is (probably) from jQuery.datePicker.
+# js/fileuploader.js is apparently an independent vendor file.
+# js/rtl.js as well.
+# js/validate.js as well, but only the upper half !?!
+LIST=($(${FIND} . \
+| grep -e '\.js$' \
+| grep -v -e '^admin-dev/themes/default/js/date-range-picker\.js$' \
+          -e '^js/date\.js$' \
+          -e '^js/fileuploader\.js$' \
+          -e '^js/rtl\.js$' \
+          -e '^js/validate\.js$'
+))
+COMPARE_LIST=()
+for F in "${LIST[@]}"; do
+  testignore "${F}" && continue
+  COMPARE_LIST+=("${F}")
+done
+unset LIST
+templatecompare
+
 
 ### Evaluation of findings.
 
