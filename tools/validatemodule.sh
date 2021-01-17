@@ -538,7 +538,7 @@ done
 unset LIST
 templatecompare
 
-# JS and CSS files.
+# JS, CSS, Sass and SCSS files.
 COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
 COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=0
@@ -546,7 +546,9 @@ COMPARE_HINT='header'
 
 LIST=($(${FIND} . \
 | grep -e '\.js$' \
-       -e '\.css$'
+       -e '\.css$' \
+       -e '\.sass$' \
+       -e '\.scss$'
 ))
 COMPARE_LIST=()
 for F in "${LIST[@]}"; do
