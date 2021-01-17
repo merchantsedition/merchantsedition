@@ -89,15 +89,14 @@ if [ -e .git ]; then
   FIND="git ls-tree -r --name-only ${GIT_MASTER}"
 
   function git-grep {
-    local F P=()
+    local F P=() PREFIX_LEN
     while [ ${#} -ne 0 ] && [ "${1}" != '--' ]; do
       P+=("${1}")
       shift
     done
     shift
-    for F in $(git grep "${P[@]}" ${GIT_MASTER} -- "${@}"); do
-      echo "${F#${GIT_MASTER}:}"
-    done
+    let PREFIX_LEN=${#GIT_MASTER}+2
+    git grep "${P[@]}" ${GIT_MASTER} -- "${@}" | cut -b ${PREFIX_LEN}-
   }
   GREP='git-grep'
 
