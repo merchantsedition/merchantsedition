@@ -89,6 +89,11 @@ validate_filepermissions
 validate_whitespace
 
 
+### Capitalization.
+
+validate_companyname
+
+
 ### Documentation files.
 
 validate_documentation

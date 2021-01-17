@@ -366,6 +366,28 @@ function validate_whitespace {
   fi
 }
 
+# Test correct spelling of the company name.
+#
+# No parameters, no return values.
+function validate_companyname {
+  local L F MATCH
+  local TEXTFILES=("${TEXTFILEQUOTES[@]}" "${IGNOREFILEQUOTES[@]}")
+
+  while read L; do
+    F="${L%%:*}"
+    L="${L#*:}"
+
+    # Don't test the test code, it doesn't pass its self.
+    [ "${F}" = 'tools/validatecommon.sh' ] && continue
+
+    MATCH=$(echo "${L}" | grep -o -Ei "merchant'?s ?edition")
+    e "file ${F} contains '${MATCH}'; should be 'Merchant's Edition' or 'merchantsedition'."
+  done < <(
+    ${GREP} -Ei "merchant'?s ?edition" -- "${TEXTFILES[@]}" \
+    | grep -v -e "\bMerchant's Edition\b" -e '\bmerchantsedition\b'
+  )
+}
+
 # Test for presence of various documentation files.
 #
 # No parameters, no return values.
