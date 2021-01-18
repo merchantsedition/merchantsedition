@@ -555,7 +555,7 @@ COMPARE_1="${TEMPLATES_DIR}/header.tpl.tb.module"
 COMPARE_2="${TEMPLATES_DIR}/header.tpl.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
-readarray -t COMPARE_LIST <<< $(${FIND} . | grep '\.tpl$')
+COMPARE_LIST=($(${FIND} . | grep '\.tpl$'))
 [ -z "${COMPARE_LIST[*]}" ] && COMPARE_LIST=()
 templatecompare
 

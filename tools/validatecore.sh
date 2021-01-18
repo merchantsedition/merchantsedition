@@ -195,6 +195,16 @@ done
 unset LIST
 templatecompare
 
+# Smarty templates.
+COMPARE_1="${TEMPLATES_DIR}/header.tpl.me.core"
+COMPARE_2="${TEMPLATES_DIR}/header.tpl.metb.core"
+COMPARE_3="${TEMPLATES_DIR}/header.tpl.metbps.core"
+COMPARE_SKIP=0
+COMPARE_HINT='header'
+COMPARE_LIST=($(${FIND} . | grep '\.tpl$'))
+[ -z "${COMPARE_LIST[*]}" ] && COMPARE_LIST=()
+templatecompare
+
 
 ### Evaluation of findings.
 
