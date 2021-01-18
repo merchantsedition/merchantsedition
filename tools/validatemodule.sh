@@ -196,7 +196,6 @@ ENTRIES+=('displayName')
 ENTRIES+=('description')
 ENTRIES+=('tb_versions_compliancy')
 ENTRIES+=('tb_min_version')
-
 FAULT='false'
 for E in "${ENTRIES[@]}"; do
   if [ -z "$(constructorentry ${E})" ]; then
@@ -204,7 +203,6 @@ for E in "${ENTRIES[@]}"; do
     FAULT='true'
   fi
 done
-
 # TODO: replace this lame text with a documentation link.
 [ ${FAULT} = 'true' ] && \
   n "see PHP main class constructor, '\$this-><entry>'."
@@ -230,7 +228,6 @@ validate_companyname
 # and a few other well known names.
 NAME=$(constructorentry 'displayName')
 FAULT='false'
-
 for W in ${NAME}; do
   if [ ${#W} -gt 3 ] \
      && [ ${W} != 'thirty' ] \
@@ -518,7 +515,6 @@ COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
 COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=1
 COMPARE_HINT='header'
-
 LIST=($(${FIND} . \
 | grep -e '\.php$' \
        -e '\.phtml$' \
@@ -537,7 +533,6 @@ COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
 COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
-
 LIST=($(${FIND} . \
 | grep -e '\.js$' \
        -e '\.css$' \
