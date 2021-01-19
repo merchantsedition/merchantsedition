@@ -371,7 +371,6 @@ function validate_whitespace {
 # No parameters, no return values.
 function validate_companyname {
   local L F MATCH
-  local TEXTFILES=("${TEXTFILEQUOTES[@]}" "${IGNOREFILEQUOTES[@]}")
 
   while read L; do
     F="${L%%:*}"
@@ -383,7 +382,7 @@ function validate_companyname {
     MATCH=$(echo "${L}" | grep -o -Ei "merchant'?s ?edition")
     e "file ${F} contains '${MATCH}'; should be 'Merchant's Edition' or 'merchantsedition'."
   done < <(
-    ${GREP} -Ei "merchant'?s ?edition" -- "${TEXTFILES[@]}" \
+    ${GREP} -Ei "merchant'?s ?edition" -- "${TEXTFILEQUOTES[@]}" \
     | grep -v -e "\bMerchant's Edition\b" -e '\bmerchantsedition\b'
   )
 }
@@ -468,7 +467,6 @@ function validate_indexphp {
 #
 # No parameters, no return values.
 function validate_copyrightyear {
-  local TEXTFILES=("${TEXTFILEQUOTES[@]}" "${IGNOREFILEQUOTES[@]}")
   local CR_YEAR THIS_YEAR=$(date +%Y)
 
   while read L; do
@@ -489,6 +487,6 @@ function validate_copyrightyear {
     ${GREP} -n \
       -e " Copyright (C) .* Merchant's Edition" \
       -e " @copyright .* Merchant's Edition" \
-      -- "${TEXTFILES[@]}"
+      -- "${TEXTFILEQUOTES[@]}"
   )
 }
