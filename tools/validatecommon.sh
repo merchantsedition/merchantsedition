@@ -463,3 +463,32 @@ function validate_indexphp {
     || e "file index.php missing in ${D}/."
   done
 }
+
+# Test for an up to date copyright year.
+#
+# No parameters, no return values.
+function validate_copyrightyear {
+  local TEXTFILES=("${TEXTFILEQUOTES[@]}" "${IGNOREFILEQUOTES[@]}")
+  local CR_YEAR THIS_YEAR=$(date +%Y)
+
+  while read L; do
+    F="${L%%:*}"
+    L="${L#*:}"
+    N="${L%%:*}"
+    L="${L#*:}"
+
+    # Don't test the test code, it doesn't pass its self.
+    [ "${F}" = 'tools/validatecommon.sh' ] && continue
+
+    CR_YEAR=$(sed '{s/.* \([0-9-]*\) .*/\1/; s/[0-9]*-//;}' <<< "${L}")
+    [ "${CR_YEAR}" = "${THIS_YEAR}" ] || \
+      e "Copyright in ${F}, line ${N}, goes up to ${CR_YEAR}, should be ${THIS_YEAR}."
+    unset CR_YEAR
+  done < <(
+    # This potentially matches outside the header, but currently doesn't.
+    ${GREP} -n \
+      -e " Copyright (C) .* Merchant's Edition" \
+      -e " @copyright .* Merchant's Edition" \
+      -- "${TEXTFILES[@]}"
+  )
+}

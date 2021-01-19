@@ -206,6 +206,14 @@ COMPARE_LIST=($(${FIND} . | grep '\.tpl$'))
 templatecompare
 
 
+### Copyright mentions.
+#
+# As time goes on, the years in copyright mentions have to get updated. Make
+# sure this doesn't get forgotten.
+
+validate_copyrightyear
+
+
 ### Evaluation of findings.
 
 cat ${REPORT}
