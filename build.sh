@@ -141,11 +141,17 @@ if [ -n "${TARGET_DIR}" ] && ! [ -d "${TARGET_DIR}" ]; then
 fi
 
 # There should be no staged changes.
-if ([ ${OPTION_VALIDATE} = 'true' ] \
-    || [ ${OPTION_VALIDATE} = 'auto' ]) \
+if ([ ${OPTION_VALIDATE} = 'true' ] || [ ${OPTION_VALIDATE} = 'auto' ]) \
    && ([ $(git diff | wc -l) -ne 0 ] \
        || [ $(git diff --staged | wc -l) -ne 0 ]); then
   echo "There are uncommitted changes. Aborting."
+  exit 1
+fi
+
+# Validate entire core software.
+if ([ ${OPTION_VALIDATE} = 'true' ] || [ ${OPTION_VALIDATE} = 'auto' ]) \
+   && ! tools/validatecore.sh; then
+  echo "Core software about to be packaged doesn't validate. Aborting."
   exit 1
 fi
 
