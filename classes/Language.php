@@ -467,7 +467,7 @@ class LanguageCore extends ObjectModel
         $langPack = false;
         $errors = [];
         $file = _PS_TRANSLATIONS_DIR_.$iso.'.gzip';
-        $baseUri = "https://translations.thirtybees.com/packs/{$version}/";
+        $baseUri = 'https://translations.merchantsedition.com/packs/'.$version.'/';
 
         $guzzle = new GuzzleHttp\Client([
             'base_uri' => $baseUri,
@@ -479,7 +479,7 @@ class LanguageCore extends ObjectModel
             $langPackLink = (string) $guzzle->get("{$iso}.json")->getBody();
         } catch (Exception $e) {
             $langPackLink = false;
-            $errors[] = Tools::displayError('Language pack cannot be downloaded from thirtybees.com.');
+            $errors[] = Tools::displayError('Language pack cannot be downloaded from translations.merchantsedition.com.');
             $errors[] = sprintf(
                 Tools::displayError('Downloading %s failed (PHP message: %s).'),
                 $baseUri . "{$iso}.json",
@@ -600,11 +600,11 @@ class LanguageCore extends ObjectModel
         $lang->language_code = $isoCode; // Rewritten afterwards if the language code is available
         $lang->active = true;
 
-        // If the language pack has not been provided, retrieve it from translations.thirtybees.com
+        // If the language pack has not been provided, retrieve it from translations.merchantsedition.com
         if (!$langPack) {
             $version = implode('.', array_map('intval', explode('.', _TB_VERSION_, 3)));
             $guzzle = new GuzzleHttp\Client([
-                'base_uri' => "https://translations.thirtybees.com/packs/{$version}/",
+                'base_uri' => 'https://translations.merchantsedition.com/packs/'.$version.'/',
                 'timeout'  => 20,
                 'verify'   => _PS_TOOL_DIR_.'cacert.pem',
             ]);

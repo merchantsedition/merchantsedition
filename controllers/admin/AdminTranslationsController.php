@@ -40,7 +40,7 @@ class AdminTranslationsControllerCore extends AdminController
     /** @var array $ignore_folder List of folder which must be ignored */
     protected static $ignore_folder = ['.', '..', '.svn', '.git', '.htaccess', 'index.php'];
     /** @var string $link_lang_pack Link which list all pack of language */
-    protected $link_lang_pack = 'https://translations.thirtybees.com/packs/';
+    protected $link_lang_pack = 'https://translations.merchantsedition.com/packs/';
     /** @var int $total_expression number of sentence which can be translated */
     protected $total_expression = 0;
     /** @var int $missing_translations number of sentence which aren't translated */
