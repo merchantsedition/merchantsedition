@@ -295,6 +295,7 @@ EXCLUDE_FILE+=('build.sh')
 
 # Directories not needed in the release package.
 EXCLUDE_DIR=('docs')
+EXCLUDE_DIR+=('.github')
 EXCLUDE_DIR+=('examples')
 EXCLUDE_DIR+=('Examples')
 EXCLUDE_DIR+=('tests')
