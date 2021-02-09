@@ -116,7 +116,7 @@ LATEST_TAG=$(git tag | \
 echo "Packaging Git revision '${GIT_REVISION}'."
 unset LATEST_TAG
 
-PACKAGE_NAME="thirtybees-v${GIT_REVISION}"
+PACKAGE_NAME="merchantsedition-v${GIT_REVISION}"
 rm -f "${PACKAGE_NAME}".zip
 
 
@@ -169,8 +169,8 @@ if [ ${OPTION_VALIDATE} = 'auto' ]; then
     OPTION_VALIDATE='true'
   else
     echo "You're about to package a revision more than 30 commits old. You may"
-    echo "want to make sure to check out thirty bees core of that age to get"
-    echo "the package build tools used back then."
+    echo "want to make sure to check out merchantsedition core of that age to"
+    echo "get the package build tools used back then."
     OPTION_VALIDATE='false'
   fi
 fi
@@ -371,7 +371,7 @@ git cat-file -p ${GIT_REVISION}:themes | grep '^160000' | cut -d ' ' -f 3 | \
       LOCAL=$(git show -q ${DEFAULT_BRANCH} | head -1 | cut -d ' ' -f 2)
       if [ ${HASH} != ${LOCAL} ]; then
         echo "Repository ${THEME} not up to date, branch ${DEFAULT_BRANCH} not"
-        echo "committed in thirty bees core. Aborting."
+        echo "committed in merchantsedition core. Aborting."
         exit 1
       fi
 
