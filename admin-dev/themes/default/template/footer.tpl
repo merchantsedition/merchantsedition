@@ -28,26 +28,25 @@
 </div>
 {if $display_footer}
 <div id="footer" class="bootstrap hide">
-
 	<div class="col-sm-3 hidden-xs">
-		<a href="http://www.thirtybees.com/" class="_blank">thirty bees&trade;</a>
+		<a href="https://www.merchantsedition.com" class="_blank">Merchant's Edition</a>
 		-
 		<span id="footer-load-time"><i class="icon-time" title="{l s='Load time: '}"></i> {number_format(microtime(true) - $timer_start, 3, '.', '')}s</span>
 	</div>
 
 	<div class="col-sm-6">
 		<div class="footer-contact">
-			<a href="https://thirtybees.com/contact/?utm_source=back-office&amp;utm_medium=footer&amp;utm_campaign=back-office-{$lang_iso|upper}&amp;utm_content=download" class="footer_link _blank">
+			<a href="mailto:contact@merchantsedition.com?subject=Hello from {$base_url|regex_replace:"/^https?:\/\//":""|regex_replace:"/\/$/":""}" class="footer_link _blank">
 				<i class="icon-envelope"></i>
 				{l s='Contact'}
 			</a>
 			/&nbsp;
-			<a href="https://forum.thirtybees.com/category/10/bug-reports/?utm_source=back-office&amp;utm_medium=footer&amp;utm_campaign=back-office-{$lang_iso|upper}&amp;utm_content=download" class="footer_link _blank">
+			<a href="https://github.com/merchantsedition/merchantsedition/issues" class="footer_link _blank">
 				<i class="icon-bug"></i>
 				{l s='Bug Tracker'}
 			</a>
 			/&nbsp;
-			<a href="https://forum.thirtybees.com/?utm_source=back-office&amp;utm_medium=footer&amp;utm_campaign=back-office-{$lang_iso|upper}&amp;utm_content=download" class="footer_link _blank">
+			<a href="https://forum.thirtybees.com" class="footer_link _blank">
 				<i class="icon-comments"></i>
 				{l s='Forum'}
 			</a>
