@@ -8,9 +8,11 @@ This is Merchant's Edition's default and only back office theme. It comes with a
 Only styles need building. If tools were installed as described in [Prerequisites](#Prerequisites), it goes like this:
 ```
   cd admin-dev/themes/default
-  "${HOME}"/.gem/bin/compass compile
+  "${HOME}"/.gem/ruby/*/bin/compass compile
 ```
-Compiled results get committed into the code repository.
+Compilation takes a while, like 2 minutes. Compass' memory footprint is fairly low, less than 300 MiB.
+
+Compiled results should get committed into the code repository.
 
 
 ## Prerequisites
@@ -21,14 +23,16 @@ Compiling the theme requires Compass, a tool written in Ruby.
 
 This is a conservative approach, keeping system wide installations at a minimum.
 ```
-  sudo snap install ruby
-  gem install compass
+  sudo apt-get install ruby-full
+  gem install --user-install compass
 ```
 
 ### Cleanup on Debian/Ubuntu:
 
 Tidy people may want to cleanup after being done. This assumes no other Ruby Gems are installed:
 ```
-  sudo snap remove ruby
+  sudo apt-get purge ruby-full
+  sudo apt-get --purge autoremove
   rm -r "${HOME}"/.gem
+  rm -r admin-dev/themes/default/.sass-cache
 ```
