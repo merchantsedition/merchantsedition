@@ -310,6 +310,8 @@ KEEP=('docs')               # For CSV import samples, linked in back office.
 # Exclude paths, for individual files and directories to be excluded.
 # EXCLUDE_PATH=('generatemd5list.php')  <- Can't get removed.
 EXCLUDE_PATH=('tools/buildmodule.sh')
+EXCLUDE_PATH+=('tools/validatecommon.sh')
+EXCLUDE_PATH+=('tools/validatecore.sh')
 EXCLUDE_PATH+=('tools/validatemodule.sh')
 EXCLUDE_PATH+=('tools/templates/')
 
