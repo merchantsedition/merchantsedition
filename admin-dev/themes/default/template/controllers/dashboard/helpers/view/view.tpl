@@ -93,25 +93,6 @@
 				<div class="dash_news_content"></div>
 				<div class="text-center"><h4><a href="https://thirtybees.com/blog/" onclick="return !window.open(this.href, '_blank');">{l s='Find more news'}</a></h4></div>
 			</section>
-			<section class="dash_links panel">
-				<h3><i class="icon-link"></i> {l s="Useful links"}</h3>
-					<dl>
-						<dt><a href="https://docs.thirtybees.com/" class="_blank">{l s="Official Documentation"}</a></dt>
-						<dd>{l s="User, Developer and Designer Guides"}</dd>
-					</dl>
-					<dl>
-						<dt><a href="https://forum.thirtybees.com/?utm_source=back-office&amp;utm_medium=dashboard&amp;utm_campaign=back-office-{$lang_iso|upper}&amp;utm_content={if $host_mode}cloud{else}download{/if}" class="_blank">{l s="thirty bees Forum"}</a></dt>
-						<dd>{l s="Connect with the thirty bees community"}</dd>
-					</dl>
-					<dl>
-						<dt><a href="https://store.thirtybees.com?utm_source=back-office&amp;utm_medium=dashboard&amp;utm_campaign=back-office-{$lang_iso|upper}&amp;utm_content=download" class="_blank">{l s="thirty bees apps"}</a></dt>
-						<dd>{l s="Enhance your store with templates & modules"}</dd>
-					</dl>
-					<dl>
-						<dt><a href="https://github.com/thirtybees/thirtybees/issues" class="_blank">{l s="GitHub issues page"}</a></dt>
-						<dd>{l s="Report issues in the Bug Tracker"}</dd>
-					</dl>
-			</section>
 		</div>
 	</div>
 </div>
