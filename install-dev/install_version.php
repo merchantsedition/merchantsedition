@@ -25,4 +25,4 @@
  * thirty bees is an extension to the PrestaShop software by PrestaShop SA.
  */
 
-define('_TB_INSTALL_VERSION_', '1.9.0');
+define('_TB_INSTALL_VERSION_', '1.9.1');
