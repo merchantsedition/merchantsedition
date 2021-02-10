@@ -1,6 +1,6 @@
 # Back Office Theme
 
-This is thirty bees' default and only back office theme. It comes with a couple of styles.
+This is Merchant's Edition's default and only back office theme. It comes with a couple of styles.
 
 
 ## Building
