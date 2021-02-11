@@ -42,10 +42,10 @@ The majority of Merchant’s Edition is written in PHP, but in our codebase you 
 
 #### Table names
 
-1. Table names must begin with the `_DB_PREFIX_` prefix.
-2. Table names must have the same name as the object they reflect: `ps_cart` (replace `ps_` with your own prefix).
-3. Table names are singular: `ps_order`
-4. Language data has to be stored in a table named exactly like the object's table, but also has the `_lang` suffix: `ps_product_lang`.
+1. Table names must begin with the `_DB_PREFIX_` prefix. `_DB_PREFIX_` matches what the user happened to have configured as table prefix.
+2. Table names must have the same name as the object they reflect: `_DB_PREFIX_.'cart'`.
+3. Table names are singular: `_DB_PREFIX_.'order'`
+4. Language data has to be stored in a table named exactly like the object's table, but also has the `_lang` suffix: `_DB_PREFIX_.'product_lang'`.
 5. The same goes for specific shop data. These tables require the `_shop` suffix.
 
 #### SQL Query
