@@ -221,15 +221,15 @@ class AdminDashboardControllerCore extends AdminController
             return parent::renderOptions();
         }
 
-        // $translations = array(
-        // 	'Calendar' => $this->l('Calendar', 'AdminStatsTab'),
-        // 	'Day' => $this->l('Day', 'AdminStatsTab'),
-        // 	'Month' => $this->l('Month', 'AdminStatsTab'),
-        // 	'Year' => $this->l('Year', 'AdminStatsTab'),
-        // 	'From' => $this->l('From:', 'AdminStatsTab'),
-        // 	'To' => $this->l('To:', 'AdminStatsTab'),
-        // 	'Save' => $this->l('Save', 'AdminStatsTab')
-        // );
+        //$translations = [
+        //    'Calendar' => $this->l('Calendar', 'AdminStatsTab'),
+        //    'Day' => $this->l('Day', 'AdminStatsTab'),
+        //    'Month' => $this->l('Month', 'AdminStatsTab'),
+        //    'Year' => $this->l('Year', 'AdminStatsTab'),
+        //    'From' => $this->l('From:', 'AdminStatsTab'),
+        //    'To' => $this->l('To:', 'AdminStatsTab'),
+        //    'Save' => $this->l('Save', 'AdminStatsTab'),
+        //];
 
         $testStatsDateUpdate = $this->context->cookie->__get('stats_date_update');
         if (!empty($testStatsDateUpdate) && $this->context->cookie->__get('stats_date_update') < strtotime(date('Y-m-d'))) {
@@ -417,7 +417,10 @@ class AdminDashboardControllerCore extends AdminController
      */
     public function ajaxProcessGetBlogRss()
     {
-        $return = array('has_errors' => false, 'rss' => array());
+        $return = [
+            'has_errors'  => false,
+            'rss'         => [],
+        ];
         if (!$this->isFresh('/config/xml/blog-'.$this->context->language->iso_code.'.xml', 86400)) {
             if (!$this->refresh('/config/xml/blog-'.$this->context->language->iso_code.'.xml', 'https://thirtybees.com/feed/')) {
                 $return['has_errors'] = true;
@@ -434,19 +437,19 @@ class AdminDashboardControllerCore extends AdminController
                     if ($articlesLimit > 0 && Validate::isCleanHtml((string) $item->title) && Validate::isCleanHtml((string) $item->description)
                         && isset($item->link) && isset($item->title)
                     ) {
-                        if (in_array($this->context->mode, array(Context::MODE_HOST, Context::MODE_HOST_CONTRIB))) {
+                        if (in_array($this->context->mode, [Context::MODE_HOST, Context::MODE_HOST_CONTRIB])) {
                             $utmContent = 'cloud';
                         } else {
                             $utmContent = 'download';
                         }
                         $shopDefaultCountryId = (int) Configuration::get('PS_COUNTRY_DEFAULT');
                         $shopDefaultIsoCountry = (string) mb_strtoupper(Country::getIsoById($shopDefaultCountryId));
-                        $analyticsParams = array(
+                        $analyticsParams = [
                             'utm_source'   => 'back-office',
                             'utm_medium'   => 'rss',
                             'utm_campaign' => 'back-office-'.$shopDefaultIsoCountry,
                             'utm_content'  => $utmContent,
-                        );
+                        ];
                         $urlQuery = parse_url($item->link, PHP_URL_QUERY);
                         parse_str($urlQuery, $linkQueryParams);
                         if ($linkQueryParams) {
@@ -457,12 +460,12 @@ class AdminDashboardControllerCore extends AdminController
                         } else {
                             $articleLink = (string) $item->link.'?'.http_build_query($analyticsParams);
                         }
-                        $return['rss'][] = array(
+                        $return['rss'][] = [
                             'date'       => Tools::displayDate(date('Y-m-d', strtotime((string) $item->pubDate))),
                             'title'      => (string) Tools::htmlentitiesUTF8($item->title),
                             'short_desc' => Tools::truncateString(strip_tags((string) $item->description), 150),
                             'link'       => (string) $articleLink,
-                        );
+                        ];
                     } else {
                         break;
                     }
