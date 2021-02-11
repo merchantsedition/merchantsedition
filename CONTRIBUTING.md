@@ -9,7 +9,9 @@ In order to contribute to this project, you need to be familiar with Git, an ope
 - A nice tutorial about Git can be found here: https://try.github.io/
 - GitHub help: https://help.github.com/
 
-Contributing to this project via Git can be done as follows:
+Code changes are welcome in whichever way is convenient for you. Diffs, Patches, exported Git commits, sent by email, send in the issue tracker, sent as pull requests, pick your choice. We don't use pull requests directly, anyways (can't test on the Github server), so it really doesn't matter.
+
+Contributing to this project by pull requests (not our, but Github's favorite) can be done as follows:
 - Fork this project to your own GitHub account
 - Recursively clone this project to your local machine (use e.g. `git clone git@github.com:username/merchantsedition.git --recursive`)
 - Optionally install the dependencies of this project to test it on your local machine (`composer install` in the root directory)
