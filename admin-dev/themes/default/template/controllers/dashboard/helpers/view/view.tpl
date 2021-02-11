@@ -89,9 +89,9 @@
 		</div>
 		<div class="col-md-12 col-lg-2">
 			<section class="dash_news panel">
-				<h3><i class="icon-rss"></i> {l s='thirty bees News'}</h3>
+				<h3><i class="icon-rss"></i> {l s='Merchant\'s Edition News'}</h3>
 				<div class="dash_news_content"></div>
-				<div class="text-center"><h4><a href="https://thirtybees.com/blog/" onclick="return !window.open(this.href, '_blank');">{l s='Find more news'}</a></h4></div>
+				<div class="text-center"><h4><a href="https://www.merchantsedition.com/blog/" onclick="return !window.open(this.href, '_blank');">{l s='Find more news'}</a></h4></div>
 			</section>
 		</div>
 	</div>
