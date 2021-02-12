@@ -102,7 +102,7 @@ $min-height: 850px
 							padding: 8px 8px
 							min-height: 34px
 						background-color: $main-color
-						&:hover
+						&:hover, &:focus
 							color: $sidebar-menu-hover-color
 							text-decoration: none
 							background-color: $sidebar-menu-bg-hover-color
@@ -131,9 +131,10 @@ $min-height: 850px
 					@include transition-timing-function(ease-out)
 				span
 					padding-left: 10px
-			&.hover, &:hover:not(.hover)
+			&.hover, &:hover:not(.hover), &:focus
 				> a.title
 					color: $sidebar-menu-hover-color
+					text-decoration: none
 					background-color: $sidebar-menu-bg-hover-color
 					i
 						color: $sidebar-menu-hover-color
@@ -166,7 +167,7 @@ $min-height: 850px
 				a, li.active a
 					color: $sidebar-menu-active-color
 					&.title
-						border-right: 3px solid #fff
+						border-right: 3px solid $primary-color
 						background-color: $sidebar-menu-bg-hover-color
 					i
 						color: $sidebar-menu-active-color

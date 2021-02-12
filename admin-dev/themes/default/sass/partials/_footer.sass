@@ -31,12 +31,13 @@
 	position: fixed
 	bottom: 0
 	z-index: 600
-	background-color: rgba(black,0.8)
-	color: #aaa
+	background-color: rgba($main-color, 0.8)
+	color: $sidebar-menu-color
 	line-height: 50px
 	@include animate(fadeInUp, 0.3s)
-	a
-		color: #ccc
+	a:hover
+		color: lighten($brand-primary, 20%)
+		text-decoration: none
 	&.hide
 		display: none!important
 	#go-top
@@ -60,10 +61,6 @@
 		&:hover
 			background-color: $brand-primary
 	a.footer_link
-		color: $brand-primary
-		&:hover
-			color: white
-			text-decoration: none
 		i
 			font-size: $icon-size-base
 			color: white
