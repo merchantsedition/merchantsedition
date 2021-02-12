@@ -193,7 +193,7 @@ $min-height: 850px
 @media (max-height: $min-height)
 	body:not(.page-sidebar-closed)
 		#nav-sidebar ul.menu li.maintab > a.title
-			font-size: 12px
+			font-size: $sidebar-menu-font-size
 			height: 28px
 			line-height: 28px
 			i
@@ -204,6 +204,7 @@ $min-height: 850px
 		#nav-sidebar ul.menu li.maintab ul.submenu
 			@include padding(1px, 1px, 0, 1px)
 			li a
+				font-size: $sidebar-menu-font-size
 				padding: 0 6px
 				height: 27px
 				line-height: 27px
@@ -308,7 +309,7 @@ $min-height: 850px
 				color: lighten($main-color,20%)
 				padding: 0 6px
 				margin: 0
-				font-size: 12px
+				font-size: $sidebar-menu-font-size
 				i
 					margin: 0
 					width: 15px
@@ -429,7 +430,7 @@ $min-height: 850px
 				line-height: $menu-item-size
 				position: relative
 				border-bottom: 1px solid darken($main-color,10%)
-				font-size: 12px
+				font-size: $sidebar-menu-font-size
 				color: mix($main-color, contrast-color($main-color, white, #333), 30%)
 				background-color: $main-color
 				text-transform: uppercase
