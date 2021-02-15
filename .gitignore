@@ -57,6 +57,7 @@ composer.dev.json
 /admin-dev/themes/default/css/ie.css
 /admin-dev/themes/default/css/print.css
 /admin-dev/themes/default/css/screen.css
+/admin-dev/themes/default/css/**/*.map
 
 # Translations and emails templates
 

@@ -7,6 +7,8 @@ images_dir = "img"
 javascripts_dir = "js"
 fonts_dir = "fonts"
 
+sourcemap = true
+
 output_style = :compressed
 environment = :production
 

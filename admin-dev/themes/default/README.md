@@ -12,7 +12,8 @@ Only styles need building. If tools were installed as described in [Prerequisite
 ```
 Compilation takes a while, like 2 minutes. Compass' memory footprint is fairly low, less than 300 MiB.
 
-Compiled results should get committed into the code repository.
+Compiled CSS should get committed into the code repository. Not compiled source
+maps, though, as these are only useful during development.
 
 
 ## Prerequisites
