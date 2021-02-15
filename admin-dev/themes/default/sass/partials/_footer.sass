@@ -35,9 +35,9 @@
 	color: $sidebar-menu-color
 	line-height: 50px
 	@include animate(fadeInUp, 0.3s)
-	a:hover
+	a:hover, a:focus
 		color: lighten($brand-primary, 20%)
-		text-decoration: none
+		outline: none
 	&.hide
 		display: none!important
 	#go-top

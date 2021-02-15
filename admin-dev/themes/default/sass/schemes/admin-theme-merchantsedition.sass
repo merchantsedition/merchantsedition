@@ -41,6 +41,18 @@ $sidebar-menu-active-color: $me-gold
 $sidebar-menu-hover-color: lighten(#CECECE, 20%)
 $sidebar-menu-bg-hover-color: $me-admiral-blue
 
+// Scaffolding
+$body-bg: $bg-content-color
+$link-hover-color: lighten($me-admiral-blue, 10%)
+#content a:not(.btn):not(.list-group-item):not(.toolbar_btn):not(.list-toolbar-btn)
+  text-decoration: dotted underline
+.dropdown-menu a, .nav-tabs a, a.chosen-single
+  text-decoration: none !important
+#footer a
+  color: $me-gold !important
+  &:hover, &:focus
+    color: lighten($me-gold, 15%) !important
+
 // Menu
 $menu-bg: $main-color
 $sidebar-menu-font-size: 14px
