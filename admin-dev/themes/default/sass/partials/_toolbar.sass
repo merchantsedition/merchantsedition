@@ -77,7 +77,7 @@
 				padding: 20px 5px !important
 				font-size: 12px
 				line-height: 8px
-				color: $main-color
+				color: $toolbar-buttons-color
 				text-align: center
 				text-shadow: none
 				white-space: nowrap
@@ -87,10 +87,9 @@
 				@media (max-width: $screen-desktop)
 					width: 46px
 					font-size: 11px
-				i
-					color: $toolbar-buttons-color
-					&:hover
-						color: $toolbar-buttons-hover-color
+				&:hover, &:focus
+					color: $toolbar-buttons-hover-color
+					outline: none
 				div
 					padding-top: 10px
 			.dropdown-toolbar
