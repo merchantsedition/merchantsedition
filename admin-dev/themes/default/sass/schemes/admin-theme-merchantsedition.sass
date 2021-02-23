@@ -67,6 +67,19 @@ $btn-primary-border: darken($me-admiral-blue, 5%)
   &:hover, &:focus
     background-color: lighten($me-admiral-blue, 10%) !important
 
+// Switch
+$switch-yes-color: $me-admiral-blue
+$switch-yes-bg: $me-gold
+$switch-yes-border: darken($me-gold, 5%)
+$switch-no-color: white
+$switch-no-bg: $me-admiral-blue
+$switch-no-border: darken($me-admiral-blue, 10%)
+.prestashop-switch
+  input:checked + label
+    font-weight: 700
+  input:last-of-type:checked + label
+    font-weight: 400
+
 // Toolbar
 $toolbar-buttons-color: #363A41 // Same as title to the left of these buttons.
 $toolbar-buttons-hover-color: lighten(#363A41, 10%)
