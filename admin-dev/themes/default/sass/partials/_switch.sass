@@ -83,7 +83,6 @@
 		z-index: 1
 		width: 50%
 		height: 100%
-		color: white
 		border: solid 1px $switch-yes-border
 		background-color: $switch-yes-bg
 		@include left(0)
@@ -135,8 +134,10 @@
 			font-weight: 400
 			cursor: pointer
 			@include transition(color 0.2s ease-out)
-		input:checked + label
-			color: white
+		input:checked:enabled + label
+			color: $switch-yes-color
+		input:last-of-type:checked:enabled + label
+			color: $switch-no-color
 		> span
 			color: #666
 			text-transform: uppercase
