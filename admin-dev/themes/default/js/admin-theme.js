@@ -113,7 +113,6 @@ $(document).ready(function() {
 		$('.maintab').not('.active').closest('.submenu').hide();
 		sidebar.on('click','.submenu_expand', function(){
 			var $navId = $(this).parent();
-			$('.submenu-collapse').remove();
 			if($('.expanded').length ){
 				$('.expanded > ul').slideUp('fast', function(){
 					var $target = $('.expanded');
@@ -127,42 +126,6 @@ $(document).ready(function() {
 				$($navId).not('.active').children('ul:first').hide().slideDown();
 			}
 		});
-		//sidebar menu collapse
-		sidebar.find('.menu-collapse').on('click',function(){
-			$(this).toggleClass('icon-rotate-90');
-
-			if ($(this).hasClass('icon-rotate-90')) {
-				$(this).css('margin-left', '5px');
-				$('.page-head .page-title').css('padding-left', '70px');
-				$('.page-head .breadcrumb').css('left', '70px');
-				$('.page-head .page-subtitle').css('left', '70px');
-
-			} else {
-				$(this).css('margin-left', '');
-				$('.page-head .page-title').css('padding-left', '230px');
-				$('.page-head .breadcrumb').css('left', '230px');
-				$('.page-head .page-subtitle').css('left', '230px');
-			}
-
-			$('body').toggleClass('page-sidebar-closed');
-			$('.expanded').removeClass('expanded');
-			$.ajax({
-				url: "index.php",
-				cache: false,
-				data: "token="+employee_token+'&ajax=1&action=toggleMenu&tab=AdminEmployees&collapse='+Number($('body').hasClass('page-sidebar-closed'))
-			});
-		});
-
-		var menuCollapse = sidebar.find('.menu-collapse');
-
-		if ($('body').hasClass('page-sidebar-closed')) {
-			menuCollapse.addClass('icon-rotate-90');
-			menuCollapse.css('margin-left', '5px');
-			$('.page-head .page-title').css('padding-left', '70px');
-			$('.page-head .breadcrumb').css('left', '70px');
-			$('.page-head .page-subtitle').css('left', '70px');
-
-		}
 	}
 
 	function navTopbarReset() {
@@ -222,7 +185,6 @@ $(document).ready(function() {
 		var submenu = "";
 		// clean trigger
 		navigation.off().attr('id','nav-mobile');
-		$('span.menu-collapse').off();
 		$('#header_nav_toggle').on('click', function() {
 			if ($(this).hasClass('expanded')){
 				$(this).find('i').removeClass().addClass('icon-reorder');

@@ -378,8 +378,6 @@ $min-height: 850px
 			li.subtab.expanded > ul
 				top: 0
 				@include left(-200px)
-	.menu-collapse
-		display: none
 
 #nav-mobile
 	position: fixed
@@ -392,11 +390,6 @@ $min-height: 850px
 		width: 100%
 		height: 100%
 		top: 35px
-		.menu-collapse
-			top: -35px
-			position: absolute
-			z-index: 1200
-			@include left(0)
 	ul.menu
 		position: absolute
 		display: none
@@ -471,23 +464,6 @@ $min-height: 850px
 		font-size: 1.5em
 	ul.menu.menu-close
 		@include animate(fadeOutLeft, 0.2s)
-	.menu-collapse
-		color: white
-		background-color: black
-		width: 35px
-		height: 35px
-		text-align: center
-		line-height: 1.3em
-
-.menu-collapse
-	cursor: pointer
-	height: 54px
-	width: 100%
-	font-size: 2em
-	text-align: center
-	line-height: 55px
-	display: block
-	color: #BEBEBE
 
 .mobile-nav
 	#content
