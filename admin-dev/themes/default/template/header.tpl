@@ -120,7 +120,7 @@
 	<header id="header" class="bootstrap">
 		<nav id="header_infos" role="navigation">
 			<div class="navbar-header">
-				<button id="header_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
+				<button id="header_nav_toggle" type="button" class="navbar-toggle">
 					<i class="icon-reorder"></i>
 				</button>
 				<a id="header_shopversion" href="{$default_tab_link|escape:'html':'UTF-8'}">

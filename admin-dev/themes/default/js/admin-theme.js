@@ -219,14 +219,13 @@ $(document).ready(function() {
 		// clean actual menu type
 		// get it in navigation whatever type it is
 		var navigation = $('#nav-sidebar,#nav-topbar');
-		navigation.find('.menu').hide();
 		var submenu = "";
 		// clean trigger
 		navigation.off().attr('id','nav-mobile');
 		$('span.menu-collapse').off();
-		navigation.on('click.collapse','span.menu-collapse',function(){
+		$('#header_nav_toggle').on('click', function() {
 			if ($(this).hasClass('expanded')){
-				$(this).html('<i class="icon-align-justify"></i>');
+				$(this).find('i').removeClass().addClass('icon-reorder');
 				navigation.find('ul.menu').hide();
 				navigation.removeClass('expanded');
 				$(this).removeClass('expanded');
@@ -234,7 +233,7 @@ $(document).ready(function() {
 				$('#nav-mobile-submenu').remove();
 			}
 			else {
-				$(this).html('<i class="icon-remove"></i>');
+				$(this).find('i').removeClass().addClass('icon-remove');
 				navigation.find('ul.menu').removeClass('menu-close').show();
 				navigation.addClass('expanded');
 				$(this).addClass('expanded');
@@ -263,7 +262,7 @@ $(document).ready(function() {
 	function removeMobileNav(){
 		var navigation = $('#nav-mobile');
 		$('#nav-mobile-submenu').remove();
-		$('span.menu-collapse').html('<i class="icon-align-justify"></i>');
+		$('#header_nav_toggle i').removeClass().addClass('icon-reorder');
 		navigation.off();
 		if ($('body').hasClass('page-sidebar')){
 			navigation.attr('id',"nav-sidebar");

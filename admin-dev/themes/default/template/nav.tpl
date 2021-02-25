@@ -57,9 +57,6 @@
 				{/if}
 			{/foreach}
 		</ul>
-		<span class="menu-collapse">
-			<i class="icon-align-justify icon-rotate-90"></i>
-		</span>
 		{hook h='displayAdminNavBarBeforeEnd'}
 	</nav>
 </div>
