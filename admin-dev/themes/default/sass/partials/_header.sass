@@ -30,7 +30,7 @@
 	@extend .navbar
 	@extend .navbar-inverse
 	@extend .navbar-fixed-top
-	height: 36px !important
+	height: $navbar-height !important
 	.navbar-header
 		width: 100%
 
@@ -38,9 +38,8 @@
 	@extend .navbar-brand
 	font-size: 1.3em !important
 	position: relative
-	height: 36px
 	background: url('#{$avatar-img}') no-repeat top left
-	background-size: auto 36px
+	background-size: auto $navbar-height
 	padding-left: 140px !important
 	@include margin(0, 5px, 0, 0)
 	#shop_version
@@ -56,9 +55,6 @@
 	@extend .navbar-nav
 	@extend .hidden-xs
 	min-width: 170px
-	> li > a
-		height: 36px
-		display: block
 	> li > a > i
 		font-size: $icon-size-base
 		vertical-align: middle
@@ -151,7 +147,7 @@
 	.employee_avatar_small
 		.img-thumbnail
 			@include border-radius(0)
-		@include avatar(36px, 0px)
+		@include avatar($navbar-height, 0px)
 		position: absolute
 		top: 0px
 		@include right(0)
@@ -162,9 +158,9 @@
 	i
 		font-size: $icon-size-base
 	@media (max-width: $screen-sm)
-		position: fixed !important
-		top: 36px !important
-		width: 100% !important
+		position: fixed
+		top: $navbar-height
+		width: 100%
 		li
 			font-size: 1.2em
 			text-transform: uppercase
@@ -198,8 +194,8 @@
 
 #ajax_running
 	position: absolute
-	height: 35px
-	width: 35px
+	height: $navbar-height
+	width: $navbar-height
 	top: 0
 	background-color: $navbar-inverse-bg
 	text-align: center
@@ -207,4 +203,4 @@
 	i
 		font-size: 20px
 		color: $ajax-running-color
-		line-height: 35px
+		line-height: $navbar-height
