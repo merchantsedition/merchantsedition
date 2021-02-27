@@ -166,11 +166,26 @@ class AdminEmployeesControllerCore extends AdminController
 
                 // Add all available styles.
                 if (is_readable($path.$theme.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'schemes'.$rtl)) {
+                    // Prettify some known names.
+                    $nameMap = [
+                        'merchantsedition'  => 'Merchant\'s Edition',
+                        'thirtybees'        => 'thirty bees',
+                    ];
+
                     foreach (scandir($path.$theme.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'schemes'.$rtl) as $css) {
                         if ($css[0] != '.' && preg_match('/\.css$/', $css)) {
-                            $name = strpos($css, 'admin-theme-') !== false ? Tools::ucfirst(preg_replace('/^admin-theme-(.*)\.css$/', '$1', $css)) : $css;
-                            $name = str_replace('_rtl', '', $name);
-                            $this->themes[] = ['id' => $theme.'|schemes'.$rtl.'/'.$css, 'name' => $name];
+                            $name = preg_replace('/^admin-theme-(.*)\.css$/', '$1', $css);
+                            $name = preg_replace('/_rtl$/', '', $name);
+                            if (array_key_exists($name, $nameMap)) {
+                                $name = $nameMap[$name];
+                            } elseif ( ! preg_match('/\.css$/', $css)) {
+                                $name = ucfirst($name);
+                            }
+
+                            $this->themes[] = [
+                                'id'    => $theme.'|schemes'.$rtl.'/'.$css,
+                                'name'  => $name,
+                            ];
                         }
                     }
                 }
