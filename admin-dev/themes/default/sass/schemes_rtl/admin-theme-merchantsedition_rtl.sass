@@ -1,0 +1,101 @@
+/**
+ * Copyright (C) 2021 Merchant's Edition GbR
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to contact@merchantsedition.com so we can send you a copy immediately.
+ *
+ * @author    Merchant's Edition <contact@merchantsedition.com>
+ * @copyright 2021 Merchant's Edition GbR
+ * @license   Open Software License (OSL 3.0)
+ */
+
+/**
+ * Merchant's Edition default admin theme.
+ */
+
+// Company Colors
+$me-admiral-blue: #11346e
+$me-gold:         #ffd700
+
+@import "modules/colors"
+$fa-font-path: "../../fonts"
+$img-path: "../../img"
+
+// Colors
+$main-color: darken($me-admiral-blue, 10%)
+$primary-color: $me-admiral-blue
+$secondary-color: darken($me-admiral-blue, 10%)
+// This equals transparentize($brand-primary, 0.3) on white background:
+$bg-content-color: mix($me-admiral-blue, #fff, 30%)
+
+// Sidebar
+$sidebar-menu-color: #CECECE
+$sidebar-menu-active-color: $me-gold
+$sidebar-menu-hover-color: lighten(#CECECE, 20%)
+$sidebar-menu-bg-hover-color: $me-admiral-blue
+
+// Scaffolding
+$body-bg: $bg-content-color
+$link-hover-color: lighten($me-admiral-blue, 10%)
+#content a:not(.btn):not(.list-group-item):not(.toolbar_btn):not(.list-toolbar-btn)
+  text-decoration: dotted underline
+.dropdown-menu a, .nav-tabs a, a.chosen-single
+  text-decoration: none !important
+#footer a
+  color: $me-gold !important
+  &:hover, &:focus
+    color: lighten($me-gold, 15%) !important
+
+// Menu
+$menu-bg: $main-color
+$sidebar-menu-font-size: 14px
+
+// Buttons
+$btn-default-color: #222 // $gray-darker
+.btn-default:hover
+  color: $me-gold !important
+$btn-primary-bg: $me-admiral-blue
+$btn-primary-border: darken($me-admiral-blue, 5%)
+.btn-primary
+  &:hover, &:focus
+    background-color: lighten($me-admiral-blue, 10%) !important
+
+// Switch
+$switch-yes-color: $me-admiral-blue
+$switch-yes-bg: $me-gold
+$switch-yes-border: darken($me-gold, 5%)
+$switch-no-color: white
+$switch-no-bg: $me-admiral-blue
+$switch-no-border: darken($me-admiral-blue, 10%)
+.prestashop-switch
+  input:checked + label
+    font-weight: 700
+  input:last-of-type:checked + label
+    font-weight: 400
+
+// Toolbar
+$toolbar-buttons-color: #363A41 // Same as title to the left of these buttons.
+$toolbar-buttons-hover-color: lighten(#363A41, 10%)
+
+// Navbar
+$navbar-inverse-bg: $me-admiral-blue
+$navbar-inverse-link-color: white
+$navbar-inverse-link-hover-color: $me-gold
+$ajax-running-color: $me-gold
+#header_notifs_icon_wrapper
+  .notifs_badge
+    color: $me-admiral-blue !important
+    background-color: $me-gold !important
+
+// Header logo
+$avatar-img: '#{$img-path}/merchantsedition-long-gold.png'
+
+// Let's go party!
+@import "admin-theme_rtl"
