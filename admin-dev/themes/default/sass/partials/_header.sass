@@ -34,16 +34,20 @@
 	.navbar-header
 		width: 100%
 
+#header_logo
+	width: 200px
+	height: $navbar-height
+	margin-left: 0.5em
+	background: url('#{$avatar-img}') no-repeat center
+	background-size: contain
+	@media (max-width: $screen-xs)
+		display: none
 #header_shopversion
 	@extend .navbar-brand
-	font-size: 1.3em !important
-	position: relative
-	background: url('#{$avatar-img}') no-repeat top left
-	background-size: auto $navbar-height
-	padding-left: 140px !important
-	@include margin(0, 5px, 0, 0)
+	@include margin(0, 1em, 0, 0)
 	#shop_version
 		font-size: 10px
+		line-height: ($navbar-height - 5px)
 	@media (max-width: $screen-xs)
 		display: none
 #header_shopname
