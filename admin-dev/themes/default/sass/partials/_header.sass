@@ -198,13 +198,14 @@
 
 #ajax_running
 	position: absolute
+	@include left(8px)
 	height: $navbar-height
 	width: $navbar-height
 	top: 0
-	background-color: $navbar-inverse-bg
+	background-color: transparent
 	text-align: center
-	@include left(0)
 	i
 		font-size: 20px
 		color: $ajax-running-color
 		line-height: $navbar-height
+		text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff
