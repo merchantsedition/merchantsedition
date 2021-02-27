@@ -142,8 +142,8 @@ class AdminEmployeesControllerCore extends AdminController
         foreach (scandir($path) as $theme) {
             if ($theme[0] != '.' && is_dir($path.$theme) && (@filemtime($path.$theme.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'admin-theme.css'))) {
                 if ($theme === 'default') {
-                    // Use thirty bees style as default.
-                    $cssFile = 'schemes'.$rtl.'/admin-theme-thirtybees'.$rtl.'.css';
+                    // Use Merchant's Edition style as default.
+                    $cssFile = 'schemes'.$rtl.'/admin-theme-merchantsedition'.$rtl.'.css';
                     if ( ! is_readable($path.$theme.'/css/'.$cssFile)) {
                         // Fall back to unstyled.
                         $cssFile = 'admin-theme'.$rtl.'.css';
