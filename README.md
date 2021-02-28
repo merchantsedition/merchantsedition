@@ -9,7 +9,7 @@ PrestaShop 1.6 created a great framework, thirty bees made it stable, **Mercha
 
 **Merchant’s Edition** is commited to being free and open source. You can [view our current list of supporters](https://github.com/merchantsedition/merchantsedition/blob/1.9.x/SUPPORTERS.md) which will be shipped with all Merchant’s Edition versions moving forward.
 
-![Merchant’s Edition Screenshot](docs/thirty-bees-screenshot.jpeg)
+![Merchant’s Edition Screenshot](docs/merchantsedition-screenshot.jpeg)
 
 
 ## Release Strategy
