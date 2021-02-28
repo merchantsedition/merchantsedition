@@ -45,9 +45,8 @@
 #header_shopversion
 	@extend .navbar-brand
 	@include margin(0, 1em, 0, 0)
-	#shop_version
-		font-size: 10px
-		line-height: ($navbar-height - 5px)
+	font-size: 10px !important
+	line-height: ($navbar-height - 5px) !important
 	@media (max-width: $screen-xs)
 		display: none
 #header_shopname

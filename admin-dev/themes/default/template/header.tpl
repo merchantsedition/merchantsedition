@@ -127,9 +127,7 @@
 					class="navbar-left"
 					href="{$default_tab_link|escape:'html':'UTF-8'}"
 				>&nbsp;</a>
-				<a id="header_shopversion" href="{$default_tab_link|escape:'html':'UTF-8'}">
-					<span id="shop_version">{$version}</span>
-				</a>
+				<span id="header_shopversion">{$version}</span>
 				{* Shop *}
 				{if isset($is_multishop) && $is_multishop && $shop_list && (isset($multishop_context) && $multishop_context & Shop::CONTEXT_GROUP || $multishop_context & Shop::CONTEXT_SHOP)}
 					<ul id="header_shop">
@@ -138,7 +136,7 @@
 						</li>
 					</ul>
 				{else}
-					<a id="header_shopname" href="{$default_tab_link|escape:'html':'UTF-8'}">{$shop_name}</a>
+					<span id="header_shopname">{$shop_name}</span>
 				{/if}
 				<ul id="header_notifs_icon_wrapper">
 {if {$show_new_orders} == 1}
