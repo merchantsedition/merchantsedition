@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0b76e32ff545e97b6a820ed011a8941",
+    "content-hash": "8529eb265f7714e4700fa0e2db01fb39",
     "packages": [
         {
             "name": "commerceguys/intl",
@@ -4477,20 +4477,20 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.22.1",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91"
+                "url": "https://github.com/thirtybees/polyfill-php80.git",
+                "reference": "8c1fe57a9cd59667830135feaed5417e187a45fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/dc3063ba22c2a1fd2f45ed856374d79114998f91",
-                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91",
+                "url": "https://api.github.com/repos/thirtybees/polyfill-php80/zipball/8c1fe57a9cd59667830135feaed5417e187a45fa",
+                "reference": "8c1fe57a9cd59667830135feaed5417e187a45fa",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=5.6"
             },
             "type": "library",
             "extra": {
@@ -4513,7 +4513,6 @@
                     "Resources/stubs"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4539,21 +4538,10 @@
                 "portable",
                 "shim"
             ],
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "support": {
+                "source": "https://github.com/thirtybees/polyfill-php80/tree/2.0.0"
+            },
+            "time": "2021-03-01T07:11:13+00:00"
         },
         {
             "name": "symfony/process",
@@ -4873,7 +4861,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "symfony/polyfill-php80": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
