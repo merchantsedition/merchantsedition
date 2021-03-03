@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e73eaa8114daf99feb9f51234dda3537",
+    "content-hash": "2332e2418588c6caf4af19f262d11d2b",
     "packages": [
         {
             "name": "commerceguys/intl",
@@ -4437,71 +4437,12 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thirtybees/polyfill-php80.git",
-                "reference": "8c1fe57a9cd59667830135feaed5417e187a45fa"
-            },
+            "version": "2.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thirtybees/polyfill-php80/zipball/8c1fe57a9cd59667830135feaed5417e187a45fa",
-                "reference": "8c1fe57a9cd59667830135feaed5417e187a45fa",
-                "shasum": ""
+                "url": "https://github.com/thirtybees/polyfill-php80/archive/2.0.0.zip"
             },
-            "require": {
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.22-dev"
-                },
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php80\\": ""
-                },
-                "files": [
-                    "bootstrap.php"
-                ],
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ion Bazan",
-                    "email": "ion.bazan@gmail.com"
-                },
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/thirtybees/polyfill-php80/tree/2.0.0"
-            },
-            "time": "2021-03-01T07:11:13+00:00"
+            "type": "library"
         },
         {
             "name": "symfony/process",
@@ -4739,9 +4680,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "symfony/polyfill-php80": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
