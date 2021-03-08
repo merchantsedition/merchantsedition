@@ -255,105 +255,6 @@ done
 unset NAME FAULT
 
 
-### thirty bees store files.
-
-if [ ${IS_GIT} = 'true' ]; then
-  FILES=('.tbstore.yml')
-  FILES+=('.tbstore/configuration.yml')
-  FILES+=('.tbstore/description.md')
-  FILES+=('.tbstore/images/image-1.png')
-
-  # Each mandatory file should exist in the repository and be not empty.
-  for F in "${FILES[@]}"; do
-    if ${FIND} "${F}" | grep -q '.'; then
-      [ $(${CAT} "${F}" | wc -c) -gt 1 ] || \
-        e "file ${F} exists, but is empty."
-    else
-      e "mandatory file ${F} missing."
-    fi
-  done
-  unset FILES
-
-  # Test for all the mandatory keys.
-  # See https://docs.thirtybees.com/store/free-modules/#explanation-of-files
-  if ${FIND} .tbstore.yml | grep -q '.'; then
-    KEYS=('module_name')
-    KEYS+=('compatible_versions')
-    KEYS+=('author')
-    KEYS+=('category')
-    # KEYS+=('localization')  # Not mandatory.
-    KEYS+=('tags')
-    KEYS+=('description_short')
-    KEYS+=('description')
-    KEYS+=('images')
-    KEYS+=('license')
-    KEYS+=('php_version')
-    KEYS+=('gdpr_compliant')
-
-    FAULT='false'
-    for K in "${KEYS[@]}"; do
-      if ! ${CAT} .tbstore.yml | grep -q "^${K}:"; then
-        e "key '${K}' missing in .tbstore.yml."
-        FAULT='true'
-      fi
-    done
-
-    [ ${FAULT} = 'true' ] && \
-      n "see https://docs.thirtybees.com/store/free-modules/#explanation-of-files"
-    unset KEYS FAULT
-  fi
-
-  # .tbstore.yml and .tbstore/configuration.yml should be identical.
-  if ${FIND} .tbstore.yml | grep -q '.' \
-     && ${FIND} .tbstore/configuration.yml | grep -q '.'; then
-    TBSTORE_TEXT=$(${CAT} .tbstore.yml)
-    CONFIG_TEXT=$(${CAT} .tbstore/configuration.yml)
-    if [ "${TBSTORE_TEXT}" != "${CONFIG_TEXT}" ]; then
-      e "files .tbstore.yml and .tbstore/configuration.yml not identical."
-      n "diff between .tbstore.yml (+) and .tbstore/configuration.yml (-):"
-      u "$(diff -u0 <(echo "${CONFIG_TEXT}") <(echo "${TBSTORE_TEXT}") | \
-        tail -n+3)"
-    fi
-    unset TBSTORE_TEXT CONFIG_TEXT
-  fi
-
-  if ${FIND} .tbstore.yml | grep -q '.'; then
-    # Field 'author:' should match 'author' main class property.
-    CODE_AUTHOR=$(constructorentry 'author')
-    TBSTORE_AUTHOR=$(${CAT} .tbstore.yml | sed -n 's/^author:\s*// p')
-
-    if [ "${CODE_AUTHOR}" != "${TBSTORE_AUTHOR}" ]; then
-      e "'.tbstore.yml' and PHP main class module authors not identical."
-      n "PHP main class property 'author': '${CODE_AUTHOR}'"
-      n "'author' in .tbstore.yml: '${TBSTORE_AUTHOR}'"
-    fi
-    unset CODE_AUTHOR TBSTORE_AUTHOR
-
-    # Field 'module_name:' should match 'displayName' main class property.
-    CODE_NAME=$(constructorentry 'displayName')
-    TBSTORE_NAME=$(${CAT} .tbstore.yml | sed -n 's/^module_name:\s*// p')
-
-    if [ "${CODE_NAME}" != "${TBSTORE_NAME}" ]; then
-      e "'.tbstore.yml' and PHP main class module names not identical."
-      n "PHP main class property 'displayName': '${CODE_NAME}'"
-      n "'module_name' in .tbstore.yml: '${TBSTORE_NAME}'"
-    fi
-    unset CODE_NAME TBSTORE_NAME
-
-    # Field 'tags:' (a list) should contain the module name to bring it up
-    # in results when searching for it on store.thirtybees.com.
-    MODULE_NAME=$(basename $(pwd))
-    if [ -z "$(${CAT} .tbstore.yml | sed -n '/^tags:/, /^[a-z_]*:/ {
-                                               /^  - '${MODULE_NAME}'/ p
-                                             }')" ]; then
-      e "list 'tabs:' in '.tbstore.yml' should contain the module name."
-      n "Entry for the module name would be '  - ${MODULE_NAME}'."
-    fi
-    unset MODULE_NAME
-  fi
-fi
-
-
 ### Documentation files.
 
 validate_documentation
@@ -459,6 +360,12 @@ unset LICENSE
 
 
 ### Infrastructure files.
+
+# thirty bees auxilliary files should be absent.
+${FIND} .tbstore.yml | grep -q '.' \
+&& e "file .tbstore.yml shouldn't exist."
+${FIND} .tbstore/ | grep -q '.' \
+&& e "directory .tbstore/ shouldn't exist."
 
 # A build.sh should be absent.
 if ${FIND} build.sh | grep -q '.'; then
