@@ -455,8 +455,9 @@ unset LIST
 templatecompare
 
 # Smarty templates.
-COMPARE_1="${TEMPLATES_DIR}/header.tpl.tb.module"
-COMPARE_2="${TEMPLATES_DIR}/header.tpl.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.tpl.me.module"
+COMPARE_2="${TEMPLATES_DIR}/header.tpl.metb.module"
+COMPARE_3="${TEMPLATES_DIR}/header.tpl.metbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
 COMPARE_LIST=($(${FIND} . | grep '\.tpl$'))
