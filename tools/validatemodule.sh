@@ -372,44 +372,28 @@ if ${FIND} README.md | grep -q '.'; then
     fi
   done
 
-  # First line of README.md should match module_name: in .tbstore.yml.
-  TBSTORE_LINE="# $(${CAT} .tbstore.yml | sed -n 's/^module_name:\s*// p')"
+  # First line of README.md should match 'displayName' main class property.
+  CODE_NAME=$(constructorentry 'displayName')
+  CODE_NAME="# ${CODE_NAME}"
   README_LINE=$(${CAT} README.md | sed -n '1 p')
 
-  if [ "${TBSTORE_LINE}" != "${README_LINE}" ]; then
-    e "first line of README.md doesn't match 'module_name' in .tbstore.yml."
-    n "by .tbstore.yml: '${TBSTORE_LINE}'"
-    n "by    README.md: '${README_LINE}'"
+  if [ "${CODE_NAME}" != "${README_LINE}" ]; then
+    e "first line of README.md doesn't match 'displayName' main class property."
+    n "by 'displayName': '${CODE_NAME}'"
+    n "by     README.md: '${README_LINE}'"
   fi
 
-  # Third line of README.md should match description_short: in .tbstore.yml.
-  TBSTORE_LINE=$(${CAT} .tbstore.yml | sed -n 's/^description_short:\s*// p')
+  # Third line of README.md should match 'description' main class property.
+  CODE_NAME=$(constructorentry 'description')
   README_LINE=$(${CAT} README.md | sed -n '3 p')
 
-  if [ "${TBSTORE_LINE}" != "${README_LINE}" ]; then
-    e "third line of README.md doesn't match 'description_short' in .tbstore.yml."
-    n "by .tbstore.yml: '${TBSTORE_LINE}'"
-    n "by    README.md: '${README_LINE}'"
+  if [ "${CODE_NAME}" != "${README_LINE}" ]; then
+    e "third line of README.md doesn't match 'description' main class property."
+    n "by 'description': '${CODE_NAME}'"
+    n "by     README.md: '${README_LINE}'"
   fi
 
   if [ ${HEADING_MISSING} = 'false' ]; then
-    # Section 'Description' ( = stuff between '## Description' and '## License')
-    # should match the content of .tbstore/description.md.
-    TBSTORE_LINE=$(${CAT} .tbstore/description.md)
-    README_LINE=$(${CAT} README.md | sed -n '/^## Description$/, /^## License$/ {
-                                               /^## Description$/ n
-                                               /^## License$/ ! p
-                                             }')
-    # Trailing newline was removed by the $() already.
-    README_LINE="${README_LINE#$'\n'}"  # Remove leading newline.
-
-    if [ "${TBSTORE_LINE}" != "${README_LINE}" ]; then
-      e "Section 'Description' in README.md doesn't match content of description.md."
-      n "diff between README.md (+) and .tbstore/description.md (-):"
-      u "$(diff -u0 <(echo "${TBSTORE_LINE}") <(echo "${README_LINE}") | \
-             tail -n+3)"
-    fi
-
     # Sections 'License' up to 'Packaging' ( = stuff between '## License' and
     # '## Roadmap') should match the content of the README.md template for
     # modules.
@@ -446,7 +430,7 @@ if ${FIND} README.md | grep -q '.'; then
   [ $(${CAT} README.md | sed -n '/^## Roadmap$/,$ p' | wc -l) -ge 8 ] || \
     e "section 'Roadmap' in README.md should be at least 8 lines long."
 
-  unset HEADINGS HEADING_MISSING TBSTORE_LINE README_LINE TEMPLATE_LINE
+  unset HEADINGS HEADING_MISSING CODE_NAME README_LINE TEMPLATE_LINE
 fi
 
 # File LICENSE.md should exist and match the template.
