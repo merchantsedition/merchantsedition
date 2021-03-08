@@ -224,7 +224,7 @@ unset ENTRIES FAULT
 
 ### Absence of deprecated code.
 
-# _PS_VERSION_ marks code which isn't needed for thirty bees. While core should
+# _PS_VERSION_ marks retrocompatibility code for PrestaShop. While core should
 # keep such code for retrocompatibility with third party modules, modules them
 # selfs have no such need.
 ${FIND} . | while read F; do
@@ -237,8 +237,7 @@ done
 
 validate_companyname
 
-# Module name should be all uppercase, except for small words, 'thirty bees'
-# and a few other well known names.
+# Module name should be all uppercase, except for a few well known words.
 NAME=$(constructorentry 'displayName')
 FAULT='false'
 for W in ${NAME}; do
