@@ -416,8 +416,9 @@ templatecompare
 # bees or thirty bees and PrestaShop combined and should match one of them.
 
 # PHP and PHTML files.
-COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
-COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.me.module"
+COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.metb.module"
+COMPARE_3="${TEMPLATES_DIR}/header.php-js-css.metbps.module"
 COMPARE_SKIP=1
 COMPARE_HINT='header'
 LIST=($(${FIND} . \
@@ -434,8 +435,9 @@ unset LIST
 templatecompare
 
 # JS, CSS, Sass and SCSS files.
-COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.tb.module"
-COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.php-js-css.me.module"
+COMPARE_2="${TEMPLATES_DIR}/header.php-js-css.metb.module"
+COMPARE_3="${TEMPLATES_DIR}/header.php-js-css.metbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT='header'
 LIST=($(${FIND} . \
