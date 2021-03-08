@@ -86,17 +86,9 @@ while [ ${#} -ne 0 ]; do
 done
 
 
-### Preparations.
-
-# We write into a report file to allow us to a) collect multiple findings and
-# b) evaluate the collection before exiting.
-REPORT=$(mktemp)
-export REPORT
-
-. "${0%/*}/validatecommon.sh"
-
-
 ### Auxilliary functions.
+
+# More auxilliary functions come with validatecommon.sh included below.
 
 # Extract a property of the module main class. More precisely, those properies
 # which are set by '$this-><property>' in the constructor.
@@ -123,6 +115,24 @@ function constructorentry {
       }
     }'
 }
+
+
+### Preparations.
+
+# We write into a report file to allow us to a) collect multiple findings and
+# b) evaluate the collection before exiting.
+REPORT=$(mktemp)
+export REPORT
+
+. "${0%/*}/validatecommon.sh"
+
+# As Merchant's Edition has no direct influence on foreign modules, there isn't
+# much we could validate.
+if [ "$(constructorentry 'author')" != $'Merchant\\\'s Edition' ]; then
+  echo "This is not a Merchant's Edition module. Skipping validation."
+
+  exit 0
+fi
 
 
 ### .gitignore
