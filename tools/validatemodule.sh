@@ -375,8 +375,9 @@ if ${FIND} build.sh | grep -q '.'; then
 fi
 
 # Header of buildfilter.sh should match a template.
-COMPARE_1="${TEMPLATES_DIR}/header.sh.tb.module"
-COMPARE_2="${TEMPLATES_DIR}/header.sh.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/header.sh.me.module"
+COMPARE_2="${TEMPLATES_DIR}/header.sh.metb.module"
+COMPARE_3="${TEMPLATES_DIR}/header.sh.metbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT=''
 readarray -t COMPARE_LIST <<< $(${FIND} buildfilter.sh)
