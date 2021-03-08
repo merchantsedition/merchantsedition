@@ -401,8 +401,9 @@ validate_indexphp
 
 # Each index.php should match either the version for thirty bees or the version
 # for thirty bees and PrestaShop combined.
-COMPARE_1="${TEMPLATES_DIR}/index.php.tb.module"
-COMPARE_2="${TEMPLATES_DIR}/index.php.tbps.module"
+COMPARE_1="${TEMPLATES_DIR}/index.php.me.module"
+COMPARE_2="${TEMPLATES_DIR}/index.php.metb.module"
+COMPARE_3="${TEMPLATES_DIR}/index.php.metbps.module"
 COMPARE_SKIP=0
 COMPARE_HINT=''
 COMPARE_LIST=($(${FIND} . | grep 'index\.php$'))
