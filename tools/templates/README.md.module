@@ -12,13 +12,13 @@ This software is published under the [Academic Free License 3.0](https://opensou
 
 ## Contributing
 
-thirty bees modules are Open Source extensions to the thirty bees e-commerce solution. Everyone is welcome and even encouraged to contribute with their own improvements.
+Merchant's Edition modules are Open Source extensions to the Merchant's Edition e-commerce solution. Everyone is welcome and even encouraged to contribute with their own improvements.
 
-For details, see [CONTRIBUTING.md](https://github.com/thirtybees/thirtybees/blob/1.0.x/CONTRIBUTING.md) in the thirty bees core repository.
+For details, see [CONTRIBUTING.md](https://github.com/merchantsedition/merchantsedition/blob/1.9.1/CONTRIBUTING.md) in the core repository.
 
 ## Packaging
 
-To build a package for the thirty bees distribution machinery or suitable for importing it into a shop, run `tools/buildmodule.sh` of the thirty bees core repository from inside the module root directory.
+To build a package for the Merchant's Edition distribution machinery or suitable for importing it into a shop, run `tools/buildmodule.sh` of the Merchant's Edition core repository from inside the module root directory.
 
 For module development, one clones this repository into `modules/` of the shop, alongside the other modules. It should work fine without packaging.
 
