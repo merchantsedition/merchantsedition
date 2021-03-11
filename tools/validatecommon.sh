@@ -286,12 +286,11 @@ function testignore {
             sed -n 's/thirty bees/&/i p; s/prestashop/&/i p;')" ] \
     && return 1
 
-  # Warn about and ignore not minimized vendor files.
+  # Ignore known committed vendor files.
   B="${1##*/}"
   if [ "${B}" != "${B#jquery.}" ] \
      || [ "${B}" != "${B#superfish}" ] \
      || [ "${B}" != "${B#hoverIntent}" ]; then
-    [ ${WARN} = 'true' ] && w "vendor file ${1} should be minimized."
     return 0
   fi
 
