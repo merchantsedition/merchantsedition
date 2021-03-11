@@ -378,6 +378,10 @@ function validate_companyname {
 
     # Don't test the test code, it doesn't pass its self.
     [ "${F}" = 'tools/validatecommon.sh' ] && continue
+    # Some built CSS files don't pass either.
+    [ "${F}" != "${F%.css}" ] && continue
+    # Known exception in AdminDashboardController.php.
+    echo "${L}" | grep -q 'ME_NEWS_CACHE_PATH' && continue
 
     MATCH=$(echo "${L}" | grep -o -Ei "merchant'?s ?edition")
     e "file ${F} contains '${MATCH}'; should be 'Merchant's Edition' or 'merchantsedition'."
