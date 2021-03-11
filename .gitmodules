@@ -140,7 +140,7 @@
 	ignore = dirty
 [submodule "modules/coreupdater"]
 	path = modules/coreupdater
-	url = https://github.com/thirtybees/coreupdater.git
+	url = https://github.com/merchantsedition/coreupdater.git
 	ignore = dirty
 [submodule "modules/crossselling"]
 	path = modules/crossselling
