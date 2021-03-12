@@ -150,7 +150,7 @@ fi
 
 # Validate entire core software.
 if ([ ${OPTION_VALIDATE} = 'true' ] || [ ${OPTION_VALIDATE} = 'auto' ]) \
-   && ! tools/validatecore.sh; then
+   && ! tools/validatecore.sh "${GIT_REVISION}"; then
   echo "Core software about to be packaged doesn't validate. Aborting."
   exit 1
 fi

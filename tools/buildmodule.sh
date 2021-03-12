@@ -269,6 +269,7 @@ if [ ${OPTION_VALIDATE} = 'true' ] || [ ${OPTION_VALIDATE} = 'auto' ]; then
       VALIDATE='true'
     fi
   fi
+  VALIDATE_PARAMETERS+=("${GIT_REVISION}")
 
   if [ ${VALIDATE} = 'true' ]; then
     echo "Running validatemodule.sh ${VALIDATE_PARAMETERS[*]}."
