@@ -55,7 +55,9 @@ if [ -e .git ]; then
   IS_GIT='true'
 
   # Find the branch to work on.
-  if [ ${OPTION_RELEASE} = 'true' ]; then
+  if [ -n "${GIT_REVISION}" ]; then
+    : # Nothing to search for.
+  elif [ ${OPTION_RELEASE} = 'true' ]; then
     GIT_REVISION='master'
 
     # Test whether this branch actually exists.

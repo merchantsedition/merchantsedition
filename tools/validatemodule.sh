@@ -21,6 +21,7 @@
 
 function usage {
   echo "Usage: validatemodule.sh [-h|--help] [-r|--release] [-v|--verbose]"
+  echo "          [<git revision>]"
   echo
   echo "This script runs a couple of plausibility and conformance tests on"
   echo "thirty bees modules contained in a Git repository. Note that files"
@@ -35,6 +36,9 @@ function usage {
   echo "                          errors found, like diffs for file content"
   echo "                          mismatches and/or script snippets to fix such"
   echo "                          misalignments."
+  echo
+  echo "    <git revision>        Any Git tag, branch or commit. Defaults to"
+  echo "                          the current branch or HEAD."
   echo
   echo "Example to test a single module:"
   echo
@@ -64,6 +68,7 @@ trap cleanup 0
 
 OPTION_RELEASE='false'
 OPTION_VERBOSE='false'
+GIT_REVISION=''
 
 while [ ${#} -ne 0 ]; do
   case "${1}" in
@@ -78,8 +83,11 @@ while [ ${#} -ne 0 ]; do
       OPTION_VERBOSE='true'
       ;;
     *)
-      echo "Unknown option '${1}'. Try ${0} --help."
-      exit 1
+      if ! git show -q "${1}" 2>/dev/null | grep -q '.'; then
+        echo "Git revision '${1}' doesn't exist. Aborting."
+        exit 1
+      fi
+      GIT_REVISION="${1}"
       ;;
   esac
   shift

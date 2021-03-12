@@ -17,7 +17,7 @@
 # @license   Academic Free License (AFL 3.0)
 
 function usage {
-  echo "Usage: validatecore.sh [-h|--help] [-v|--verbose]"
+  echo "Usage: validatecore.sh [-h|--help] [-v|--verbose] [<git revision>]"
   echo
   echo "This script runs a couple of plausibility and conformance tests on"
   echo "Merchant's Edition sources contained in the Git repository. Note that"
@@ -29,6 +29,9 @@ function usage {
   echo "                          errors found, like diffs for file content"
   echo "                          mismatches and/or script snippets to fix such"
   echo "                          misalignments."
+  echo
+  echo "    <git revision>        Any Git tag, branch or commit. Defaults to"
+  echo "                          the current branch or HEAD."
   echo
   echo "Example:"
   echo
@@ -53,6 +56,7 @@ trap cleanup 0
 ### Options parsing.
 
 OPTION_VERBOSE='false'
+GIT_REVISION=''
 
 while [ ${#} -ne 0 ]; do
   case "${1}" in
@@ -64,8 +68,11 @@ while [ ${#} -ne 0 ]; do
       OPTION_VERBOSE='true'
       ;;
     *)
-      echo "Unknown option '${1}'. Try ${0} --help."
-      exit 1
+      if ! git show -q "${1}" 2>/dev/null | grep -q '.'; then
+        echo "Git revision '${1}' doesn't exist. Aborting."
+        exit 1
+      fi
+      GIT_REVISION="${1}"
       ;;
   esac
   shift
