@@ -59,7 +59,7 @@ if [ -e .git ]; then
     GIT_MASTER='master'
 
     # Test whether this branch actually exists.
-    if ! git branch | grep -q '${GIT_MASTER}'; then
+    if ! git branch | grep -q "${GIT_MASTER}"; then
       echo "Error: there is no branch '${GIT_MASTER}', refusing to continue."
       # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
       exit 0
