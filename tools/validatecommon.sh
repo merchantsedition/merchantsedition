@@ -56,37 +56,37 @@ if [ -e .git ]; then
 
   # Find the branch to work on.
   if [ ${OPTION_RELEASE} = 'true' ]; then
-    GIT_MASTER='master'
+    GIT_REVISION='master'
 
     # Test whether this branch actually exists.
-    if ! git branch | grep -q "${GIT_MASTER}"; then
-      echo "Error: there is no branch '${GIT_MASTER}', refusing to continue."
+    if ! git branch | grep -q "${GIT_REVISION}"; then
+      echo "Error: there is no branch '${GIT_REVISION}', refusing to continue."
       # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
       exit 0
     fi
   else
     # Use the current branch.
-    GIT_MASTER=$(git rev-parse --abbrev-ref HEAD)
+    GIT_REVISION=$(git rev-parse --abbrev-ref HEAD)
 
     # Bail out in a 'detached HEAD' situation.
-    if [ ${GIT_MASTER} = 'HEAD' ]; then
+    if [ ${GIT_REVISION} = 'HEAD' ]; then
       echo "Error: not on a Git branch tip, can't continue."
       # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
       exit 0
     fi
   fi
-  echo "Git repository detected. Looking at branch '${GIT_MASTER}'."
+  echo "Git repository detected. Looking at branch '${GIT_REVISION}'."
 
   # Abstract some commands to allow validating non-repositories as well.
   function git-cat {
     local F
     for F in "${@}"; do
-      git show ${GIT_MASTER}:"${F}";
+      git show ${GIT_REVISION}:"${F}";
     done
   }
   CAT='git-cat'
 
-  FIND="git ls-tree -r --name-only ${GIT_MASTER}"
+  FIND="git ls-tree -r --name-only ${GIT_REVISION}"
 
   function git-grep {
     local F P=() PREFIX_LEN
@@ -95,8 +95,8 @@ if [ -e .git ]; then
       shift
     done
     shift
-    let PREFIX_LEN=${#GIT_MASTER}+2
-    git grep "${P[@]}" ${GIT_MASTER} -- "${@}" | cut -b ${PREFIX_LEN}-
+    let PREFIX_LEN=${#GIT_REVISION}+2
+    git grep "${P[@]}" ${GIT_REVISION} -- "${@}" | cut -b ${PREFIX_LEN}-
   }
   GREP='git-grep'
 
@@ -325,7 +325,7 @@ function validate_filepermissions {
       [ "${FILE##*.}" = 'sh' ] && continue
 
       e "file ${FILE} has executable permissions (${PERMS})."
-    done < <(git ls-tree -r ${GIT_MASTER} | grep -v -e '^100644' -e '^160000')
+    done < <(git ls-tree -r ${GIT_REVISION} | grep -v -e '^100644' -e '^160000')
   else
     e "validating permissions not yet implemented for non-repositories."
   fi
