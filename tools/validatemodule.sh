@@ -476,11 +476,15 @@ validate_copyrightyear
 ### Repository and release related stuff.
 
 if [ ${IS_GIT} = 'true' ] && [ ${OPTION_RELEASE} = 'true' ]; then
-  # First, grab remote branches and tags. That's a real
-  # remote operation, so let's cache the result.
-  REMOTE=$(git remote -v | grep '[x/]thirtybees/' | head -1 | tr '\t' ' ')
-  REMOTE="${REMOTE%% *}"
+  # First, grab remote branches and tags.
+  # Try a remote called 'github'.
+  REMOTE=$(git remote -v | tr '\t' ' ' | grep '^github ')
+  # Else, try a remote containing anything 'github'.
+  [ -z "${REMOTE}" ] && REMOTE=$(git remote -v | tr '\t' ' ' | grep 'github')
+  # Default: remote 'origin'.
   [ -z "${REMOTE}" ] && REMOTE='origin'
+  REMOTE="${REMOTE%% *}"
+  # That's a real remote operation, let's cache the result.
   REMOTE_CACHE=$(git ls-remote --refs ${REMOTE})
 
   # Warn if there are remote branches besides 'master'.
