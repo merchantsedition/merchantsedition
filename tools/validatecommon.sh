@@ -55,29 +55,11 @@ if [ -e .git ]; then
   IS_GIT='true'
 
   # Find the branch to work on.
-  if [ -n "${GIT_REVISION}" ]; then
-    : # Nothing to search for.
-  elif [ ${OPTION_RELEASE} = 'true' ]; then
-    GIT_REVISION='master'
-
-    # Test whether this branch actually exists.
-    if ! git branch | grep -q "${GIT_REVISION}"; then
-      echo "Error: there is no branch '${GIT_REVISION}', refusing to continue."
-      # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
-      exit 0
-    fi
-  else
+  if [ -z "${GIT_REVISION}" ]; then
     # Use the current branch.
     GIT_REVISION=$(git rev-parse --abbrev-ref HEAD)
-
-    # Bail out in a 'detached HEAD' situation.
-    if [ ${GIT_REVISION} = 'HEAD' ]; then
-      echo "Error: not on a Git branch tip, can't continue."
-      # Exiting with 0 anyways to not stop 'git submodule foreach' runs.
-      exit 0
-    fi
   fi
-  echo "Git repository detected. Looking at branch '${GIT_REVISION}'."
+  echo "Git repository detected. Looking at revision '${GIT_REVISION}'."
 
   # Abstract some commands to allow validating non-repositories as well.
   function git-cat {
