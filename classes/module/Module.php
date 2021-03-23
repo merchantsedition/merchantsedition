@@ -3080,11 +3080,18 @@ abstract class ModuleCore
      */
     public function isEnabledForShopContext()
     {
-        return static::isEnabledForShops($this->id, Shop::getContextListShopID());
+        if (Shop::isFeatureActive()) {
+            $shopList = Shop::getContextListShopID();
+        } else {
+            $shopList = [Configuration::get('PS_SHOP_DEFAULT')];
+        }
+
+        return static::isEnabledForShops($this->id, $shopList);
     }
 
     /**
-     * This method returns true if module with id $moduleId is enabled for *all* shops specified in $shops array.
+     * This method returns true if module with id $moduleId is enabled for
+     * *all* shops specified in $shops array.
      *
      * @since   1.1.1
      * @param int $moduleId module ID
@@ -3100,7 +3107,7 @@ abstract class ModuleCore
                 ->select('COUNT(*) n')
                 ->from('module_shop')
                 ->where('`id_module` = '.(int) $moduleId)
-                ->where('`id_shop` IN ('.implode(',', array_map('intval', $shops)).')')
+                ->where('`id_shop` IN ('.implode(',', $shops).')')
                 ->groupBy('`id_module`')
                 ->having('n = '. count($shops))
         )) {
