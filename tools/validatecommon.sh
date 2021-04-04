@@ -369,7 +369,7 @@ function validate_companyname {
     MATCH=$(echo "${L}" | grep -o -Ei "merchant'?s ?edition")
     e "file ${F} contains '${MATCH}'; should be 'Merchant's Edition' or 'merchantsedition'."
   done < <(
-    ${GREP} -Ei "merchant'?s ?edition" -- "${TEXTFILEQUOTES[@]}" \
+    ${GREP} -Ei "\bmerchant'?s ?edition\b" -- "${TEXTFILEQUOTES[@]}" \
     | grep -v -e "\bMerchant's Edition\b" -e '\bmerchantsedition\b'
   )
 }
