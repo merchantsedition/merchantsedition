@@ -358,6 +358,8 @@ function validate_companyname {
   while read L; do
     F="${L%%:*}"
     L="${L#*:}"
+    N="${L%%:*}"
+    L="${L#*:}"
 
     # Don't test the test code, it doesn't pass its self.
     [ "${F}" = 'tools/validatecommon.sh' ] && continue
@@ -367,9 +369,9 @@ function validate_companyname {
     echo "${L}" | grep -q 'ME_NEWS_CACHE_PATH' && continue
 
     MATCH=$(echo "${L}" | grep -o -Ei "merchant'?s ?edition")
-    e "file ${F} contains '${MATCH}'; should be 'Merchant's Edition' or 'merchantsedition'."
+    e "file ${F} line ${N} contains '${MATCH}'; should be 'Merchant's Edition' or 'merchantsedition'."
   done < <(
-    ${GREP} -Ei "\bmerchant'?s ?edition\b" -- "${TEXTFILEQUOTES[@]}" \
+    ${GREP} -Eni "\bmerchant'?s ?edition\b" -- "${TEXTFILEQUOTES[@]}" \
     | grep -v -e "\bMerchant's Edition\b" -e '\bmerchantsedition\b'
   )
 }
