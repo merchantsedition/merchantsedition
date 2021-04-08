@@ -363,18 +363,7 @@ class AdminCarrierWizardControllerCore extends AdminController
                         'required' => false,
                         'class'    => 't',
                         'is_bool'  => true,
-                        'values'   => [
-                            [
-                                'id'    => 'shipping_handling_on',
-                                'value' => 1,
-                                'label' => $this->l('Enabled'),
-                            ],
-                            [
-                                'id'    => 'shipping_handling_off',
-                                'value' => 0,
-                                'label' => $this->l('Disabled'),
-                            ],
-                        ],
+                        'values'   => [['value' => 1], ['value' => 0]],
                         'hint'     => $this->l('Include the handling costs (as set in Shipping > Preferences) in the final carrier price.'),
                     ],
                     'is_free'            => [
@@ -383,18 +372,7 @@ class AdminCarrierWizardControllerCore extends AdminController
                         'name'     => 'is_free',
                         'required' => false,
                         'class'    => 't',
-                        'values'   => [
-                            [
-                                'id'    => 'is_free_on',
-                                'value' => 1,
-                                'label' => '<img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'" />',
-                            ],
-                            [
-                                'id'    => 'is_free_off',
-                                'value' => 0,
-                                'label' => '<img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'" />',
-                            ],
-                        ],
+                        'values'   => [['value' => 1], ['value' => 0]],
                     ],
                     'shipping_method'    => [
                         'type'     => 'radio',
@@ -682,16 +660,7 @@ class AdminCarrierWizardControllerCore extends AdminController
                         'required' => false,
                         'class'    => 't',
                         'is_bool'  => true,
-                        'values'   => [
-                            [
-                                'id'    => 'active_on',
-                                'value' => 1,
-                            ],
-                            [
-                                'id'    => 'active_off',
-                                'value' => 0,
-                            ],
-                        ],
+                        'values'   => [['value' => 1], ['value' => 0]],
                         'hint'     => $this->l('Enable the carrier in the front office.'),
                     ],
                 ],
