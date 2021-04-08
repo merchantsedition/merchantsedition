@@ -2181,24 +2181,20 @@ class CartCore extends ObjectModel
      */
     private function adjustShippingCostWithTax($returnPriceWithTax, $priceIncludesTax, $taxRate, $value)
     {
-        $value = (float)$value;
+        $value = (float) $value;
         if ($returnPriceWithTax) {
-            if ($priceIncludesTax) {
-                // price already contains tax
-                return $value;
-            } else {
-                // we want price with tax, but value is without tax. Let's add tax amount
-                return $value * (1.0 + ($taxRate / 100.0));
+            if ( ! $priceIncludesTax) {
+                // Price with tax wanted, value is without tax. Add tax.
+                $value = $value * (1.0 + ($taxRate / 100.0));
             }
         } else {
             if ($priceIncludesTax) {
-                // price includes tax but we want price without tax. Let's remove tax amount
-                return $value / (1.0 + ($taxRate / 100.0));
-            } else {
-                // price is already without tax
-                return $value;
+                // Value includes tax, price without tax wanted. Remove tax.
+                $value = $value / (1.0 + ($taxRate / 100.0));
             }
         }
+
+        return round($value, _TB_PRICE_DATABASE_PRECISION_);
     }
 
     /**
