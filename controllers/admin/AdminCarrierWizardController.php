@@ -435,24 +435,11 @@ class AdminCarrierWizardControllerCore extends AdminController
                         'disabled' => $proportionateTax
                     ],
                     'prices_with_tax' => [
-                        'type'    => 'select',
+                        'type'    => 'switch',
                         'label'   => $this->l('Prices include tax'),
                         'name'    => 'prices_with_tax',
-                        'options' => [
-                            'query' => [
-                                [
-                                    'id'   => 0,
-                                    'name' => $this->l('No'),
-                                ],
-                                [
-                                    'id'   => 1,
-                                    'name' => $this->l('Yes'),
-                                ],
-                            ],
-                            'id'    => 'id',
-                            'name'  => 'name',
-                        ],
-                        'hint'    => $this->l('Specify whether prices entered in the table below already include tax or not'),
+                        'values'  => [['value' => 1], ['value' => 0]],
+                        'hint'    => $this->l('Specify whether prices entered in the table below already include tax or not.'),
                     ],
                     'range_behavior'     => [
                         'type'    => 'select',
