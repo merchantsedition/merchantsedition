@@ -84,6 +84,7 @@ if (Tools::convertBytes(ini_get('upload_max_filesize')) < Tools::convertBytes('1
 }
 
 if (Tools::isPHPCLI() && isset($argc) && isset($argv)) {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
     Tools::argvToGET($argc, $argv);
 }
 
