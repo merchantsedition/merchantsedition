@@ -227,11 +227,7 @@ class CarrierCore extends ObjectModel
      */
     public static function useProportionateTax()
     {
-        try {
-            return (bool)Configuration::get('PS_ATCP_SHIPWRAP');
-        } catch (PrestaShopException $ignored) {
-            return false;
-        }
+        return (bool) Configuration::get('PS_ATCP_SHIPWRAP');
     }
 
     /**
