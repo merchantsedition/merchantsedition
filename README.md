@@ -21,21 +21,20 @@ Where does **Merchant's Edition** not distinguish?
 - Compatibility with almost all PrestaShop 1.6 themes and modules.
 
 
-## Supporters
+## Development Strategy
 
-**Merchant’s Edition** is commited to being free and open source. You can [view our current list of supporters](https://github.com/merchantsedition/merchantsedition/blob/1.9.x/SUPPORTERS.md) which will be shipped with all Merchant’s Edition versions moving forward.
+**Merchant’s Edition** is commited to being free and open source. This is considered to be key for success.
 
+**Merchant’s Edition** is pretty matured already, this allows to advance in small, rapid steps.
 
-## Release Strategy
+**Merchant’s Edition** accepts contributions in form of patches, pull requests, by email, via the bug tracker, whatever is convenient for you.
 
-**Merchant’s Edition** schedules for about a monthly release.
+**Merchant’s Edition** schedules for about a monthly release. Goal for each release is [**Zero Known Bugs**](https://github.com/merchantsedition/merchantsedition/issues?q=is%3Aissue+is%3Aopen+label%3ABug).
 
 
 ## Roadmap
 
-**Merchant’s Edition** is not so keen on long term plans. Software is pretty matured already, this allows to advance in small, rapid steps.
-
-Nevertheless, goal for each release is [**Zero Known Bugs**](https://github.com/merchantsedition/merchantsedition/issues?q=is%3Aissue+is%3Aopen+label%3ABug).
+**Merchant’s Edition** is not so keen on long term plans.
 
 ### 1. Core Updater
 
