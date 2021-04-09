@@ -23,13 +23,15 @@ Where does **Merchant's Edition** not distinguish?
 
 ## Development Strategy
 
-**Merchant’s Edition** is commited to being free and open source. This is considered to be key for success.
+**Merchant’s Edition** ...
 
-**Merchant’s Edition** is pretty matured already, this allows to advance in small, rapid steps.
+... is commited to being free and open source. This is considered to be key for success.
 
-**Merchant’s Edition** accepts contributions in form of patches, pull requests, by email, via the bug tracker, whatever is convenient for you.
+... is pretty matured already, this allows to advance in small, rapid steps.
 
-**Merchant’s Edition** schedules for about a monthly release. Goal for each release is [**Zero Known Bugs**](https://github.com/merchantsedition/merchantsedition/issues?q=is%3Aissue+is%3Aopen+label%3ABug).
+... accepts contributions in form of patches, pull requests, by email, via the bug tracker, whatever is convenient for you.
+
+... schedules for about a monthly release. Goal for each release is [**Zero Known Bugs**](https://github.com/merchantsedition/merchantsedition/issues?q=is%3Aissue+is%3Aopen+label%3ABug).
 
 
 ## Roadmap
