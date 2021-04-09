@@ -98,7 +98,9 @@ function displayPrice(price, currencyFormat, currencySign, currencyBlank) {
     price = 0;
   }
 
-  if (typeof window.currencyFormatters[currency] !== 'undefined' && window.currencyFormatters[currency]) {
+  if (typeof window.currencyFormatters[currency] !== 'undefined'
+      && window.currencyFormatters[currency]
+  ) {
     var formatter = window.currencyFormatters[currency];
     var val = executeFunctionByName(formatter, [price, currencyFormat, currencySign, currencyBlank, priceDisplayPrecision]);
     if (typeof val === 'string' || val instanceof String) {
@@ -691,6 +693,7 @@ function getBrowserLocale() {
 function executeFunctionByName(functionName, args, context=window) {
   var namespaces = functionName.split(".");
   var func = namespaces.pop();
+
   for (var i = 0; i < namespaces.length; i++) {
     if (typeof context[namespaces[i]] == "undefined") {
       console.error("Function " + functionName + " not found, context "+namespaces[i] + " does not exist");
@@ -698,10 +701,12 @@ function executeFunctionByName(functionName, args, context=window) {
     }
     context = context[namespaces[i]];
   }
+
   if (typeof context[func] == "undefined") {
     console.error("Function " + func + " not found");
     return null;
   }
+
   return context[func].apply(context, args);
 }
 

@@ -774,21 +774,22 @@ class ToolsCore
             $tbCurrency->hydrate($currencyArray);
         }
 
-        if (! is_object($tbCurrency)) {
-            // this should never happen
+        if ( ! is_object($tbCurrency)) {
+            // This should never happen.
             return '';
         }
 
-        // if currency has associated formatter, use it. Formatter must return string
+        // If currency has associated formatter, use it. Formatter must return
+        // string.
         $formatter = $tbCurrency->getFormatter();
         if ($formatter && is_callable($formatter)) {
             $result = $formatter($price, $tbCurrency, $context->language);
-            if (!is_null($result) && is_string($result)) {
+            if ( ! is_null($result) && is_string($result)) {
                 return $result;
             }
         }
 
-        // fallback to default currency formatting
+        // Fallback to default currency formatting.
         $cChar = $tbCurrency->sign;
         $cFormat = $tbCurrency->format;
         $cDecimals = (int) $tbCurrency->decimals ? Configuration::get('PS_PRICE_DISPLAY_PRECISION') : 0;
@@ -801,11 +802,13 @@ class ToolsCore
         $price = Tools::ps_round($price, $cDecimals);
 
         /*
-        * If the language is RTL and the selected currency format contains spaces as thousands separator
-        * then the number will be printed in reverse since the space is interpreted as separating words.
-        * To avoid this we replace the currency format containing a space with the one containing a comma (,) as thousand
-        * separator when the language is RTL.
-        */
+         * If the language is RTL and the selected currency format contains
+         * spaces as thousands separator then the number will be printed in
+         * reverse since the space is interpreted as separating words. To avoid
+         * this we replace the currency format containing a space with the one
+         * containing a comma (,) as thousand separator when the language is
+         * RTL.
+         */
         if (($cFormat == 2) && ($context->language->is_rtl == 1)) {
             $cFormat = 4;
         }
