@@ -34,25 +34,31 @@ Where does **Merchant's Edition** not distinguish?
 
 ## Roadmap
 
-**Merchant’s Edition** is not so keen on long term plans.
+These are the plans for the next release:
 
-### 1. Core Updater
+### 1. Installer
 
-The currently most asked question is: how can I upgrade to Merchant’s Edition? Well, currently one can’t. And that’s going to change before too long.
+- Re-brand for Merchant's Edition, of course.
+- Remove clutter, like duplicate links and social network icons.
+- Create the database automatically if not existing.
 
-Core Updater is about to learn to install Merchant's Edition releases as well, next to thirty bees releases. With this, merchants will be able to switch to Merchant’s Edition as easy as if it were another thirty bees release. And should the merchant find out we messed up, it’ll just as easy to roll back.
+### 2. Logos & Favicons
 
-### 2. Back Office Style & Logos
+These are not only still tb ones. They're also a bit messy. [Favicon Generator](https://realfavicongenerator.net/) has some nice ideas on how to get this right.
 
-Currently one still sees thirty bees logos everywhere in back office. This should change. Along with new logos, back office will change its colors to Admiral Blue and Gold. To make sure you immediately know where you are. Older themes will stay available, of course.
+### 3. Your Most Missing Feature
 
-### 3. Performance improvements
+Eagerly waiting for some feature or bug fix? **Merchant’s Edition** happily
+accepts your sponsoring to get this done. Other merchants do this already,
+watch out for _... sponsored by ..._ notes in the commit message.
 
+### 4. Performance improvements
+
+A number of steps on these long lasting tasks:
 - Remove really old code. Like retrocompatibility code for PS 1.4 and older.
 - Remove pointless configuration switches in back office. Quite a number of them are outdated or useless, just distracting merchants and slowing down operations.
-  - Support for multiple encryption algorithms. One reliable encryption is entirely sufficient.
-  - Support for mixed HTTP/HTTPS sites. This was a good idea in 2005, but triggers browser warnings today.
-  - ...
+- Support for multiple encryption algorithms. One reliable encryption is entirely sufficient.
+- ...
 
 
 ## Requirements
