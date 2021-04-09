@@ -66,6 +66,7 @@ Support for these general requirements (except recommendations) gets tested duri
     - opcache (not mandatory because some hosters turn this off in favor of other caching mechanisms)
     - apcu/redis/memcache(d) (for the (currently incomplete) full page cache)
 
+
 ## Browser support
 
 | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png" alt="IE / Edge" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png" alt="Firefox" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png" alt="Chrome" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png" alt="Safari" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/opera.png" alt="Opera" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari-ios.png" alt="iOS Safari" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>iOS Safari | [<img src="https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome-android.png" alt="Chrome for Android" width="16px" height="16px" />](https://godban.github.io/browsers-support-badges/)</br>Chrome for Android |
@@ -82,6 +83,7 @@ Browserlist string: <code>[defaults, ie >= 9, ie_mob >= 10, edge >= 12, chrome >
 - Direct your browser to your webhosting, it should show the installer.
 - Follow instructions.
 
+
 ## Installation for Developers
 
 - Recursively clone the repository and choose tag release version number from the -b parameter:
@@ -93,8 +95,12 @@ $ git clone https://github.com/merchantsedition/merchantsedition.git --recurse-s
 ```shell
 $ composer install
 ```
-- Then install the software as usual, using either a web browser (https://example.com/install-dev)
-- Or install via command line
+- Then install the software as usual, using a web browser (typically http://localhost/install-dev).
+
+
+## Installation via Command Line
+
+With the distribution package unpacked or the Git repository cloned, one can also install on the command line, no manual interaction required:
 ```shell
 $  php install-dev/index_cli.php --newsletter=1 --language=en --country=us --domain=merchants.edition:8888 --db_name=merchantsedition --db_create=1 --name=merchantsedition --email=test@merchants.edition --firstname=merchants --lastname=edition --password=merchantsedition
 ```
