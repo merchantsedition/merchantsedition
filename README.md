@@ -4,12 +4,26 @@ PrestaShop 1.6 created a great framework, thirty bees made it stable, **Mercha
 
 **Merchant’s Edition** is a matured e-commerce solution which is still compatible with (almost) all PS 1.6 modules and themes. Its focus is on stability, correctness and reliability of the rich feature set, to allow merchants to focus on growing their business.
 
+![Merchant’s Edition Screenshot](docs/merchantsedition-screenshot.jpeg)
+
+
+## Distinctive Advantage
+
+What distinguishes **Merchant's Edition** from PrestaShop and other derivatives thereof?
+
+- **Merchant's Edition** aims at being easier to use. There are dozens of options which can be figured automatically rather than in need of manual configuration. Merchants are experts in trading, not software.
+- **Merchant's Edition** aims at being lightweight and faster. Good performance is key for success of a shop. Some successes already, lots of ideas in this queue.
+- **Merchant's Edition** aims to think more out of the box. Like providing intuitive GDPR handling. Like collaboration with content management systems. Like collaboration with warehouse management and EPR. There's quite some room for improvement in this area.
+- **Merchant's Edition** is for merchants taking their business seriously, only.
+
+Where does **Merchant's Edition** not distinguish?
+
+- Compatibility with almost all PrestaShop 1.6 themes and modules.
+
 
 ## Supporters
 
 **Merchant’s Edition** is commited to being free and open source. You can [view our current list of supporters](https://github.com/merchantsedition/merchantsedition/blob/1.9.x/SUPPORTERS.md) which will be shipped with all Merchant’s Edition versions moving forward.
-
-![Merchant’s Edition Screenshot](docs/merchantsedition-screenshot.jpeg)
 
 
 ## Release Strategy
