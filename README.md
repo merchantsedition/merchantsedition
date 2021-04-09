@@ -61,13 +61,13 @@ A number of steps on these long lasting tasks:
 - ...
 
 
-## Requirements
+## Installation Requirements
 
 Support for these general requirements (except recommendations) gets tested during installation, so one can simply try to proceed. A proceeding installation means all requirements are met.
 
 - PHP 5.6 - PHP 7.4 with a minimum of 128 MiB RAM
 - Apache or nginx
-- Linux or MacOS
+- A Unix-like OS, e.g. Linux or MacOS
 - MySQL 5.5.3+ or MariaDB 5.5+
 - PHP extensions:
   - Required:
@@ -80,8 +80,8 @@ Support for these general requirements (except recommendations) gets tested duri
     - xml (SimpleXML, DOMDocument)
     - zip
   - Recommended:
-    - imap (for allowing to use an IMAP server rather than PHP's built-in mail function)
     - curl (for better handling of background HTTPS requests)
+    - imap (for allowing to use an IMAP server rather than PHP's built-in mail function)
     - opcache (not mandatory because some hosters turn this off in favor of other caching mechanisms)
     - apcu/redis/memcache(d) (for the (currently incomplete) full page cache)
 
