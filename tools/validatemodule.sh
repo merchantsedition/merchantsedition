@@ -509,7 +509,7 @@ if [ ${IS_GIT} = 'true' ] && [ ${OPTION_RELEASE} = 'true' ]; then
   unset SURPLUS
 
   # Branch 'master' should be pushed and up to date.
-  MASTER_LOCAL=$(git show -q master | head -1 | cut -d ' ' -f 2)
+  MASTER_LOCAL=$(git show --no-patch --pretty=format:'%H' master)
   MASTER_REMOTE=$(grep 'refs/heads/master' <<< "${REMOTE_CACHE}" | \
                     cut -d $'\t' -f 1)
   [ ${MASTER_LOCAL} = ${MASTER_REMOTE} ] || \
@@ -546,7 +546,7 @@ if [ ${IS_GIT} = 'true' ] && [ ${OPTION_RELEASE} = 'true' ]; then
   # Key is the definition of 'significant changes' here. For the time being, we
   # define this as a change to files going into the distribution package.
 
-  LATEST_LOCAL=$(git show -q ${LATEST_NAME} | head -1 | cut -d ' ' -f 2)
+  LATEST_LOCAL=$(git show --no-patch --pretty=format:'%H' ${LATEST_NAME})
   CHANGED_FILES=$(git diff --name-only ${LATEST_LOCAL}..${MASTER_LOCAL})
 
   # Get PATH_FILTER from buildmodule.sh.
