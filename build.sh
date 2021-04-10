@@ -378,7 +378,8 @@ git cat-file -p ${GIT_REVISION}:themes | grep '^160000' | cut -d ' ' -f 3 | \
     cd "${THEME}"                                                 || exit ${?}
 
     # Validation section. Does a 'git fetch', but doesn't change anything else.
-    if [ ${OPTION_VALIDATE} = 'true' ]; then
+    if [ ${OPTION_VALIDATE} = 'true' ] \
+       && git remote -v | grep -q merchantsedition; then
       if [ $(git diff | wc -l) -ne 0 ] \
          || [ $(git diff --staged | wc -l) -ne 0 ]; then
         echo "There are uncommitted changes in ${THEME}. Aborting."
