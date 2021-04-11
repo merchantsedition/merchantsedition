@@ -783,7 +783,13 @@ class AdminThemesControllerCore extends AdminController
 
             // Get a list of modules available on the module update server. As
             // these are always available, there's no need to package them.
-            $thirtybeesModules = array_keys(ModuleUpdate::getModulesInfo());
+            $thirtybeesModules = ModuleUpdate::getModulesInfo();
+            if ($thirtybeesModules) {
+                $thirtybeesModules = array_keys($thirtybeesModules);
+            } else {
+                $this->warnings[] = $this->l('Failed to fetch official list of modules.');
+                $thirtybeesModules = [];
+            }
 
             $notThemeModules = Module::getNotThemeRelatedModules();
 
@@ -1202,7 +1208,13 @@ class AdminThemesControllerCore extends AdminController
 
         // Get a list of modules available on the module update server. As
         // these are always available, there's no need to package them.
-        $thirtybeesModules = array_keys(ModuleUpdate::getModulesInfo());
+        $thirtybeesModules = ModuleUpdate::getModulesInfo();
+        if ($thirtybeesModules) {
+            $thirtybeesModules = array_keys($thirtybeesModules);
+        } else {
+            $this->warnings[] = $this->l('Failed to fetch official list of modules.');
+            $thirtybeesModules = [];
+        }
 
         foreach ($moduleList as $array) {
             if ( ! in_array($array['name'], $thirtybeesModules)
