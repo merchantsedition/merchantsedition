@@ -45,27 +45,19 @@ class ModuleUpdateCore
         if ( ! $modules && Validate::isLoadedObject($tbupdater)) {
             $modules = $tbupdater->checkForUpdates(true);
         }
-        if ( ! $modules) {
-            return false;
-        }
 
-        if ($locale) {
+        if ($modules && $locale) {
+            $locale = mb_strtolower($locale, 'utf-8');
             foreach ($modules as &$module) {
-                if (isset($module['displayName'][Tools::strtolower($locale)])) {
-                    $module['displayName'] = $module['displayName'][Tools::strtolower($locale)];
+                if (isset($module['displayName'][$locale])) {
+                    $module['displayName'] = $module['displayName'][$locale];
                 } elseif (isset($module['displayName']['en-us'])) {
                     $module['displayName'] = $module['displayName']['en-us'];
-                } else {
-                    // Broken feed
-                    continue;
                 }
-                if (isset($module['description'][Tools::strtolower($locale)])) {
-                    $module['description'] = $module['description'][Tools::strtolower($locale)];
+                if (isset($module['description'][$locale])) {
+                    $module['description'] = $module['description'][$locale];
                 } elseif (isset($module['description']['en-us'])) {
                     $module['description'] = $module['description']['en-us'];
-                } else {
-                    // Broken feed
-                    continue;
                 }
             }
         }
