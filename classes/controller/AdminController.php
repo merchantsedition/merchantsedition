@@ -3223,14 +3223,7 @@ class AdminControllerCore extends Controller
      */
     public function renderModulesList()
     {
-        // Load cached modules (from the `tbupdater` module)
-        $jsonModules = false;
-        $updater = Module::getInstanceByName('tbupdater');
-        if (Validate::isLoadedObject($updater)) {
-            /** @var TbUpdater $updater */
-            $jsonModules = $updater->getCachedModulesInfo();
-        }
-
+        $jsonModules = ModuleUpdate::getModulesInfo();
         if ($jsonModules) {
             foreach ($jsonModules as $moduleName => $jsonModule) {
                 /** @var array $jsonModules */

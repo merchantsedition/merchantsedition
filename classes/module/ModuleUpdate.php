@@ -24,4 +24,52 @@
  */
 class ModuleUpdateCore
 {
+    /**
+     * Get infos about all modules.
+     *
+     * @param string|null $locale IETF Locale
+     *                            If the locale does not exist it will
+     *                            fall back onto en-us
+     *
+     * @return array|bool
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater',
+     *                TbUpdater->getCachedModulesInfo().
+     */
+    public static function getModulesInfo($locale = null)
+    {
+        // Temporary dependency, this will go away soon.
+        $tbupdater = Module::getInstanceByName('tbupdater');
+
+        $modules = json_decode(@file_get_contents(_PS_CACHE_DIR_.'modules.json'), true);
+        if ( ! $modules && Validate::isLoadedObject($tbupdater)) {
+            $modules = $tbupdater->checkForUpdates(true);
+        }
+        if ( ! $modules) {
+            return false;
+        }
+
+        if ($locale) {
+            foreach ($modules as &$module) {
+                if (isset($module['displayName'][Tools::strtolower($locale)])) {
+                    $module['displayName'] = $module['displayName'][Tools::strtolower($locale)];
+                } elseif (isset($module['displayName']['en-us'])) {
+                    $module['displayName'] = $module['displayName']['en-us'];
+                } else {
+                    // Broken feed
+                    continue;
+                }
+                if (isset($module['description'][Tools::strtolower($locale)])) {
+                    $module['description'] = $module['description'][Tools::strtolower($locale)];
+                } elseif (isset($module['description']['en-us'])) {
+                    $module['description'] = $module['description']['en-us'];
+                } else {
+                    // Broken feed
+                    continue;
+                }
+            }
+        }
+
+        return $modules;
+    }
 }

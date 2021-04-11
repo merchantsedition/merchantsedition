@@ -783,13 +783,7 @@ class AdminThemesControllerCore extends AdminController
 
             // Get a list of modules available on the module update server. As
             // these are always available, there's no need to package them.
-            $moduleUpdater = Module::getInstanceByName('tbupdater');
-            if ( ! Validate::isLoadedObject($moduleUpdater)) {
-                $this->errors[] = $this->l('Module \'tbupdater\' must be installed to allow exporting a theme.');
-
-                return;
-            }
-            $thirtybeesModules = array_keys($moduleUpdater->getCachedModulesInfo());
+            $thirtybeesModules = array_keys(ModuleUpdate::getModulesInfo());
 
             $notThemeModules = Module::getNotThemeRelatedModules();
 
@@ -1208,13 +1202,7 @@ class AdminThemesControllerCore extends AdminController
 
         // Get a list of modules available on the module update server. As
         // these are always available, there's no need to package them.
-        $moduleUpdater = Module::getInstanceByName('tbupdater');
-        if ( ! Validate::isLoadedObject($moduleUpdater)) {
-            $this->errors[] = $this->l('Module \'tbupdater\' must be installed to allow exporting a theme.');
-
-            return;
-        }
-        $thirtybeesModules = array_keys($moduleUpdater->getCachedModulesInfo());
+        $thirtybeesModules = array_keys(ModuleUpdate::getModulesInfo());
 
         foreach ($moduleList as $array) {
             if ( ! in_array($array['name'], $thirtybeesModules)

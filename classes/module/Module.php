@@ -1051,8 +1051,6 @@ abstract class ModuleCore
         }
 
         // Get native and partner modules
-        /** @var TbUpdater $updater */
-        $updater = Module::getInstanceByName('tbupdater');
         $languageCode = str_replace('_', '-', mb_strtolower(Context::getContext()->language->language_code));
 
         // This array gets filled with requested module images to download (key = module code, value = guzzle promise)
@@ -1062,7 +1060,7 @@ abstract class ModuleCore
             'timeout'     => 20,
         ]);
 
-        if (Validate::isLoadedObject($updater) && $modules = $updater->getCachedModulesInfo()) {
+        if ($modules = ModuleUpdate::getModulesInfo()) {
             foreach ($modules as $name => $module) {
                 if (isset($modulesNameToCursor[mb_strtolower(strval($name))])) {
                     $moduleFromList = $modulesNameToCursor[mb_strtolower(strval($name))];
