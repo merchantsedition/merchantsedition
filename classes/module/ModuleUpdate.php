@@ -24,6 +24,11 @@
  */
 class ModuleUpdateCore
 {
+    const CACHE_PATH = _PS_CACHE_DIR_.'modules.json';
+    const CHECK_INTERVAL = 86400; // 1 day
+    const API_BASE_URL = 'https://api.thirtybees.com/updates/modules/';
+    const API_JSON = 'all.json';
+
     /**
      * Get infos about all modules.
      *
@@ -38,12 +43,9 @@ class ModuleUpdateCore
      */
     public static function getModulesInfo($locale = null)
     {
-        // Temporary dependency, this will go away soon.
-        $tbupdater = Module::getInstanceByName('tbupdater');
-
-        $modules = json_decode(@file_get_contents(_PS_CACHE_DIR_.'modules.json'), true);
-        if ( ! $modules && Validate::isLoadedObject($tbupdater)) {
-            $modules = $tbupdater->checkForUpdates(true);
+        $modules = false;
+        if (static::checkForUpdates(true)) {
+            $modules = json_decode(file_get_contents(static::CACHE_PATH), true);
         }
 
         if ($modules && $locale) {
@@ -63,5 +65,101 @@ class ModuleUpdateCore
         }
 
         return $modules;
+    }
+
+    /**
+     * Check for module updates and populate ModuleUpdate::CACHE_PATH.
+     *
+     * This uses Logger::addLog() for error reporting, because this method
+     * usually runs in the background, unrelated to the content displayed.
+     *
+     * @param bool $force Force check.
+     *
+     * @return bool Success.
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater', stripped down from
+     *                TbUpdater->checkForUpdates().
+     */
+    public static function checkForUpdates($force = false)
+    {
+        $lastCheck = (int) Configuration::get('ME_MODULE_UPDATE_LAST_CHECK');
+
+        if ($force
+            || $lastCheck < (time() - static::CHECK_INTERVAL)
+            || ! file_exists(static::CACHE_PATH)
+        ) {
+            $guzzle = new \GuzzleHttp\Client([
+                'base_uri'  => static::API_BASE_URL,
+                'verify'    => _PS_TOOL_DIR_.'cacert.pem',
+                'timeout'   => 20,
+            ]);
+            try {
+                $results = $guzzle->get(static::API_JSON)->getBody();
+            } catch (Exception $e) {
+                Logger::addLog('Error: module updater fetch failed.');
+
+                return false;
+            }
+
+            $modules = json_decode($results, true);
+            if ( ! $modules || ! is_array($modules)) {
+                // Update LAST_CHECK for low server load on failures.
+                Configuration::updateGlobalValue(
+                    'ME_MODULE_UPDATE_LAST_CHECK',
+                    time()
+                );
+                Logger::addLog('Error: module updater fetched empty JSON.');
+
+                return false;
+            }
+
+            $channel = 'stable';
+            foreach ($modules as $moduleName => &$module) {
+                if ( ! isset($module['versions'][$channel])) {
+                    unset($modules[$moduleName]);
+                    continue;
+                }
+
+                // Find highest compatible version.
+                $versions = $module['versions'][$channel];
+                $highestVersion = '0.0.0';
+                foreach ($versions as $version => $description) {
+                    $compat = explode(' ', $description['compatibility']);
+                    if (version_compare($version, $highestVersion, '>=')
+                        && version_compare(_TB_VERSION_, $compat[1], $compat[0])
+                    ) {
+                        $highestVersion = $version;
+                    }
+                }
+
+                if ($highestVersion != '0.0.0') {
+                    unset($module['versions']);
+                    $module['version'] = $highestVersion;
+                    $module['binary'] = $versions[$highestVersion]['binary'];
+                } else {
+                    unset($modules[$moduleName]);
+                }
+            }
+
+            // Always update LAST_CHECK for low server load on failures.
+            Configuration::updateGlobalValue(
+                'ME_MODULE_UPDATE_LAST_CHECK',
+                time()
+            );
+
+            if (is_array($modules) && $modules) {
+                file_put_contents(static::CACHE_PATH, json_encode(
+                    $modules,
+                    JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES
+                ));
+            } else {
+                Logger::addLog(sprintf(
+                    'Error: module updater did\'t understand this feed: %s',
+                    $results
+                ));
+            }
+        }
+
+        return true;
     }
 }
