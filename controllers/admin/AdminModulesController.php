@@ -257,14 +257,6 @@ class AdminModulesControllerCore extends AdminController
      */
     public function initContent()
     {
-        if (Tools::isSubmit('addnewmodule') && $this->context->mode == Context::MODE_HOST) {
-            $this->display = 'add';
-            $this->context->smarty->assign(['iso_code' => $this->context->language->iso_code]);
-            parent::initContent();
-
-            return;
-        }
-
         // If we are on a module configuration, no need to load all modules
         if (Tools::getValue('configure') != '') {
             $this->context->smarty->assign(['maintenance_mode' => !(bool) Configuration::Get('PS_SHOP_ENABLE')]);
