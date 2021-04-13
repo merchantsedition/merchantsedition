@@ -186,15 +186,13 @@ class AdminModulesControllerCore extends AdminController
      * @return void
      *
      * @since 1.0.0
+     * @deprecated 1.9.3
      */
     public function ajaxProcessRefreshModuleList($forceReloadCache = false)
     {
-        $module = Module::getInstanceByName('tbupdater');
+        Tools::displayAsDeprecated('use ModuleUpdate::checkForUpdates() instead.');
 
-        if (Validate::isLoadedObject($module)) {
-            /** @var TbUpdater $module */
-            $module->checkForUpdates($forceReloadCache);
-        }
+        ModuleUpdate::checkForUpdates($forceReloadCache);
     }
 
     /**
@@ -1532,10 +1530,10 @@ class AdminModulesControllerCore extends AdminController
             }
 
             if ($key == 'check') {
-                $this->ajaxProcessRefreshModuleList(true);
+                ModuleUpdate::checkForUpdates(true);
             } elseif ($key == 'checkAndUpdate') {
                 $modules = [];
-                $this->ajaxProcessRefreshModuleList(true);
+                ModuleUpdate::checkForUpdates(true);
                 $modulesOnDisk = Module::getModulesOnDisk(true, false, $this->id_employee);
                 // Browse modules list
                 foreach ($modulesOnDisk as $km => $moduleOnDisk) {
