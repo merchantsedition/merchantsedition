@@ -68,6 +68,28 @@ class ModuleUpdateCore
     }
 
     /**
+     * Get info about a single module.
+     *
+     * @param string $moduleName Name of the module.
+     *
+     * @return array|bool Info array, or boolean false on error.
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater',
+     *                TbUpdater->getModuleInfo().
+     */
+    public static function getModuleInfo($moduleName)
+    {
+        $modules = static::getModulesInfo();
+        if ( ! is_array($modules)
+            || ! in_array($moduleName, array_keys($modules))
+        ) {
+            return false;
+        }
+
+        return $modules[$moduleName];
+    }
+
+    /**
      * Check for module updates and populate ModuleUpdate::CACHE_PATH.
      *
      * This uses Logger::addLog() for error reporting, because this method
