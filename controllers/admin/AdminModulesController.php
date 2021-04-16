@@ -1562,9 +1562,6 @@ class AdminModulesControllerCore extends AdminController
                 }
             }
 
-            /** @var TbUpdater $tbupdater */
-            $tbupdater = Module::getInstanceByName('tbupdater');
-            $moduleUpgraded = [];
             $moduleErrors = [];
             if (isset($modules)) {
                 foreach ($modules as $name) {
@@ -1572,8 +1569,10 @@ class AdminModulesControllerCore extends AdminController
                     $moduleToUpdate[$name] = null;
                     $fullReport = null;
 
-                    // If Addons module, download and unzip it before installing it
-                    if (Validate::isLoadedObject($tbupdater) && !file_exists(_PS_MODULE_DIR_.$name.'/'.$name.'.php') || $key == 'update' || $key == 'updateAll') {
+                    if ( ! file_exists(_PS_MODULE_DIR_.$name.'/'.$name.'.php')
+                        || $key == 'update'
+                        || $key == 'updateAll'
+                    ) {
                         foreach (ModuleUpdate::getModulesInfo($this->context->language->language_code) as $moduleInfoName => $moduleInfo) {
                             if (mb_strtolower($name) == mb_strtolower($moduleInfoName)) {
                                 $moduleToUpdate[$name]['id'] = 0;
@@ -1581,11 +1580,10 @@ class AdminModulesControllerCore extends AdminController
                             }
                         }
 
-                        foreach ($moduleToUpdate as $name => $attr) {
-                            if (!$tbupdater->updateModule($name)) {
-                                $this->errors[] = sprintf(Tools::displayError('Module %s cannot be upgraded: Error while extracting the latest version.'), '<strong>'.$attr['displayName'].'</strong>');
-                            } else {
-                                $moduleUpgraded[] = $name;
+                        foreach (array_keys($moduleToUpdate) as $name) {
+                            $result = ModuleUpdate::updateModule($name);
+                            if ($result !== true) {
+                                $this->errors[] = $result;
                             }
                         }
                     }

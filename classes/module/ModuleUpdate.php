@@ -90,6 +90,28 @@ class ModuleUpdateCore
     }
 
     /**
+     * Update a module by name. An eventually previously existing module gets
+     * replaced.
+     *
+     * @param string $moduleName Name of the module.
+     *
+     * @return bool|string Boolean true on success. Error string on failure.
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater', inspired by
+     *                TbUpdater->updateModule().
+     */
+    public static function updateModule($moduleName)
+    {
+        $success = static::downloadModuleArchive($moduleName);
+
+        if ($success === true) {
+            $success = static::unpackModule($moduleName);
+        }
+
+        return $success;
+    }
+
+    /**
      * Check for module updates and populate ModuleUpdate::CACHE_PATH.
      *
      * This uses Logger::addLog() for error reporting, because this method
@@ -183,5 +205,115 @@ class ModuleUpdateCore
         }
 
         return true;
+    }
+
+    /**
+     * Download a module by name.
+     *
+     * @param string $moduleName Name of the module.
+     *
+     * @return bool|string Boolean true on success. Error string on failure.
+     *
+     *                     On success, the downloaded module archive is
+     *                     located at _PS_MODULE_DIR_.$moduleName.'.zip',
+     *                     ready to be used by ModuleUpdater::unpackModule().
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater', inspired by
+     *                TbUpdater->updateModule().
+     */
+    public static function downloadModuleArchive($moduleName)
+    {
+        $success = true;
+        $zipLocation = _PS_MODULE_DIR_.$moduleName.'.zip';
+
+        $moduleInfo = static::getModuleInfo($moduleName);
+        if ( ! $moduleInfo || ! isset($moduleInfo['binary'])) {
+            $success = sprintf('Insufficient info for module %s.', $moduleName);
+        }
+
+        if ($success === true) {
+            @unlink($zipLocation);
+            $result = Tools::copy($moduleInfo['binary'], $zipLocation);
+            if ( ! $result) {
+                $success = sprintf(
+                    'Could not download archive for module %s.',
+                    $moduleName
+                );
+                @unlink($zipLocation);
+            }
+        }
+
+        return $success;
+    }
+
+    /**
+     * Unpack a module by name. Module archive to extract is expected to
+     * already exist at _PS_MODULE_DIR_.$moduleName.'.zip'.
+     *
+     * An eventually previously existing module gets replaced, which makes this
+     * method the appropriate method to update a module.
+     *
+     * @param string $moduleName Name of the module.
+     *
+     * @return bool|string Boolean true on success. Error string on failure.
+     *
+     *                     Also always deletes the module archive.
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater', inspired by
+     *                TbUpdater->updateModule().
+     */
+    public static function unpackModule($moduleName)
+    {
+        $success = true;
+        $moduleDir = _PS_MODULE_DIR_.$moduleName;
+        $zipLocation = $moduleDir.'.zip';
+        $tmpDir = $moduleDir.md5(time());
+
+        if ( ! is_readable($zipLocation)) {
+            throw new PrestaShopException(
+                'Archive for module '.$moduleName.' doesn\'t exist.'
+            );
+        }
+
+        $result = Tools::ZipExtract($zipLocation, $tmpDir);
+        if ( ! $result) {
+            $success = sprintf('Archive for module %s invalid.', $moduleName);
+        }
+
+        if ($success === true) {
+            // A basic check whether it's a real module.
+            $testFile = $tmpDir.'/'.$moduleName.'/'.$moduleName.'.php';
+            if ( ! is_readable($testFile)) {
+                $success = sprintf(
+                    'Module in archive for module %s is not a valid module.',
+                    $moduleName
+                );
+            }
+        }
+
+        if ($success === true && file_exists($moduleDir)) {
+            $result = Tools::deleteDirectory($moduleDir);
+            if ( ! $result) {
+                $success = sprintf(
+                    'Could not remove old module %s.',
+                    $moduleName
+                );
+            }
+        }
+
+        if ($success === true) {
+            $result = rename($tmpDir.'/'.$moduleName, $moduleDir);
+            if ( ! $result) {
+                $success = sprintf(
+                    'Could not move module %s into its place.',
+                    $moduleName
+                );
+            }
+        }
+
+        Tools::deleteDirectory($tmpDir);
+        @unlink($zipLocation);
+
+        return $success;
     }
 }
