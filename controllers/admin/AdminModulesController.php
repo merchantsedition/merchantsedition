@@ -1589,12 +1589,12 @@ class AdminModulesControllerCore extends AdminController
                     }
 
                     // Check potential error
-                    if (!($module = Module::getInstanceByName(urldecode($name)))) {
-                        // Try the thirty bees updater
-                        /** @var TbUpdater $updater */
-                        $updater = Module::getInstanceByName('tbupdater');
-                        if (!($key === 'install' && Validate::isLoadedObject($updater) && $updater->installModule(urldecode($name)))) {
-                            $this->errors[] = $this->l('Module not found');
+                    if ( ! ($module = Module::getInstanceByName($name))) {
+                        if ($key === 'install') {
+                            $result = ModuleUpdate::installModule($name);
+                            if ($result !== true) {
+                                $this->errors[] = $this->l('Module not found.');
+                            }
                         }
                     } elseif ($key == 'install' && $this->tabAccess['add'] !== '1') {
                         $this->errors[] = Tools::displayError('You do not have permission to install this module.');

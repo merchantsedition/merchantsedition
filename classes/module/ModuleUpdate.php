@@ -90,6 +90,44 @@ class ModuleUpdateCore
     }
 
     /**
+     * Unpack and install a module by name. An eventually previously existing
+     * module gets replaced.
+     *
+     * @param string $moduleName Name of the module.
+     *
+     * @return bool|string Boolean true on success. Error string on failure.
+     *
+     * @version 1.9.3 Moved here from module 'tbupdater', inspired by
+     *                TbUpdater->installModule().
+     */
+    public static function installModule($moduleName)
+    {
+        $success = static::updateModule($moduleName);
+
+        if ($success === true) {
+            $module = Module::getInstanceByName($moduleName);
+            if ( ! $module) {
+                $success = sprintf(
+                    'Failed get instance for module %s.',
+                    $moduleName
+                );
+            }
+        }
+
+        if ($success === true) {
+            $result = $module->install();
+            if ( ! $result) {
+                $success = sprintf(
+                    'Installation procedure of module %s failed.',
+                    $moduleName
+                );
+            }
+        }
+
+        return $success;
+    }
+
+    /**
      * Update a module by name. An eventually previously existing module gets
      * replaced.
      *
