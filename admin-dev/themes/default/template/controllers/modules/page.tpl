@@ -71,7 +71,7 @@
     </div>
   </div>
 {/if}
-{if $upgrade_available|@count}
+{if isset($upgrade_available) && $upgrade_available|@count}
   <div class="alert alert-info">
     {l s='An upgrade is available for some of your modules!'}
     <ul>
