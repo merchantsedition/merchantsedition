@@ -134,20 +134,6 @@ class AdminModulesControllerCore extends AdminController
                 'PS_SHOW_CAT_MODULES_'.(int) $this->id_employee,
             ]
         );
-
-        if (!Module::isEnabled('tbupdater')) {
-            // Linking directly to the install/enable action would be frivolous.
-            $linkOpen = '<a href="'
-                        .$this->context->link->getAdminLink('AdminModules')
-                        .'&anchor=tbupdater">';
-            $linkClose = '</a>';
-
-            if (Module::isInstalled('tbupdater')) {
-                $this->warnings[] = sprintf($this->l('The thirty bees updater module has not been enabled. %sGet it enabled%s to keep thirty bees updated.'), $linkOpen, $linkClose);
-            } else {
-                $this->warnings[] = sprintf($this->l('The thirty bees updater module is not installed. %sGet it installed%s to keep thirty bees updated.'), $linkOpen, $linkClose);
-            }
-        }
     }
 
     /**
