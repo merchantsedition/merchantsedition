@@ -253,17 +253,6 @@ function testignore {
   [ "${1}" != "${1%.min.css}" ] \
     && return 0
 
-  # Skip most PHP classes in module tbupdater, which happen to be copies
-  # of files in the core repository and as such, have an OSL license.
-  # @todo: these exceptions should all go away.
-  if [ ${SUFFIX} = 'php' ] \
-     && [ "${PWD##*/}" = 'tbupdater' ] \
-     && [ "${1%%/*}" = 'classes' ] \
-     && ! ${CAT} "${1}" | grep -q '(AFL 3.0)'; then
-    [ ${WARN} = 'true' ] && w "Skipping not AFL-licensed file ${1}."
-    return 0
-  fi
-
   # If the file contains a 'thirty bees' or a 'prestashop' it's most
   # likely one of our files.
   [ -n "$(${CAT} "${1}" | \
