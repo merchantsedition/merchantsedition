@@ -80,7 +80,6 @@ $notThemeRelatedModules = [
   'overridecheck',
   'sitemap',
   'tbcleaner',
-  'tbupdater',
   // Deprecated modules.
   'donationminer',
   'fixerio',

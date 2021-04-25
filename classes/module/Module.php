@@ -1293,7 +1293,6 @@ abstract class ModuleCore
             'overridecheck',
             'sitemap',
             'tbcleaner',
-            'tbupdater',
         ];
     }
 
