@@ -37,9 +37,7 @@
           <p class="alert alert-info">{l s='The module must either be a Zip file (.zip) or a tarball file (.tar, .tar.gz, .tgz).'}</p>
           <div class="form-group">
             <label for="file" class="control-label col-lg-3">
-              <span class="label-tooltip" data-toggle="tooltip" title="{l s='Upload a module from your computer.'}">
-                {l s='Module file'}
-              </span>
+              {l s='Module archive file'}
             </label>
             <div class="col-sm-9">
               <div class="row">
