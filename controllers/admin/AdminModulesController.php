@@ -1245,13 +1245,13 @@ class AdminModulesControllerCore extends AdminController
             foreach ($zipFolders as $folder) {
                 if (!in_array($folder, ['.', '..', '.svn', '.git', '__MACOSX']) && !Module::getInstanceByName($folder)) {
                     $this->errors[] = sprintf(Tools::displayError('The module %1$s that you uploaded is not a valid module.'), $folder);
-                    $this->recursiveDeleteOnDisk(_PS_MODULE_DIR_.$folder);
+                    Tools::deleteDirectory(_PS_MODULE_DIR_.$folder);
                 }
             }
         }
 
         @unlink($file);
-        $this->recursiveDeleteOnDisk($tmpFolder);
+        Tools::deleteDirectory($tmpFolder);
 
         @umask($oldUmask);
 
@@ -1260,36 +1260,6 @@ class AdminModulesControllerCore extends AdminController
         }
 
         return $success;
-    }
-
-    /**
-     * Recursive delete on disk
-     *
-     * @param string $dir
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    protected function recursiveDeleteOnDisk($dir)
-    {
-        if (strpos(realpath($dir), realpath(_PS_MODULE_DIR_)) === false) {
-            return;
-        }
-        if (is_dir($dir)) {
-            $objects = scandir($dir);
-            foreach ($objects as $object) {
-                if ($object != '.' && $object != '..') {
-                    if (filetype($dir.'/'.$object) == 'dir') {
-                        $this->recursiveDeleteOnDisk($dir.'/'.$object);
-                    } else {
-                        unlink($dir.'/'.$object);
-                    }
-                }
-            }
-            reset($objects);
-            rmdir($dir);
-        }
     }
 
     /**
@@ -1433,7 +1403,7 @@ class AdminModulesControllerCore extends AdminController
                     if (!ConfigurationTest::testDir($moduleDir, true, $report, true)) {
                         $this->errors[] = Tools::displayError('Sorry, the module cannot be deleted:').' '.$report;
                     } else {
-                        $this->recursiveDeleteOnDisk($moduleDir);
+                        Tools::deleteDirectory($moduleDir);
                         if (!file_exists($moduleDir)) {
                             Tools::redirectAdmin(static::$currentIndex.'&conf=22&token='.$this->token.'&tab_module='.Tools::getValue('tab_module').'&module_name='.Tools::getValue('module_name'));
                         } else {
