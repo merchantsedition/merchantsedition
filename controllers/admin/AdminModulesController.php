@@ -1201,10 +1201,17 @@ class AdminModulesControllerCore extends AdminController
                 $success = true;
 
                 for ($i = 0; $i < $zip->numFiles; $i++) {
-                    @chmod(_PS_MODULE_DIR_.$zip->getNameIndex($i), 0777);
+                    $path = $zip->getNameIndex($i);
+                    if (substr($path, -1) === '/') {
+                        // directory
+                        chmod(_PS_MODULE_DIR_.$zip->getNameIndex($i), 0755);
+                    } else {
+                        // file
+                        chmod(_PS_MODULE_DIR_.$zip->getNameIndex($i), 0644);
+                    }
                 }
                 foreach ($zipFolders as $zipFolder) {
-                    @chmod(_PS_MODULE_DIR_.$zipFolder, 0777);
+                    chmod(_PS_MODULE_DIR_.$zipFolder, 0755);
                 }
             }
         } else {
@@ -1236,10 +1243,15 @@ class AdminModulesControllerCore extends AdminController
                 $success = true;
 
                 for ($i = 0; $i < count($dirs); $i++) {
-                    @chmod(_PS_MODULE_DIR_.$dirs[$i], 0777);
+                    $path = $zip->getNameIndex($i);
+                    if (substr($path, -1) === '/') {
+                        chmod(_PS_MODULE_DIR_.$zip->getNameIndex($i), 0755);
+                    } else {
+                        chmod(_PS_MODULE_DIR_.$zip->getNameIndex($i), 0644);
+                    }
                 }
                 foreach ($zipFolders as $zipFolder) {
-                    @chmod(_PS_MODULE_DIR_.$zipFolder, 0777);
+                    chmod(_PS_MODULE_DIR_.$zipFolder, 0755);
                 }
             }
         }
