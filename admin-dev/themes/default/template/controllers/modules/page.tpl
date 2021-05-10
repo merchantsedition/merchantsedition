@@ -26,43 +26,46 @@
 
 {$kpis}
 {if $add_permission eq '1'}
-  <div id="module_install" class="row" style="{if !isset($smarty.post.downloadflag)}display: none;{/if}">
-    <div class="panel col-lg-12">
-      <form action="{$currentIndex|escape:'html':'UTF-8'}&amp;token={$token|escape:'html':'UTF-8'}" method="post"
-            enctype="multipart/form-data" class="form-horizontal">
-        <h3>{l s='Add a new module'}</h3>
-        <p class="alert alert-info">{l s='The module must either be a Zip file (.zip) or a tarball file (.tar, .tar.gz, .tgz).'}</p>
-        <div class="form-group">
-          <label for="file" class="control-label col-lg-3">
-            {l s='Module archive file'}
-          </label>
-          <div class="col-sm-9">
-            <div class="row">
-              <div class="col-lg-7">
-                <input id="file" type="file" name="file" class="hide"/>
-                <div class="dummyfile input-group">
-                  <span class="input-group-addon"><i class="icon-file"></i></span>
-                  <input id="file-name" type="text" class="disabled" name="filename" readonly/>
-                  <span class="input-group-btn">
-                    <button id="file-selectbutton" type="button" name="submitAddAttachments" class="btn btn-default">
-                      <i class="icon-folder-open"></i> {l s='Choose a file'}
-                    </button>
-                  </span>
-                </div>
-              </div>
-            </div>
+  <div id="module_install"
+    class="panel"
+    style="{if !isset($smarty.post.downloadflag)}display: none;{/if}"
+  >
+    <form
+      class="form-horizontal"
+      action="{$currentIndex|escape:'html':'UTF-8'}&amp;token={$token|escape:'html':'UTF-8'}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="panel-heading">{l s='Add a new module'}</div>
+      <div class="alert alert-info">
+        {l s='The module must either be a Zip file (.zip) or a tarball file (.tar, .tar.gz, .tgz).'}
+      </div>
+      <div class="form-group">
+        <label for="file" class="control-label col-lg-3">
+          {l s='Module archive file'}
+        </label>
+        <div class="col-lg-9">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="icon-file"></i></span>
+            <input id="file-name" type="text" class="disabled" name="filename" readonly/>
+            <span class="input-group-btn">
+              <input id="file" type="file" name="file" class="hide"/>
+              <button id="file-selectbutton" type="button" name="submitAddAttachments" class="btn btn-default">
+                <i class="icon-folder-open"></i> {l s='Choose a file'}
+              </button>
+            </span>
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-lg-9 col-lg-push-3">
-            <button class="btn btn-default" type="submit" name="download">
-              <i class="icon-upload-alt"></i>
-              {l s='Upload this module'}
-            </button>
-          </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-9 col-lg-push-3">
+          <button class="btn btn-default" type="submit" name="download">
+            <i class="icon-upload-alt"></i>
+            {l s='Upload this module'}
+          </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 {/if}
 {if isset($upgrade_available) && $upgrade_available|@count}
