@@ -1173,16 +1173,19 @@ class AdminModulesControllerCore extends AdminController
         if (substr($file, -4) == '.zip') {
             $zip = new ZipArchive();
             $zip->open($file);
-            $dirs = [];
+            $zipFolders = [];
+
             for ($i = 0; $i < $zip->numFiles; $i++) {
                 // Zip = *NIX style
                 $filePath = explode('/', $zip->getNameIndex($i));
-
-                if (!empty($filePath)) {
-                    $dirs[] = $filePath[0];
+                if ($filePath
+                    && $filePath[0]
+                    && ! in_array($filePath[0], $zipFolders)
+                ) {
+                    $zipFolders[] = $filePath[0];
                 }
             }
-            $zipFolders = array_unique($dirs);
+
             foreach ($zipFolders as $zipFolder) {
                 if (!in_array($zipFolder, ['.', '..', '.svn', '.git', '__MACOSX'])) {
                     if (file_exists(_PS_MODULE_DIR_.$zipFolder) && !ConfigurationTest::testDir(_PS_MODULE_DIR_.$zipFolder, true, $report, true)) {
@@ -1208,13 +1211,17 @@ class AdminModulesControllerCore extends AdminController
             $archive = new Archive_Tar($file);
             $dirs = $archive->listContent();
             $zipFolders = [];
+
             for ($i = 0; $i < count($dirs); $i++) {
                 $filePath = explode(DIRECTORY_SEPARATOR, $dirs[$i]);
-                if (!empty($filePath)) {
+                if ($filePath
+                    && $filePath[0]
+                    && ! in_array($filePath[0], $zipFolders)
+                ) {
                     $zipFolders[] = $filePath[0];
                 }
             }
-            $zipFolders = array_unique($dirs);
+
             foreach ($zipFolders as $zipFolder) {
                 if (!in_array($zipFolder, ['.', '..', '.svn', '.git', '__MACOSX'])) {
                     if (file_exists(_PS_MODULE_DIR_.$zipFolder) && !ConfigurationTest::testDir(_PS_MODULE_DIR_.$zipFolder, true, $report, true)) {
@@ -1224,6 +1231,7 @@ class AdminModulesControllerCore extends AdminController
                     }
                 }
             }
+
             if ($archive->extract(_PS_MODULE_DIR_)) {
                 $success = true;
 
