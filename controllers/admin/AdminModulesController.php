@@ -1167,8 +1167,6 @@ class AdminModulesControllerCore extends AdminController
      */
     protected function extractArchive($file, $redirect = true)
     {
-        $oldUmask = @umask(0000);
-
         $tmpFolder = _PS_MODULE_DIR_.md5(time());
 
         $success = false;
@@ -1252,8 +1250,6 @@ class AdminModulesControllerCore extends AdminController
 
         @unlink($file);
         Tools::deleteDirectory($tmpFolder);
-
-        @umask($oldUmask);
 
         if ($success && $redirect && isset($folder)) {
             Tools::redirectAdmin(static::$currentIndex.'&conf=8&anchor='.ucfirst($folder).'&token='.$this->token);
