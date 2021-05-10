@@ -563,7 +563,7 @@ abstract class PaymentModuleCore extends Module
                     }
 
                     // Amount paid by customer is not the right one -> Status = payment error
-                    if ($orderStatus->logable && (string) $cartTotalPaid !== (string) $amountPaid) {
+                    if ($orderStatus->paid && (string) $cartTotalPaid !== (string) $amountPaid) {
                         $idOrderState = Configuration::get('PS_OS_ERROR');
                     }
 
