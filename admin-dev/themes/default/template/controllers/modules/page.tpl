@@ -31,41 +31,37 @@
       <form action="{$currentIndex|escape:'html':'UTF-8'}&amp;token={$token|escape:'html':'UTF-8'}" method="post"
             enctype="multipart/form-data" class="form-horizontal">
         <h3>{l s='Add a new module'}</h3>
-        {if !ini_get('file_uploads')}
-          <div class="alert alert-danger">{l s='File uploads have been turned off. Please ask your webhost to enable file uploads (%s).' sprintf=['<code>file_uploads = on</code>']}</div>
-        {else}
-          <p class="alert alert-info">{l s='The module must either be a Zip file (.zip) or a tarball file (.tar, .tar.gz, .tgz).'}</p>
-          <div class="form-group">
-            <label for="file" class="control-label col-lg-3">
-              {l s='Module archive file'}
-            </label>
-            <div class="col-sm-9">
-              <div class="row">
-                <div class="col-lg-7">
-                  <input id="file" type="file" name="file" class="hide"/>
-                  <div class="dummyfile input-group">
-                    <span class="input-group-addon"><i class="icon-file"></i></span>
-                    <input id="file-name" type="text" class="disabled" name="filename" readonly/>
-                    <span class="input-group-btn">
-                      <button id="file-selectbutton" type="button" name="submitAddAttachments" class="btn btn-default">
-                        <i class="icon-folder-open"></i> {l s='Choose a file'}
-                      </button>
-                    </span>
-                  </div>
+        <p class="alert alert-info">{l s='The module must either be a Zip file (.zip) or a tarball file (.tar, .tar.gz, .tgz).'}</p>
+        <div class="form-group">
+          <label for="file" class="control-label col-lg-3">
+            {l s='Module archive file'}
+          </label>
+          <div class="col-sm-9">
+            <div class="row">
+              <div class="col-lg-7">
+                <input id="file" type="file" name="file" class="hide"/>
+                <div class="dummyfile input-group">
+                  <span class="input-group-addon"><i class="icon-file"></i></span>
+                  <input id="file-name" type="text" class="disabled" name="filename" readonly/>
+                  <span class="input-group-btn">
+                    <button id="file-selectbutton" type="button" name="submitAddAttachments" class="btn btn-default">
+                      <i class="icon-folder-open"></i> {l s='Choose a file'}
+                    </button>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-lg-9 col-lg-push-3">
-              <button class="btn btn-default" type="submit" name="download">
-                <i class="icon-upload-alt"></i>
-                {l s='Upload this module'}
-              </button>
-            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-9 col-lg-push-3">
+            <button class="btn btn-default" type="submit" name="download">
+              <i class="icon-upload-alt"></i>
+              {l s='Upload this module'}
+            </button>
           </div>
-        </form>
-      {/if}
+        </div>
+      </form>
     </div>
   </div>
 {/if}
