@@ -44,7 +44,7 @@ class ModuleUpdateCore
     public static function getModulesInfo($locale = null)
     {
         $modules = false;
-        if (static::checkForUpdates(true)) {
+        if (static::checkForUpdates()) {
             $modules = json_decode(file_get_contents(static::CACHE_PATH), true);
         }
 
