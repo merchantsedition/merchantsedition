@@ -186,7 +186,7 @@ class ModuleUpdateCore
             || ! file_exists(static::CACHE_PATH)
         ) {
             $promises = [];
-            $modules = [];
+            $allModules = [];
 
             $guzzle = new \GuzzleHttp\Client([
                 'base_uri'  => static::API_BASE_URL,
@@ -210,7 +210,6 @@ class ModuleUpdateCore
                     continue;
                 }
 
-                // TODO: join collections rather than overwriting them.
                 $modules = json_decode($result['value']->getBody(), true);
                 if ( ! $modules || ! is_array($modules)) {
                     Logger::addLog(
@@ -223,9 +222,8 @@ class ModuleUpdateCore
                 }
 
                 $channel = 'stable';
-                foreach ($modules as $moduleName => &$module) {
+                foreach ($modules as $moduleName => $module) {
                     if ( ! isset($module['versions'][$channel])) {
-                        unset($modules[$moduleName]);
                         continue;
                     }
 
@@ -246,8 +244,10 @@ class ModuleUpdateCore
                         $module['version'] = $highestVersion;
                         $module['binary'] = $versions[$highestVersion]['binary'];
                     } else {
-                        unset($modules[$moduleName]);
+                        continue;
                     }
+
+                    $allModules[$moduleName] = $module;
                 }
             }
 
@@ -257,9 +257,9 @@ class ModuleUpdateCore
                 time()
             );
 
-            if (is_array($modules) && $modules) {
+            if ($allModules) {
                 file_put_contents(static::CACHE_PATH, json_encode(
-                    $modules,
+                    $allModules,
                     JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES
                 ));
             } else {
