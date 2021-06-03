@@ -27,7 +27,22 @@ class ModuleUpdateCore
     const CACHE_PATH = _PS_CACHE_DIR_.'modules.json';
     const CHECK_INTERVAL = 86400; // 1 day
     const API_BASE_URL = 'https://api.thirtybees.com/updates/modules/';
-    const API_JSON = 'all.json';
+
+    /**
+     * List JSONs providing module updates here. Order of entries defines
+     * preference, like-named modules coming from JSONs of later entries
+     * overwrite these in earlier ones.
+     *
+     * Supporting only one API server is intentional and a privacy feature.
+     * Fetching from multiple servers would leave behind access log traces on
+     * each of them.
+     */
+    const MODULE_LISTS = [
+        [
+            'name'        => 'thirty bees',
+            'remoteFile'  => 'all.json',
+        ],
+    ];
 
     /**
      * Get infos about all modules.
@@ -170,56 +185,69 @@ class ModuleUpdateCore
             || $lastCheck < (time() - static::CHECK_INTERVAL)
             || ! file_exists(static::CACHE_PATH)
         ) {
+            $promises = [];
+            $modules = [];
+
             $guzzle = new \GuzzleHttp\Client([
                 'base_uri'  => static::API_BASE_URL,
                 'verify'    => _PS_TOOL_DIR_.'cacert.pem',
                 'timeout'   => 20,
             ]);
-            try {
-                $results = $guzzle->get(static::API_JSON)->getBody();
-            } catch (Exception $e) {
-                Logger::addLog('Error: module updater fetch failed.');
-
-                return false;
+            foreach (static::MODULE_LISTS as $list) {
+                $promises[] = $guzzle->getAsync($list['remoteFile']);
             }
 
-            $modules = json_decode($results, true);
-            if ( ! $modules || ! is_array($modules)) {
-                // Update LAST_CHECK for low server load on failures.
-                Configuration::updateGlobalValue(
-                    'ME_MODULE_UPDATE_LAST_CHECK',
-                    time()
-                );
-                Logger::addLog('Error: module updater fetched empty JSON.');
+            $results = \GuzzleHttp\Promise\Utils::settle($promises)->wait();
 
-                return false;
-            }
-
-            $channel = 'stable';
-            foreach ($modules as $moduleName => &$module) {
-                if ( ! isset($module['versions'][$channel])) {
-                    unset($modules[$moduleName]);
+            foreach ($results as $index => $result) {
+                if ($result['state'] !== 'fulfilled') {
+                    Logger::addLog(
+                        'Module updater failed to fetch list for '
+                        .static::MODULE_LISTS[$index]['name']
+                        .' modules, got status \''.$result['state'].'\'.',
+                        2 // warning
+                    );
                     continue;
                 }
 
-                // Find highest compatible version.
-                $versions = $module['versions'][$channel];
-                $highestVersion = '0.0.0';
-                foreach ($versions as $version => $description) {
-                    $compat = explode(' ', $description['compatibility']);
-                    if (version_compare($version, $highestVersion, '>=')
-                        && version_compare(_TB_VERSION_, $compat[1], $compat[0])
-                    ) {
-                        $highestVersion = $version;
-                    }
+                // TODO: join collections rather than overwriting them.
+                $modules = json_decode($result['value']->getBody(), true);
+                if ( ! $modules || ! is_array($modules)) {
+                    Logger::addLog(
+                        'Module updater fetched empty JSON for '
+                        .static::MODULE_LISTS[$index]['name']
+                        .' modules.',
+                        2 // warning
+                    );
+                    continue;
                 }
 
-                if ($highestVersion != '0.0.0') {
-                    unset($module['versions']);
-                    $module['version'] = $highestVersion;
-                    $module['binary'] = $versions[$highestVersion]['binary'];
-                } else {
-                    unset($modules[$moduleName]);
+                $channel = 'stable';
+                foreach ($modules as $moduleName => &$module) {
+                    if ( ! isset($module['versions'][$channel])) {
+                        unset($modules[$moduleName]);
+                        continue;
+                    }
+
+                    // Find highest compatible version.
+                    $versions = $module['versions'][$channel];
+                    $highestVersion = '0.0.0';
+                    foreach ($versions as $version => $description) {
+                        $compat = explode(' ', $description['compatibility']);
+                        if (version_compare($version, $highestVersion, '>=')
+                            && version_compare(_TB_VERSION_, $compat[1], $compat[0])
+                        ) {
+                            $highestVersion = $version;
+                        }
+                    }
+
+                    if ($highestVersion != '0.0.0') {
+                        unset($module['versions']);
+                        $module['version'] = $highestVersion;
+                        $module['binary'] = $versions[$highestVersion]['binary'];
+                    } else {
+                        unset($modules[$moduleName]);
+                    }
                 }
             }
 
@@ -235,10 +263,10 @@ class ModuleUpdateCore
                     JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES
                 ));
             } else {
-                Logger::addLog(sprintf(
-                    'Error: module updater did\'t understand this feed: %s',
-                    $results
-                ));
+                Logger::addLog(
+                    'Module updater didn\'t find anything on any API server.',
+                    3 // error
+                );
             }
         }
 
