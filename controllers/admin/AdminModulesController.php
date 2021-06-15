@@ -1501,10 +1501,17 @@ class AdminModulesControllerCore extends AdminController
             }
 
             if ($key == 'check') {
-                ModuleUpdate::checkForUpdates(true);
+                $warning = ModuleUpdate::checkForUpdates(true);
+                if ($warning !== true) {
+                    $this->warnings[] = $warning;
+                }
             } elseif ($key == 'checkAndUpdate') {
+                $warning = ModuleUpdate::checkForUpdates(true);
+                if ($warning !== true) {
+                    $this->warnings[] = $warning;
+                }
+
                 $modules = [];
-                ModuleUpdate::checkForUpdates(true);
                 $modulesOnDisk = Module::getModulesOnDisk(true, false, $this->id_employee);
                 // Browse modules list
                 foreach ($modulesOnDisk as $km => $moduleOnDisk) {

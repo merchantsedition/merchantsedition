@@ -172,13 +172,15 @@ class ModuleUpdateCore
      *
      * @param bool $force Force check.
      *
-     * @return bool Success.
+     * @return bool|string Boolean true on success, error/warning string on
+     *                     failure or partial failure.
      *
      * @version 1.9.3 Moved here from module 'tbupdater', stripped down from
      *                TbUpdater->checkForUpdates().
      */
     public static function checkForUpdates($force = false)
     {
+        $error = false;
         $lastCheck = (int) Configuration::get('ME_MODULE_UPDATE_LAST_CHECK');
 
         if ($force
@@ -201,23 +203,21 @@ class ModuleUpdateCore
 
             foreach ($results as $index => $result) {
                 if ($result['state'] !== 'fulfilled') {
-                    Logger::addLog(
+                    // Yes, this overwrites previous errors. Still it should be
+                    // sufficient to give a meaningful hint to the merchant.
+                    $error =
                         'Module updater failed to fetch list for '
                         .static::MODULE_LISTS[$index]['name']
-                        .' modules, got status \''.$result['state'].'\'.',
-                        2 // warning
-                    );
+                        .' modules, got status \''.$result['state'].'\'.';
                     continue;
                 }
 
                 $modules = json_decode($result['value']->getBody(), true);
                 if ( ! $modules || ! is_array($modules)) {
-                    Logger::addLog(
+                    $error =
                         'Module updater fetched empty JSON for '
                         .static::MODULE_LISTS[$index]['name']
-                        .' modules.',
-                        2 // warning
-                    );
+                        .' modules.';
                     continue;
                 }
 
@@ -262,15 +262,14 @@ class ModuleUpdateCore
                     $allModules,
                     JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES
                 ));
-            } else {
-                Logger::addLog(
-                    'Module updater didn\'t find anything on any API server.',
-                    3 // error
-                );
-            }
+            } // else $error should contain a message already.
         }
 
-        return true;
+        if ($error) {
+            Logger::addLog($error, 2);
+        }
+
+        return $error ? $error : true;
     }
 
     /**
