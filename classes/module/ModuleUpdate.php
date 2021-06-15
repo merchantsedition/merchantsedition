@@ -26,7 +26,7 @@ class ModuleUpdateCore
 {
     const CACHE_PATH = _PS_CACHE_DIR_.'modules.json';
     const CHECK_INTERVAL = 86400; // 1 day
-    const API_BASE_URL = 'https://api.thirtybees.com/updates/modules/';
+    const API_BASE_URL = 'https://api.merchantsedition.com/update/';
 
     /**
      * List JSONs providing module updates here. Order of entries defines
@@ -40,7 +40,7 @@ class ModuleUpdateCore
     const MODULE_LISTS = [
         [
             'name'        => 'thirty bees',
-            'remoteFile'  => 'all.json',
+            'remoteFile'  => 'modules-thirtybees.json',
         ],
     ];
 
@@ -221,33 +221,33 @@ class ModuleUpdateCore
                     continue;
                 }
 
-                $channel = 'stable';
                 foreach ($modules as $moduleName => $module) {
-                    if ( ! isset($module['versions'][$channel])) {
-                        continue;
-                    }
-
-                    // Find highest compatible version.
-                    $versions = $module['versions'][$channel];
-                    $highestVersion = '0.0.0';
+                    // As the source comes from a Merchant's Edition server,
+                    // trust it to be accurate and complete.
+                    $versions = $module['versions'];
+                    $versionOut = false;
                     foreach ($versions as $version => $description) {
-                        $compat = explode(' ', $description['compatibility']);
-                        if (version_compare($version, $highestVersion, '>=')
-                            && version_compare(_TB_VERSION_, $compat[1], $compat[0])
+                        $compatibility = $description['compatibility'];
+                        if (version_compare(
+                                _TB_VERSION_, $compatibility['from'], '>='
+                            ) && (
+                                ! isset($compatibility['to'])
+                                || version_compare(
+                                    _TB_VERSION_, $compatibility['to'], '<='
+                                )
+                            )
                         ) {
-                            $highestVersion = $version;
+                            // Higher versions overwrite lower versions.
+                            $versionOut = $version;
                         }
                     }
 
-                    if ($highestVersion != '0.0.0') {
+                    if ($versionOut) {
                         unset($module['versions']);
-                        $module['version'] = $highestVersion;
-                        $module['binary'] = $versions[$highestVersion]['binary'];
-                    } else {
-                        continue;
+                        $module['version'] = $versionOut;
+                        $module['binary'] = $versions[$versionOut]['binary'];
+                        $allModules[$moduleName] = $module;
                     }
-
-                    $allModules[$moduleName] = $module;
                 }
             }
 
