@@ -39,6 +39,10 @@ class ModuleUpdateCore
      */
     const MODULE_LISTS = [
         [
+            'name'        => 'PrestaShop',
+            'remoteFile'  => 'modules-prestashop.json',
+        ],
+        [
             'name'        => 'thirty bees',
             'remoteFile'  => 'modules-thirtybees.json',
         ],
