@@ -46,6 +46,10 @@ class ModuleUpdateCore
             'name'        => 'thirty bees',
             'remoteFile'  => 'modules-thirtybees.json',
         ],
+        [
+            'name'        => 'Merchant\'s Edition',
+            'remoteFile'  => 'modules.json',
+        ],
     ];
 
     /**
