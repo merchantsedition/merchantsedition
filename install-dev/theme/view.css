@@ -259,7 +259,7 @@ p {
 
 /* link */
 a, a:active, a:visited {
-	color: #efc100;
+	color: #fdd300;
 	text-decoration: none;
 	font-weight: bold;
 	text-decoration: underline;
@@ -282,7 +282,7 @@ sup.required {
 	line-height: 31px;
 	color: #333c4e;
 	border: 1px solid transparent;
-	background-color: #efc100;
+	background-color: #fdd300;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -504,7 +504,7 @@ ol#tabs li {
 
 ol#tabs li.selected {
 	font-weight: bold;
-	color: #efc100;
+	color: #fdd300;
 	background: url(img/bg-li-tabs.png) no-repeat 1px 15px;
 }
 
